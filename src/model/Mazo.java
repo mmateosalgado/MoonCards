@@ -10,7 +10,7 @@ public class Mazo {
         mazoCartas = new Stack<Carta>();
     }
 
-    public void addCarta(Carta nueva){
-        mazoCartas.add(nueva);
+    public Carta apilarCarta(Carta nueva){
+       return mazoCartas.push(nueva);
     }
 }
