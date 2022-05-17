@@ -74,4 +74,6 @@ public abstract class Carta {
     public void setCostoDanoInflige(int costoDanoInflige) {
         this.costoDanoInflige = costoDanoInflige;
     }
+
+
 }
