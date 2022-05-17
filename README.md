@@ -1,5 +1,4 @@
-#Trabajo Práctico Final - Laboratorio III.
-##MoonCards - Juego de Cartas Mediaval
+# Trabajo Práctico Final - MoonCards Laboratorio III.
 + Mateo Salgado
 + Romulo currao
 + Facundo Ferrari
