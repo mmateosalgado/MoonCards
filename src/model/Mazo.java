@@ -13,4 +13,8 @@ public class Mazo {
     public Carta apilarCarta(Carta nueva){
        return mazoCartas.push(nueva);
     }
+
+    public String mostrarMazo(){
+        return mazoCartas.toString();
+    }
 }

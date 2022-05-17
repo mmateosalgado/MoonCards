@@ -75,5 +75,15 @@ public abstract class Carta {
         this.costoDanoInflige = costoDanoInflige;
     }
 
-
+    @Override
+    public String toString() {
+        return "Carta{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", isRara=" + isRara +
+                ", alta=" + alta +
+                ", costoEnergia=" + costoEnergia +
+                ", costoDanoInflige=" + costoDanoInflige +
+                '}';
+    }
 }
