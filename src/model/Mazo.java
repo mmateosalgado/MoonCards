@@ -16,6 +16,8 @@ public class Mazo {
        return mazoCartas.push(nueva);
     }
 
+    //teste
+
     public String mostrarMazo(){
         return mazoCartas.toString();
     }
