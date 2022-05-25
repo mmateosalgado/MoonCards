@@ -71,8 +71,8 @@ public abstract class Carta {
         this.costoEnergia = costoEnergia;
     }
 
-    public void setDanoInflige(int costoDanoInflige) {
-        this.danoInflige = danoInflige;
+    public void setDanoInflige(int danoInflige) {
+        this.danoInflige += danoInflige;
     }
 
     @Override

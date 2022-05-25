@@ -7,8 +7,8 @@ public abstract class Personaje extends Carta{
 
     //Constructor--------------------------------------
 
-    public Personaje(String nombre, boolean isRara, int costoEnergia, int costoDanoInflige, int cantidadDeVida) {
-        super(nombre, isRara, costoEnergia, costoDanoInflige);
+    public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida) {
+        super(nombre, isRara, costoEnergia, danoInflige);
         this.cantidadDeVida = cantidadDeVida;
         this.estado = false;
     }
@@ -37,6 +37,6 @@ public abstract class Personaje extends Carta{
     }
 
     public void setCantidadDeVida(int cantidadDeVida) {
-        this.cantidadDeVida = cantidadDeVida;
+        this.cantidadDeVida += cantidadDeVida;
     }
 }

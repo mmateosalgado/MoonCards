@@ -1,6 +1,5 @@
 package model;
 
-import java.net.PortUnreachableException;
 import java.util.Stack;
 
 public class Mazo {
