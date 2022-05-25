@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,9 @@ public class PantallaInicio extends JFrame implements ActionListener {
 
     public PantallaInicio(){
         setLayout(null);
+        setTitle("MoonCards");
+
+        getContentPane().setBackground(Color.LIGHT_GRAY);
 
         botonJugar=new JButton("Jugar");
         botonJugar.setBounds(100,50,300,100);
@@ -41,6 +45,13 @@ public class PantallaInicio extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==botonJugar){
             System.exit(0);
+        }else if(e.getSource()==botonAdmin){
+            String ingresado= String.valueOf(campoContrasena.getPassword());
+            if(ingresado.equals("MoonMaster")){
+
+            }
         }
     }
+
+
 }
