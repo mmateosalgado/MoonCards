@@ -4,13 +4,15 @@ public abstract class Personaje extends Carta{
 
     private int cantidadDeVida;
     private boolean estado; // para saber si ya ataco en este turno o no, true = ya ataco / false = no ataco aun
+    private int turnosCongelado;
 
     //Constructor--------------------------------------
 
-    public Personaje(String nombre, boolean isRara, int costoEnergia, int costoDanoInflige, int cantidadDeVida) {
-        super(nombre, isRara, costoEnergia, costoDanoInflige);
+    public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida) {
+        super(nombre, isRara, costoEnergia, danoInflige);
         this.cantidadDeVida = cantidadDeVida;
         this.estado = false;
+        this.turnosCongelado = 0;
     }
 
     //Metodos

@@ -7,18 +7,18 @@ public abstract class Carta {
     private String nombre;
     private boolean isRara;
     private boolean alta;
-    int costoEnergia;
-    int costoDanoInflige;
+    private int costoEnergia;
+    private int danoInflige;
 
     //CONSTRUCTOR
-    public Carta(String nombre, boolean isRara, int costoEnergia, int costoDanoInflige) {
-        this.id=totalCartas;
+    public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige) {
+        this.id=totalCartas + 1;
         totalCartas++;
         this.nombre = nombre;
         this.isRara = isRara;
-        this.alta=false;
+        this.alta = false; // aca no convendria crearla directamente dandola de alta? asi no tenemos que andar dando a todas de alta dsp xd
         this.costoEnergia = costoEnergia;
-        this.costoDanoInflige = costoDanoInflige;
+        this.danoInflige = danoInflige;
     }
 
     //METODOS
@@ -49,8 +49,8 @@ public abstract class Carta {
         return costoEnergia;
     }
 
-    public int getCostoDanoInflige() {
-        return costoDanoInflige;
+    public int getDanoInflige() {
+        return danoInflige;
     }
 
     //SETTERS
@@ -71,8 +71,8 @@ public abstract class Carta {
         this.costoEnergia = costoEnergia;
     }
 
-    public void setCostoDanoInflige(int costoDanoInflige) {
-        this.costoDanoInflige = costoDanoInflige;
+    public void setDanoInflige(int danoInflige) {
+        this.danoInflige += danoInflige;
     }
 
     @Override
@@ -83,7 +83,7 @@ public abstract class Carta {
                 ", isRara=" + isRara +
                 ", alta=" + alta +
                 ", costoEnergia=" + costoEnergia +
-                ", costoDanoInflige=" + costoDanoInflige +
+                ", danoInflige=" + danoInflige +
                 '}';
     }
 }
