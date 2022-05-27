@@ -3,13 +3,15 @@ package model;
 public class Jugador {
     private Heroe heroeSeleccionado;
     private Mano manoActual;
-    //private Mazo mazoJugador
-    String nombre;
-    int id;
-    int numeroVictorias;
+    private Mazo mazoJugador;
+    private String nombre;
+    private int id;
+    private int numeroVictorias;
 
-    public Jugador(Heroe heroeSeleccionado, String nombre, int id, int numeroVictorias) {
+    public Jugador(Heroe heroeSeleccionado, Mano manoActual, Mazo mazoJugador, String nombre, int id, int numeroVictorias) {
         this.heroeSeleccionado = heroeSeleccionado;
+        this.manoActual = manoActual;
+        this.mazoJugador = mazoJugador;
         this.nombre = nombre;
         this.id = id;
         this.numeroVictorias = numeroVictorias;
