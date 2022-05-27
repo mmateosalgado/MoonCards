@@ -2,7 +2,7 @@ package model;
 
 public class Jugador {
     private Heroe heroeSeleccionado;
-    //private Mano manoActual
+    private Mano manoActual;
     //private Mazo mazoJugador
     String nombre;
     int id;
