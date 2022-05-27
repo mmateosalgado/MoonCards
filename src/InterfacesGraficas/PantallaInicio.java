@@ -13,10 +13,20 @@ public class PantallaInicio extends JFrame implements ActionListener {
     private JLabel textAdmin;
 
     public PantallaInicio(){
-        setLayout(null);
+        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
+        setIconImage(icono.getImage());
+        setBounds(0,0,1280,720);
         setTitle("MoonCards");
-
+        setLocationRelativeTo(null); // coloca al centro de la pantalla
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         getContentPane().setBackground(Color.LIGHT_GRAY);
+
+
+
+
+
 
         botonJugar=new JButton("Jugar");
         botonJugar.setBounds(100,50,300,100);
@@ -39,6 +49,9 @@ public class PantallaInicio extends JFrame implements ActionListener {
         campoContrasena=new JPasswordField();
         campoContrasena.setBounds(150,250,200,20);
         add(campoContrasena);
+
+        setVisible(true);
+
     }
 
     @Override
