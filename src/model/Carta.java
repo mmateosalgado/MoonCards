@@ -6,7 +6,7 @@ public abstract class Carta {
     private int id;
     private String nombre;
     private boolean isRara;
-    private boolean alta;
+    private boolean alta;///Para saber si atacó o no
     private int costoEnergia;
     private int danoInflige;
 

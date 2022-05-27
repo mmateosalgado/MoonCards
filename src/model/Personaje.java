@@ -19,6 +19,11 @@ public abstract class Personaje extends Carta{
 
     //Getters--------------------
 
+
+    public void setTurnosCongelado (int turnosCongelado) {
+        this.turnosCongelado = turnosCongelado;
+    }
+
     public int getCantidadDeVida() {
         return cantidadDeVida;
     }
