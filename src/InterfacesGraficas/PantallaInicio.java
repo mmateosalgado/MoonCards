@@ -23,11 +23,6 @@ public class PantallaInicio extends JFrame implements ActionListener {
         setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         getContentPane().setBackground(Color.LIGHT_GRAY);
 
-
-
-
-
-
         botonJugar=new JButton("Jugar");
         botonJugar.setBounds(100,50,300,100);
         add(botonJugar);

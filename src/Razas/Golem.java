@@ -20,7 +20,7 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     @Override
     public void sumarVida(Personaje objetivo, int sumaVida) {
-        objetivo.setCantidadDeVida(this.sumarVida);
+        objetivo.setCantidadDeVida(objetivo.getCantidadDeVida() + this.sumarVida);
     }
 
 }

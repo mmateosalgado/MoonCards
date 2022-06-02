@@ -1,5 +1,6 @@
 package InterfacesCartas;
 
+import Batalla.Tablero;
 import model.Personaje;
 
 public interface I_SumarVida {
