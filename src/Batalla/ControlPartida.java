@@ -6,12 +6,13 @@ public class ControlPartida {
 
     ej / prototipo:
 
-    while(jugador1.vida > 0 && jugador2.vida > 0)
+    while(jugador1.heroeSeleccionado.vida > 0 && jugador2.heroeSeleccionado.vida > 0)
     {
        Llamada a la funcion de interfaz grafica que pone la pantalla de combate
        if(jugador1.vida > 0 && jugador2.vida > 0)
        {
-        Llamada a la misma funcion pero desde el lado del otro jugador
+        - Llamada a la pantalla de espera para cambio de turno
+        - Llamada a la misma funcion pero desde el lado del otro jugador
        }
     }
 

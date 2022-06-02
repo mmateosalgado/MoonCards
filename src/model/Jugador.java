@@ -48,4 +48,20 @@ public class Jugador {
     public void setNumeroVictorias(int numeroVictorias) {
         this.numeroVictorias = numeroVictorias;
     }
+
+    public Mano getManoActual() {
+        return manoActual;
+    }
+
+    public Mazo getMazoJugador() {
+        return mazoJugador;
+    }
+
+    public void setManoActual(Mano manoActual) {
+        this.manoActual = manoActual;
+    }
+
+    public void setMazoJugador(Mazo mazoJugador) {
+        this.mazoJugador = mazoJugador;
+    }
 }

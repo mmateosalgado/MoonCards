@@ -1,19 +1,37 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 public class Mazo {
-    private Stack<Carta> mazoCartas;
+    private ArrayList<Carta> mazoCartas;
+    private int validos;
 
     //Constructor -------------------------------
     public Mazo(){
-        mazoCartas = new Stack<Carta>();
+        mazoCartas = new ArrayList<Carta>();
+        validos = 0;
     }
 
+    //Getters setters
+
+
     //Metodos------------------------------------
-    public Carta apilarCarta(Carta nueva){
-       return mazoCartas.push(nueva);
+    public void agregarCarta(Carta nueva){
+       mazoCartas.add(nueva);
+       validos++;
     }
+
+    public Carta sacarCartaRandom(){
+        int numero = (int)(Math.random()*validos+0);
+        Carta sacada = mazoCartas.get(numero);
+        mazoCartas.remove(numero);
+        validos--;
+        return sacada;
+    }
+
+
 
     //teste
     public String mostrarMazo(){
