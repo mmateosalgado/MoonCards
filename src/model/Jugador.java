@@ -1,10 +1,13 @@
 package model;
 
+import Batalla.Tablero;
+
 public class Jugador {
     private Heroe heroeSeleccionado;
     private Mano manoActual;
     private Mazo mazoJugador;
     private String nombre;
+    private Tablero tablero;
     private int id;
     private int numeroVictorias;
 
@@ -63,5 +66,13 @@ public class Jugador {
 
     public void setMazoJugador(Mazo mazoJugador) {
         this.mazoJugador = mazoJugador;
+    }
+
+    public Tablero getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(Tablero tablero) {
+        this.tablero = tablero;
     }
 }

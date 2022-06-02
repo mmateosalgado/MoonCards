@@ -12,8 +12,6 @@ public class Partida {
     private Jugador jugador1;
     private Jugador jugador2;
 
-    private Tablero tableroJugador1;
-    private Tablero tableroJugador2;
 
     // El constructor correspondiente
 
@@ -21,8 +19,6 @@ public class Partida {
         this.turno = 0;
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
-        this.tableroJugador1 = tableroJugador1;
-        this.tableroJugador2 = tableroJugador2;
     }
 
 
@@ -47,6 +43,7 @@ public class Partida {
 
     //Metodos de ataque---------------
 
+    //TODO reformar funcion de ataque en funcion a los personajes dentro del tablero de cada jugador
     public void ataque(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)
     {
         Personaje atacante = buscarPersonajePorId(idAtacante, jugadorAtacante);
