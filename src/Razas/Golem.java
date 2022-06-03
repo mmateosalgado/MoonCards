@@ -2,6 +2,7 @@ package Razas;
 
 import InterfacesCartas.I_Congelar;
 import InterfacesCartas.I_SumarVida;
+import model.Jugador;
 import model.Personaje;
 
 public class Golem extends Personaje implements I_Congelar, I_SumarVida {
@@ -19,8 +20,8 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     }
 
     @Override
-    public void sumarVida(Personaje objetivo, int sumaVida) {
-        objetivo.setCantidadDeVida(this.sumarVida);
+    public void sumarVida(Jugador caster, int idObjetivo) {
+
     }
 
 }

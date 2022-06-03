@@ -53,6 +53,10 @@ public class Tablero {
         return posiciones;
     }
 
+    public Personaje getPersonajeEnPosicion(int pos) {
+        return posiciones[pos];
+    }
+
     public void setPosiciones(Personaje[] posiciones) {
         this.posiciones = posiciones;
     }
