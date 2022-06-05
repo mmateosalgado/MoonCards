@@ -15,7 +15,7 @@ public class Main {
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         //menu();
-
+/*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
         Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
@@ -26,7 +26,8 @@ public class Main {
         coleccion.agregarHeroe(heroeTest2);
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
-
+*/
+        menu();
 
 
     }

@@ -54,9 +54,6 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener {
 
 
         add(jsDescripcionHeroe);
-
-
-
     }
 
     @Override

@@ -1,8 +1,11 @@
 package model;
 
+import Excepciones.DatoNoEcontradoExcepcion;
+import Excepciones.PasaNullExcepcion;
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.DoubleAccumulator;
 
 public class ColeccionHeroe {
     private ArrayList <Heroe> listaHeroes;
@@ -16,16 +19,31 @@ public class ColeccionHeroe {
     }
 
     public boolean buscarHeroe(String name){
+        try{
+            if(name==null){
+                throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
+            }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
+
         boolean flag = false;
         for(int i = 0; i< listaHeroes.size();i++) {
             if(name.equals(listaHeroes.get(i).getNombre())){
                 flag = true;
             }
         }
+
+        if(flag==false){
+            throw new DatoNoEcontradoExcepcion("EROR:HEROE NO EXISTE EN COLECCION DE HEROES");
+        }
         return flag;
+
+        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+            e.getMessage();
+            return false;
+        }
     }
 
     public Heroe buscarRetornarHeroe(String name){
+
         Heroe heroe = null;
         for(int i = 0;i< listaHeroes.size();i++){
             if(name.equals(listaHeroes.get(i).getNombre())){

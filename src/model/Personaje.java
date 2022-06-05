@@ -4,7 +4,7 @@ public abstract class Personaje extends Carta{
 
     private int cantidadDeVida;
     private boolean estado; // para saber si ya ataco en este turno o no, true = ya ataco / false = no ataco aun
-    private int turnosCongelado;
+    private int turnosCongelado;//0 --> no esta congelado
 
     //Constructor--------------------------------------
 

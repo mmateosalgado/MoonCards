@@ -16,6 +16,9 @@ public class Heroe {
         this.image = image;
     }
 
+    public Heroe() {
+    }
+
     public String getNombre() {
         return nombre;
     }
