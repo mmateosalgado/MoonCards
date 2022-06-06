@@ -1,12 +1,9 @@
 package com.company.app;
 
 import InterfacesGraficas.PantallaInicio;
-import InterfacesGraficas.SeleccionHeroe;
-
-import model.ColeccionHeroe;
-import model.Heroe;
 
 import javax.swing.*;
+
 
 
 public class Main {
