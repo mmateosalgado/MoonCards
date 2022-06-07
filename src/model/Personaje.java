@@ -19,8 +19,6 @@ public abstract class Personaje extends Carta{
 
     //Getters--------------------
 
-
-
     public int getCantidadDeVida() {
         return cantidadDeVida;
     }

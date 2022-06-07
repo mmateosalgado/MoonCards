@@ -16,7 +16,6 @@ public class Mazo {
 
     //Getters setters
 
-
     //Metodos------------------------------------
     public void agregarCarta(Carta nueva){
        mazoCartas.add(nueva);

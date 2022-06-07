@@ -33,6 +33,4 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_Danio {
         objetivo.setCantidadDeVida ( objetivo.getCantidadDeVida () -infligeDanio);
     }
 
-
-
 }

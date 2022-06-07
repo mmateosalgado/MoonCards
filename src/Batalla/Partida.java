@@ -151,10 +151,11 @@ public class Partida {
         return true;
     }
 
-    public void efectoNecrofago(Necrofago personaje, Jugador defensor)
+    ///Puede usarse tanto para el que ataca si es que muere como para el que defiende si se muere
+    public void efectoNecrofago(Necrofago personaje, Jugador ejecutor)
     {
         for (int i = 0; i < personaje.getCantCartasRobadas(); i++) {
-            defensor.getManoActual().RobarCarta(defensor);
+            ejecutor.getManoActual().RobarCarta(ejecutor);
         }
 
         if(personaje.isRara())
