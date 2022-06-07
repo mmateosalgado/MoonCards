@@ -18,8 +18,8 @@ public class ColeccionHeroe {
         return listaHeroes.add(heroe);
     }
 
-    public boolean buscarHeroe(String name){
-        try{
+    public boolean buscarHeroe(String name) throws PasaNullExcepcion, DatoNoEcontradoExcepcion{ //TODO aplicar try - catch
+
             if(name==null){
                 throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
             }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
@@ -35,11 +35,6 @@ public class ColeccionHeroe {
             throw new DatoNoEcontradoExcepcion("EROR:HEROE NO EXISTE EN COLECCION DE HEROES");
         }
         return flag;
-
-        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
-            e.getMessage();
-            return false;
-        }
     }
 
     public Heroe buscarRetornarHeroe(String name){

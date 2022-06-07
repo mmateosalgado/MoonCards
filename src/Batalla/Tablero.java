@@ -19,9 +19,8 @@ public class Tablero {
     //Getters y setters abajo*
     //Metodos---------------------------------------------------------------------
     
-    public void agregarPersonaje(Personaje nuevo)
+    public void agregarPersonaje(Personaje nuevo) throws PasaNullExcepcion, TableroLlenoExcepcion
     {
-        try{
             if(nuevo==null){
                 throw new PasaNullExcepcion("ERROR: PASA NULL A LA HORA DE AGREGAR PERSONAJE AL TABLERO");
             }else if(validos==posiciones.length){
@@ -39,13 +38,9 @@ public class Tablero {
                     posiciones[i] = nuevo;
                 }
             }
-        }catch (PasaNullExcepcion | TableroLlenoExcepcion e){
-            e.getMessage();
-        }
     }
     
-    public void eliminarPersonaje(Personaje eliminado) {
-        try {
+    public void eliminarPersonaje(Personaje eliminado)throws PasaNullExcepcion {//TODO aplicar try -catch donde corresponda
             if(eliminado==null){
                 throw new PasaNullExcepcion("ERROR:PASA NULL COMO PERSONAJE A ELIMINAR DEL TABLERO");
             }else {
@@ -55,9 +50,6 @@ public class Tablero {
                     }
                 }// hay que hacer una expecion para que si se quisiera un personaje que no esta en el tablero, la lanze
             }
-        }catch (PasaNullExcepcion e){
-            e.getMessage();
-        }
     }
     
     //Getters y Setters-----------------------------------------------------------
