@@ -1,9 +1,10 @@
 package InterfacesCartas;
 
+import model.Jugador;
 import model.Personaje;
 
 public interface I_Congelar {
 
-    void congelar(Personaje objetivo, int cantTurnos);
+    void congelar(Jugador objetivo , int id);
 
 }
