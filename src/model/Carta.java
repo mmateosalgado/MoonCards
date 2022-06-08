@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.*;
+
 public abstract class Carta {
 
     private static int totalCartas=0;
@@ -9,6 +11,7 @@ public abstract class Carta {
     private boolean alta;///Para saber si atacó o no
     private int costoEnergia;
     private int danoInflige;
+    private ImageIcon imagen;
 
     //CONSTRUCTOR
     public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige) {

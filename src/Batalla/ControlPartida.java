@@ -1,6 +1,6 @@
 package Batalla;
 
-public class ControlPartida {
+public class  ControlPartida {
 
     /*Falso main para la batalla (solo vamos a llamar a las funciones)
 

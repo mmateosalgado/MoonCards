@@ -1,5 +1,9 @@
 package InterfacesGraficas;
 
+import Control.Inicio;
+import model.ColeccionHeroe;
+import model.Heroe;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +56,12 @@ public class PantallaInicio extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==botonJugar){
+            String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
+            String nombreJugador2 = JOptionPane.showInputDialog("Ingrese le nombre del jugador 2");
+            Inicio inicio = new Inicio(nombreJugador1,nombreJugador2); // en el constructor de la clase seleccion mazo debe
+            // recibir un objeto de tipo Inicio.
+
+
             System.exit(0);
         }else if(e.getSource()==botonAdmin){
             String ingresado= String.valueOf(campoContrasena.getPassword());

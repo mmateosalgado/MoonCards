@@ -10,6 +10,7 @@ public class Jugador {
     private Tablero tablero;
     private int id;
     private int numeroVictorias;
+    private boolean congelado;
 
     public Jugador(Heroe heroeSeleccionado, Mano manoActual, Mazo mazoJugador, String nombre, int id, int numeroVictorias) {
         this.heroeSeleccionado = heroeSeleccionado;
@@ -18,6 +19,7 @@ public class Jugador {
         this.nombre = nombre;
         this.id = id;
         this.numeroVictorias = numeroVictorias;
+        congelado=false;
     }
 
     public Heroe getHeroeSeleccionado() {
@@ -74,5 +76,9 @@ public class Jugador {
 
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
+    }
+
+    public void setCongelado(boolean congelado) {
+        this.congelado = congelado;
     }
 }
