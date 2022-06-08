@@ -8,7 +8,7 @@ import model.Personaje;
 public class Curacion extends Hechizo implements I_SumarVida {
     private int sumarVida;
 
-    //CONSTRUCTOR
+    //Constructor--------------------------------------
 
     public Curacion(String nombre, boolean isRara, int costoEnergia, int danoInflige, int sumaVida) {
         super(nombre, isRara, costoEnergia, danoInflige);

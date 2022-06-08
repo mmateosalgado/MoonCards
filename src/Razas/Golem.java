@@ -8,20 +8,45 @@ import model.Personaje;
 public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     private int sumarVida;
+    private int cantTurnosCongela;
 
-    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida) {
+    //Constructor--------------------------------------
+
+    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , int cantTurnosCongela) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
-        this.sumarVida = sumarVida;
+        this.sumarVida         = sumarVida;
+        this.cantTurnosCongela = cantTurnosCongela;
     }
 
     @Override
-    public void congelar (Personaje objetivo , int cantTurnos) {
-        objetivo.setTurnosCongelado (2);
+    public void congelar (Jugador objetivo , int id)  {
+        ///Id - 1  porque es una posicion menos en el arreglo
+        objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
     }
 
     @Override
-    public void sumarVida(Jugador caster, int idObjetivo) {
+    public void sumarVida(Jugador caster, int id) {
+        ///Si es rara Cura a todos
+        if (isRara()) {
+            for (int i = 0; i < 3; i++) {
+                if(caster.getTablero().getPersonajeEnPosicion(i) != null)
+                {
+                    caster.getTablero().getPersonajeEnPosicion(i).setCantidadDeVida(caster.getTablero().getPersonajeEnPosicion(i).getCantidadDeVida() + sumarVida);
+                }
+            }
+            caster.getTablero().getPosHeroe().setCantVida(caster.getTablero().getPosHeroe().getCantVida() + sumarVida);
+        } else {
 
+            if(id == 0)
+            {
+                caster.getTablero().getPosHeroe().setCantVida(caster.getTablero().getPosHeroe().getCantVida() + sumarVida);
+
+            }
+            else // id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
+            {
+                caster.getTablero().getPersonajeEnPosicion(id-1).setCantidadDeVida(caster.getTablero().getPersonajeEnPosicion(id-1).getCantidadDeVida() + sumarVida);
+            }
+        }
     }
 
 }

@@ -10,6 +10,8 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
     private int danioAdicional;
     private int sumarVida;
 
+    //Constructor--------------------------------------
+
     public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , int sumaVida) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
         this.danioAdicional = danioAdicional;
@@ -17,12 +19,14 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
     }
 
     @Override
-    public void aumentarAtaque(Personaje objetivo, int danioAdicional) {
-        objetivo.setDanoInflige(this.danioAdicional);
+    public void aumentarAtaque(Jugador objetivo , int id) {
+        objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setDanoInflige (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getDanoInflige ()+ danioAdicional);
     }
 
     @Override
     public void sumarVida(Jugador caster, int id) {
+        if(isRara ())
+        {
         for (int i = 0; i < 3; i++) {
             if(caster.getTablero().getPersonajeEnPosicion(i) != null)
             {
@@ -30,6 +34,7 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
             }
         }
             caster.getTablero().getPosHeroe().setCantVida(caster.getTablero().getPosHeroe().getCantVida() + sumarVida);
+        }
     }
 
 }
