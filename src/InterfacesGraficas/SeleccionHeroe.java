@@ -1,11 +1,13 @@
 package InterfacesGraficas;
 
+
 import model.ColeccionHeroe;
 import model.Heroe;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import Control.*;
 import java.awt.*;
 
 public class SeleccionHeroe extends JFrame implements ListSelectionListener {
@@ -18,7 +20,7 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener {
     private JTextArea jtDescripcionHeroe;
 
 
-    public SeleccionHeroe(/*Inicio inicio*/ ColeccionHeroe listaHeroes){
+    public SeleccionHeroe(Inicio inicio,ColeccionHeroe listaHeroes){
 
         setBounds(0,0,1280,720);
         setTitle("Seleccionar Heroe y Mazo");
@@ -27,6 +29,7 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener {
         setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
 
         crearGui(listaHeroes);
+
 
 
         setVisible(true);
