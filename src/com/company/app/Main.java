@@ -24,6 +24,8 @@ public class Main {
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
 */
+
+        test();
         menu();
 
 
@@ -44,9 +46,14 @@ public class Main {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void menu(){
         PantallaInicio inicio=new PantallaInicio();
+    }
+
+    public static void test(){
+        JOptionPane.showMessageDialog(null,"error : dato no encontrado");
     }
 }

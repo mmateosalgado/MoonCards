@@ -22,7 +22,7 @@ public class ColeccionHeroe {
 
             if(name==null){
                 throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
-            }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
+            }
 
         boolean flag = false;
         for(int i = 0; i< listaHeroes.size();i++) {

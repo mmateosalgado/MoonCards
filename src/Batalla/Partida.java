@@ -1,5 +1,6 @@
 package Batalla;
 
+import Excepciones.DatoNoEcontradoExcepcion;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.PersonajeCongeladoAccionaExcepcion;
 import Razas.Necrofago;
@@ -7,6 +8,8 @@ import Razas.Orco;
 import model.Heroe;
 import model.Jugador;
 import model.Personaje;
+
+import javax.swing.*;
 
 public class Partida {
 
@@ -107,8 +110,8 @@ public class Partida {
             }
             try {
                 jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
-            }catch (PasaNullExcepcion e){
-
+            }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
             }
         }
 
@@ -116,8 +119,8 @@ public class Partida {
             if (jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1].getCantidadDeVida() < 0) { //si se murio
                 try {
                     jugadorDefensor.getTablero().eliminarPersonaje(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1]);
-                }catch (PasaNullExcepcion e){
-
+                }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+                    JOptionPane.showMessageDialog(null,e.getMessage());
                 }
                 if(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1] instanceof Necrofago) // si es necrofago
                 {

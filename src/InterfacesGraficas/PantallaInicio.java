@@ -58,18 +58,18 @@ public class PantallaInicio extends JFrame implements ActionListener {
         if(e.getSource()==botonJugar){
             String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
             String nombreJugador2 = JOptionPane.showInputDialog("Ingrese le nombre del jugador 2");
+
             Inicio inicio = new Inicio(nombreJugador1,nombreJugador2); // en el constructor de la clase seleccion mazo debe
             // recibir un objeto de tipo Inicio.
+
 
 
             System.exit(0);
         }else if(e.getSource()==botonAdmin){
             String ingresado= String.valueOf(campoContrasena.getPassword());
             if(ingresado.equals("MoonMaster")){
-
+                //lanza admin
             }
         }
     }
-
-
 }

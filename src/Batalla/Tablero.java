@@ -1,5 +1,6 @@
 package Batalla;
 
+import Excepciones.DatoNoEcontradoExcepcion;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.TableroLlenoExcepcion;
 import model.Heroe;
@@ -40,15 +41,23 @@ public class Tablero {
             }
     }
     
-    public void eliminarPersonaje(Personaje eliminado)throws PasaNullExcepcion {//TODO aplicar try -catch donde corresponda
+    public void eliminarPersonaje(Personaje eliminado)throws PasaNullExcepcion, DatoNoEcontradoExcepcion {//TODO aplicar try -catch donde corresponda
             if(eliminado==null){
                 throw new PasaNullExcepcion("ERROR:PASA NULL COMO PERSONAJE A ELIMINAR DEL TABLERO");
             }else {
-                for (int i = 0; i < posiciones.length; i++) {
+                int flag=0;
+
+                for (int i = 0; i < posiciones.length && flag==0; i++) {
                     if (posiciones[i] == eliminado) {
-                        posiciones[i] = null;
+                        flag=i;
                     }
-                }// hay que hacer una expecion para que si se quisiera un personaje que no esta en el tablero, la lanze
+                }
+
+                if(flag!=0){
+                    posiciones[flag]=null;
+                }else {
+                    throw new DatoNoEcontradoExcepcion("ERROR: PERSONAJE A ELIMINAR NO ESTA EN EL TABLERO");
+                }
             }
     }
     
