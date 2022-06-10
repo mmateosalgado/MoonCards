@@ -1,6 +1,10 @@
 package com.company.app;
 
 import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.pruebas.CartaGrafico;
+import Razas.Humano;
+import model.Carta;
 
 import javax.swing.*;
 
@@ -25,8 +29,14 @@ public class Main {
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
 */
 
-        test();
-        menu();
+        //test();
+        //menu();
+
+        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        Carta carta = new Humano("Gonzalo",false,4,7,5,0,0);
+        carta.setImagen(icono1);
+
+        CartaGrafico cartaGrafico = new CartaGrafico(carta);
 
 
     }

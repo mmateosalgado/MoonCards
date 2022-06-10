@@ -20,9 +20,9 @@ public class ColeccionHeroe {
 
     public boolean buscarHeroe(String name) throws PasaNullExcepcion, DatoNoEcontradoExcepcion{ //TODO aplicar try - catch
 
-            if(name==null){
-                throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
-            }
+        if(name==null){
+            throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
+        }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
 
         boolean flag = false;
         for(int i = 0; i< listaHeroes.size();i++) {
@@ -32,7 +32,7 @@ public class ColeccionHeroe {
         }
 
         if(flag==false){
-            throw new DatoNoEcontradoExcepcion("EROR:HEROE NO EXISTE EN COLECCION DE HEROES");
+            throw new DatoNoEcontradoExcepcion("ERROR:HEROE NO EXISTE EN COLECCION DE HEROES");
         }
         return flag;
     }

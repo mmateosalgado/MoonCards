@@ -70,6 +70,14 @@ public abstract class Carta {
         this.alta = alta;
     }
 
+    public ImageIcon getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(ImageIcon imagen) {
+        this.imagen = imagen;
+    }
+
     public void setCostoEnergia(int costoEnergia) {
         this.costoEnergia = costoEnergia;
     }
