@@ -25,15 +25,20 @@ private int cantCartasRobadas;
     }
 
     @Override
-    public void RobarCarta (Jugador objetivo) {//TODO . COMO APLICAR MAZO VACIO ACA????? -->, MazoVacioExcepcion
+    public void robarCarta (Jugador objetivo) {//TODO . COMO APLICAR MAZO VACIO ACA????? -->, MazoVacioExcepcion
 
         for(int i=0;i<cantCartasRobadas;i++)
         {
             try {
-                objetivo.getManoActual ().RobarCarta (objetivo);
+                objetivo.getManoActual ().robarCarta (objetivo);
             } catch (ManoLlenaExcepcion e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
     }
 }

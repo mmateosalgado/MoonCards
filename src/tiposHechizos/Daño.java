@@ -39,4 +39,8 @@ public class Daño extends Hechizo implements I_HacerDanio {
         }
     }
 
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
+    }
 }

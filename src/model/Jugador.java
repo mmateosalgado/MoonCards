@@ -5,6 +5,7 @@ import Batalla.Tablero;
 public class Jugador {
     private Heroe heroeSeleccionado;
     private Mano manoActual;
+    private int manaActual;
     private Mazo mazoJugador;
     private String nombre;
     private Tablero tablero;
@@ -21,6 +22,7 @@ public class Jugador {
         this.id = id;
         this.numeroVictorias = numeroVictorias;
         congelado=false;
+        manaActual = 0;
     }
 
     public Heroe getHeroeSeleccionado() {
@@ -85,5 +87,18 @@ public class Jugador {
 
     public void setCongelado(boolean congelado) {
         this.congelado = congelado;
+    }
+
+    public void setManaActual(int manaActual) {
+        if(this.manaActual <= 10) {
+            this.manaActual = manaActual;
+        }else
+        {
+            this.manaActual = 10;
+        }
+    }
+
+    public int getManaActual() {
+        return manaActual;
     }
 }

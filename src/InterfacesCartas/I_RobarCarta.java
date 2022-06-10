@@ -4,5 +4,5 @@ import model.Jugador;
 
 public interface I_RobarCarta {
 
-    void RobarCarta(Jugador objetivo) throws ManoLlenaExcepcion;
+    void robarCarta(Jugador objetivo) throws ManoLlenaExcepcion;
 }

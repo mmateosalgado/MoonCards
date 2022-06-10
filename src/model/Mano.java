@@ -17,7 +17,7 @@ public class Mano implements I_RobarCarta {
     }
 
     @Override
-    public void RobarCarta (Jugador jugador) throws ManoLlenaExcepcion {
+    public void robarCarta (Jugador jugador) throws ManoLlenaExcepcion {
         if(validos<10)
         {
             try {
@@ -39,5 +39,16 @@ public class Mano implements I_RobarCarta {
         }
     }
 
+    public ArrayList<Carta> getMano() {
+        return mano;
+    }
 
+
+    public int getValidos() {
+        return validos;
+    }
+
+    public void setValidos(int validos) {
+        this.validos = validos;
+    }
 }
