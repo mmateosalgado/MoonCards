@@ -1,6 +1,7 @@
 package Batalla;
 
 import Excepciones.DatoNoEcontradoExcepcion;
+import Excepciones.ManoLlenaExcepcion;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.PersonajeCongeladoAccionaExcepcion;
 import Razas.Necrofago;
@@ -140,7 +141,8 @@ public class Partida {
     public void efectoNecrofago(Necrofago personaje, Jugador ejecutor)
     {
         ///Implementa su efecto de robar carta
-        personaje.RobarCarta (ejecutor);
+
+        personaje.RobarCarta(ejecutor);//TODO CHEQUEAR SI FUNCIONA ASI CON LA EXCEPCION
 
         if(personaje.isRara())
         {

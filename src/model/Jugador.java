@@ -13,6 +13,7 @@ public class Jugador {
     private boolean congelado;
 
     public Jugador(Heroe heroeSeleccionado, Mano manoActual, Mazo mazoJugador, String nombre, int id, int numeroVictorias) {
+        //TODO posible error a futuro, a medida que continua el juego se le pasa el mazo vacio
         this.heroeSeleccionado = heroeSeleccionado;
         this.manoActual = manoActual;
         this.mazoJugador = mazoJugador;
@@ -60,6 +61,10 @@ public class Jugador {
 
     public Mazo getMazoJugador() {
         return mazoJugador;
+    }
+
+    public int getValMazo(){
+        return mazoJugador.getValidos();
     }
 
     public void setManoActual(Mano manoActual) {

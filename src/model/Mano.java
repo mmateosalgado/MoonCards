@@ -1,7 +1,10 @@
 package model;
 
+import Excepciones.ManoLlenaExcepcion;
+import Excepciones.MazoVacioExcepcion;
 import InterfacesCartas.I_RobarCarta;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Mano implements I_RobarCarta {
@@ -14,15 +17,25 @@ public class Mano implements I_RobarCarta {
     }
 
     @Override
-    public void RobarCarta (Jugador jugador) {
+    public void RobarCarta (Jugador jugador) throws ManoLlenaExcepcion {
         if(validos<10)
         {
-            mano.add(jugador.getMazoJugador().sacarCartaRandom());
-            validos++;
+            try {
+                int val = jugador.getMazoJugador().getValidos();
+                if (val != 0) {
+                    Carta nueva = jugador.getMazoJugador().sacarCartaRandom();
+                    if (nueva != null) {
+                        mano.add(nueva);
+                        validos++;
+                    }
+                }
+            }catch (MazoVacioExcepcion e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+            }
         }
         else
         {
-            //se descarta la carta
+            throw new ManoLlenaExcepcion(" ATENCION: LA MANO ESTA LLENA ! NO PUEDES ROBAR MAS CARTAS! ");
         }
     }
 

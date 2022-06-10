@@ -1,9 +1,13 @@
 package Razas;
 
+import Excepciones.ManoLlenaExcepcion;
+import Excepciones.MazoVacioExcepcion;
 import InterfacesCartas.I_HacerDanio;
 import InterfacesCartas.I_RobarCarta;
 import model.Jugador;
 import model.Personaje;
+
+import javax.swing.*;
 
 public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
@@ -29,9 +33,15 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     @Override
     public void RobarCarta (Jugador jugador) {
-        for(int i=0;i<cantCartasRobadas;i++)
+
+        for(int i=0;i<cantCartasRobadas && i!=99;i++)
         {
-            jugador.getManoActual ().RobarCarta (jugador);
+            try {
+                jugador.getManoActual().RobarCarta(jugador);
+            }catch (ManoLlenaExcepcion  e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+                i=99;
+            }
         }
     }
 
