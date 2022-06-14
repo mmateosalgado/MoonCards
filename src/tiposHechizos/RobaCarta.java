@@ -1,5 +1,7 @@
 package tiposHechizos;
 
+import Excepciones.ManoLlenaExcepcion;
+import Excepciones.MazoVacioExcepcion;
 import InterfacesCartas.I_RobarCarta;
 import model.Hechizo;
 import model.Jugador;
@@ -23,11 +25,20 @@ private int cantCartasRobadas;
     }
 
     @Override
-    public void RobarCarta (Jugador objetivo) {
+    public void robarCarta (Jugador objetivo) {//TODO . COMO APLICAR MAZO VACIO ACA????? -->, MazoVacioExcepcion
 
         for(int i=0;i<cantCartasRobadas;i++)
         {
-            objetivo.getManoActual ().RobarCarta (objetivo);
+            try {
+                objetivo.getManoActual ().robarCarta (objetivo);
+            } catch (ManoLlenaExcepcion e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
     }
 }

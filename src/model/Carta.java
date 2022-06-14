@@ -1,8 +1,10 @@
 package model;
 
+import InterfacesCartas.I_ActivarEfecto;
+
 import javax.swing.*;
 
-public abstract class Carta {
+public abstract class Carta implements I_ActivarEfecto {
 
     private static int totalCartas=0;
     private int id;
