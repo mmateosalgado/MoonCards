@@ -1,13 +1,8 @@
 package Batalla;
 
-import Excepciones.DatoNoEcontradoExcepcion;
-import Excepciones.PasaNullExcepcion;
-import Excepciones.PersonajeCongeladoAccionaExcepcion;
-import Razas.Necrofago;
-import Razas.Orco;
-import model.Heroe;
-import model.Jugador;
-import model.Personaje;
+import Excepciones.*;
+import Razas.*;
+import model.*;
 
 import javax.swing.*;
 
@@ -35,25 +30,10 @@ public class Partida {
 
     //Metodos--------------------------------------------------------------------------------
 
-    public Personaje buscarPersonajePorId(int id, Jugador jugadorAtacante)//aca va excepcion de dato no encontrado, pero falta terminar
-    {
-        //aca tiene que buscar el personaje que esta ocupando esa casilla de id en el tablero
-        //pero para saber en que tablero buscar deberiamos tener tablero dentro del jugador
-/*
-        for (int i = 0; i < Jugador.tablero.posiciones.lenght; i++) {
-            if(Jugador.tablero.posiciones[i].id == id)
-            {
-                return Jugador.tablero.posiciones[i];
-            }
-        }
-*/
-        return null; //aca retornaria personaje enrealidad, lo dejo asi para que no me tire error ahora
-    }
-
     //Metodos de ataque---------------
     //IMPORTANTE: LA FUNCION RETORNA TRUE SI LA PARTIDA SIGUE EN JUEGO DESPUES DEL ATAQUE, FALSE SI EN ESTE ATAQUE SE MATO AL HEROE
-
-    public boolean ataqueConPersonaje(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo) throws PasaNullExcepcion,PersonajeCongeladoAccionaExcepcion
+    // contemplar los try catch en la clase de la pantalla de la partida, a la hora de llamar a la funcion de ataque
+    public boolean ataqueConPersonaje(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo) throws PasaNullExcepcion,PersonajeCongeladoAccionaExcepcion,ObjetivoInvalidoExcepcion
     {
         boolean resultado = true;
 
@@ -65,10 +45,12 @@ public class Partida {
         }else{ //Si se verifican las 2 cosas entonces se realiza el ataque:
 
 
-            if (idObjetivo == 0){ // si la id del objetivo se puso como 0, quiere decir que ataca al heroe{
+            if (idObjetivo == 0 && jugadorDefensor.getTablero().isVacio()){ // si la id del objetivo se puso como 0, quiere decir que ataca al heroe{
                     //Funcion que verifica que el enemigo no tenga otros personajes en el campo
                 ataqueAlHeroe(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1], jugadorDefensor.getHeroeSeleccionado());
-            } else {
+            } else if(idObjetivo == 0 && jugadorDefensor.getTablero().isVacio() == false){
+                throw new ObjetivoInvalidoExcepcion("ERROR: EL TABLERO DEL ENEMIGO DEBE ESTAR VACIO");
+            }else {
             ataqueAlPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1], jugadorDefensor.getTablero().getPosiciones()[idObjetivo-1]);
             }
 
@@ -140,11 +122,78 @@ public class Partida {
     public void efectoNecrofago(Necrofago personaje, Jugador ejecutor)
     {
         ///Implementa su efecto de robar carta
-        personaje.RobarCarta (ejecutor);
+
+        personaje.robarCarta(ejecutor);//TODO CHEQUEAR SI FUNCIONA ASI CON LA EXCEPCION
 
         if(personaje.isRara())
         {
             //TODO Funcion de danio (como la de deformacion)
         }
     }
+
+    public void usarCarta(int idCarta, Jugador jugadorEjecutor, Jugador jugadorRival) throws DatoNoEcontradoExcepcion, ManaInsuficienteExcepcion, PasaNullExcepcion, TableroLlenoExcepcion {
+
+      Carta cartaUsada = buscarCartaEnMano(idCarta, jugadorEjecutor);
+
+        if(cartaUsada == null || idCarta <= 0)
+        {
+            throw new DatoNoEcontradoExcepcion("ERROR: CARTA NO ENCONTRADA");
+        }
+        else if((jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia()) < 0)
+        {
+            throw new ManaInsuficienteExcepcion("ERROR: MANA/ENERGIA INSUFICIENTE"); //TODO hacer try catchs
+        }
+        else{
+            ///Empezamos a ver si la carta es un hechizo o personaje
+            if(cartaUsada instanceof Hechizo)
+            {
+                //usarHechizo
+            }
+            else if(cartaUsada instanceof Personaje)
+            {
+                invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+            }
+
+            jugadorEjecutor.getManoActual().getMano().remove(cartaUsada); //eliminamos la carta de la mano
+            jugadorEjecutor.getManoActual().setValidos(jugadorEjecutor.getManoActual().getValidos() - 1);//restamos a los validos
+            jugadorEjecutor.setManaActual(jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia());
+        }
+
+
+
+
+    }
+
+    public Carta buscarCartaEnMano (int idCarta, Jugador jugadorEjecutor)
+    {
+        Carta encontrada = null;
+
+            for (Carta carta: jugadorEjecutor.getManoActual().getMano()) { //esto es un for each
+                if(idCarta == carta.getId())
+                {
+                    encontrada = carta;
+                }
+            }
+        return encontrada;
+    }
+
+    public void invocarPersonaje(Personaje personaje, Jugador jugadorEjecutor, Jugador jugadorRival) throws PasaNullExcepcion, TableroLlenoExcepcion {
+        jugadorEjecutor.getTablero().agregarPersonaje(personaje);
+        if(!personaje.isGlobal()) // si no es global
+        {
+            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
+            int id = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
+            personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
+        }
+        else{
+            //TODO hacer la ventana emergente que no pide una id, solo explica el efecto
+            personaje.activarEfecto(jugadorEjecutor,jugadorRival,0);
+        }
+        //se asigna una id al personaje segun el lugar en el tablero
+    }
+
+
+
+
+
 }

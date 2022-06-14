@@ -12,16 +12,26 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
 
     //Constructor--------------------------------------
 
-    public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , int sumaVida) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
+    public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , int sumaVida, boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.danioAdicional = danioAdicional;
-        this.sumarVida       = sumaVida;
+        this.sumarVida = sumaVida;
     }
 
     @Override
     public void aumentarAtaque(Jugador objetivo , int id) {
-        objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setDanoInflige (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getDanoInflige ()+ danioAdicional);
-    }
+        if(isRara ()) {
+            for (int i = 0; i < 3; i++) {
+                if(objetivo.getTablero().getPersonajeEnPosicion(i) != null)
+                {
+                    objetivo.getTablero().getPersonajeEnPosicion(i).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(i).getDanoInflige() + danioAdicional);
+                }
+            }
+        }else{
+            objetivo.getTablero().getPersonajeEnPosicion(id - 1).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(id - 1).getDanoInflige() + danioAdicional);
+
+        }
+        }
 
     @Override
     public void sumarVida(Jugador caster, int id) {
@@ -37,4 +47,17 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
         }
     }
 
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
+        if(isRara())
+        {
+            aumentarAtaque(jugadorEjecutor,0);
+            sumarVida(jugadorEjecutor,0);
+        }
+        else
+        {
+            aumentarAtaque(jugadorEjecutor,id);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package Batalla;
+package Control;
 
 import InterfacesGraficas.PantallaInicio;
 
