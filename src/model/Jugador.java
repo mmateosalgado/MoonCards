@@ -74,6 +74,7 @@ public class Jugador {
         return tablero;
     }
 
+
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }

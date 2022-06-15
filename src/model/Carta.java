@@ -12,6 +12,7 @@ public abstract class Carta {
     private int costoEnergia;
     private int danoInflige;
     private ImageIcon imagen;
+    private String descrip;
 
     //CONSTRUCTOR
     public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige) {
@@ -27,6 +28,15 @@ public abstract class Carta {
     //METODOS
 
     //GETTERS
+
+
+    public String getDescrip() {
+        return descrip;
+    }
+
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
 
     public static int getTotalCartas() {
         return totalCartas;

@@ -3,6 +3,7 @@ package Batalla;
 import Excepciones.DatoNoEcontradoExcepcion;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.PersonajeCongeladoAccionaExcepcion;
+import InterfacesGraficas.TableroGrafico;
 import Razas.Necrofago;
 import Razas.Orco;
 import model.Heroe;
@@ -17,21 +18,59 @@ public class Partida {
 
     private Jugador jugador1;
     private Jugador jugador2;
+    private TableroGrafico tableroGrafico;
+
 
 
     // El constructor correspondiente
 
-    public Partida(Jugador jugador1, Jugador jugador2) throws PasaNullExcepcion {//TODO donde se aplique poner try - catch
+    public Partida(Jugador jugador1, Jugador jugador2, TableroGrafico tablero) throws PasaNullExcepcion {//TODO donde se aplique poner try - catch
             this.turno = 0;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
             }else{
             this.jugador1 = jugador1;
-            this.jugador2 = jugador2;}
+            this.jugador2 = jugador2;
+            tableroGrafico = tablero;
+
+            }
     }
 
 
     //Getters y Setters correspondientes
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public Jugador getJugadorTurno() {
+        Jugador aux;
+        if(getTurno()==1){
+            aux = jugador1;
+        }else{
+            aux = jugador2;
+        }
+        return aux;
+    }
+
+    public Jugador getJugadorEnemigo(){
+        Jugador aux;
+        if(getTurno()!=1){
+            aux = jugador1;
+        }else{
+            aux = jugador2;
+        }
+        return aux;
+    }
+
+    public void setTurno(){
+        if(turno == 0){
+            turno = 1;
+
+        }else if(turno== 1){
+            turno = 0;
+        }
+    }
 
     //Metodos--------------------------------------------------------------------------------
 
@@ -147,4 +186,9 @@ public class Partida {
             //TODO Funcion de danio (como la de deformacion)
         }
     }
-}
+
+
+
+    }
+
+

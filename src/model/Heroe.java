@@ -7,7 +7,7 @@ public class Heroe {
     private int cantVida;
     static int cantidad;
     private ImageIcon image; // asociar cada imagen a cada heroe.
-    private String descripcion; // va aparecer en cada carta;
+    private String descripcion; // va aparecer en cada heroe;
 
     public Heroe(String nombre, int cantVida, ImageIcon image, String descr) {
         this.nombre = nombre;
