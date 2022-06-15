@@ -3,15 +3,14 @@ package tiposHechizos;
 import InterfacesCartas.I_HacerDanio;
 import model.Hechizo;
 import model.Jugador;
-import model.Personaje;
 
-public class Daño extends Hechizo implements I_HacerDanio {
+public class Danio extends Hechizo implements I_HacerDanio {
 
     private int cantDañoInflige;
 
     //Constructor--------------------------------------
 
-    public Daño (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantDañoInflige) {
+    public Danio (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantDañoInflige) {
         super ( nombre , isRara , costoEnergia , danoInflige );
         cantDañoInflige = cantDañoInflige;
     }
@@ -41,6 +40,7 @@ public class Daño extends Hechizo implements I_HacerDanio {
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+       infligeDanio (jugadorRival,id);
 
     }
 }
