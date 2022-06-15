@@ -1,6 +1,7 @@
 package com.company.app;
 
 import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.SeleccionAdmin;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.CartaGrafico;
 import Razas.Humano;
@@ -32,11 +33,17 @@ public class Main {
         //test();
         //menu();
 
+        /*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta = new Humano("Gonzalo",false,4,7,5,0,0);
+        Carta carta = new Humano("Gonzalo",false,4,7,5,0,0,false);
         carta.setImagen(icono1);
 
         CartaGrafico cartaGrafico = new CartaGrafico(carta);
+
+         */
+
+        menu();
+
 
 
     }

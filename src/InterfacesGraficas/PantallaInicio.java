@@ -1,8 +1,6 @@
 package InterfacesGraficas;
 
 import Control.Inicio;
-import model.ColeccionHeroe;
-import model.Heroe;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +13,12 @@ public class PantallaInicio extends JFrame implements ActionListener {
     private JButton botonJugar,botonAdmin;
     private JLabel ingreseContrasena;
     private JLabel textAdmin;
+    private JCheckBox mostrarContrasena;
 
     public PantallaInicio(){
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
-        setBounds(0,0,1280,720);
+        setBounds(0,0,500,400);
         setTitle("MoonCards");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,43 +32,55 @@ public class PantallaInicio extends JFrame implements ActionListener {
         botonJugar.addActionListener( this);
 
         botonAdmin=new JButton("Aceptar");
-        botonAdmin.setBounds(360,250,80,20);
+        botonAdmin.setBounds(360,250,80,25);
         add(botonAdmin);
         botonAdmin.addActionListener( this);
 
-        textAdmin=new JLabel("Ingrese como administrador");
+        textAdmin=new JLabel("- Ingrese como administrador ");
         textAdmin.setBounds(60,220,300,20);
         add(textAdmin);
 
         ingreseContrasena=new JLabel("CONTRASEÑA");
-        ingreseContrasena.setBounds(60,250,80,20);
+        ingreseContrasena.setBounds(60,250,90,20);
         add(ingreseContrasena);
 
         campoContrasena=new JPasswordField();
-        campoContrasena.setBounds(150,250,200,20);
+        campoContrasena.setBounds(155,250,200,25);
         add(campoContrasena);
 
-        setVisible(true);
+        mostrarContrasena=new JCheckBox("Mostrar Contraseña");
+        mostrarContrasena.setBounds(170,275,200,25);
+        add(mostrarContrasena);
+        mostrarContrasena.addActionListener(this);
 
+        setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource()==botonJugar){
+
+        if(e.getSource().equals(botonJugar)){
             String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
             String nombreJugador2 = JOptionPane.showInputDialog("Ingrese le nombre del jugador 2");
 
             Inicio inicio = new Inicio(nombreJugador1,nombreJugador2); // en el constructor de la clase seleccion mazo debe
             // recibir un objeto de tipo Inicio.
+            //setVisible(false);
 
-
-
-            System.exit(0);
-        }else if(e.getSource()==botonAdmin){
-            String ingresado= String.valueOf(campoContrasena.getPassword());
-            if(ingresado.equals("MoonMaster")){
-                //lanza admin
+        }else if(e.getSource().equals(botonAdmin)){
+            String a= String.valueOf(campoContrasena.getPassword());
+            if(a.equals("MoonMaster616")) {
+                setVisible(false);
+                SeleccionAdmin test = new SeleccionAdmin();
+            }else{
+                JOptionPane.showMessageDialog(null,"Contraseña Invalida!");
             }
+        }
+
+        if(mostrarContrasena.isSelected()){
+            campoContrasena.setEchoChar((char)0);
+        }else{
+            campoContrasena.setEchoChar('*');
         }
     }
 }
