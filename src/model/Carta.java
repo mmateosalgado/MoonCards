@@ -107,4 +107,5 @@ public abstract class Carta {
                 ", danoInflige=" + danoInflige +
                 '}';
     }
+    public abstract String getTipoCarta();
 }

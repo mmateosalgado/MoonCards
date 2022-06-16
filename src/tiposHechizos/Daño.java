@@ -38,5 +38,8 @@ public class Daño extends Hechizo implements I_HacerDanio {
             }
         }
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
 }

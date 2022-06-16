@@ -42,5 +42,8 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
             objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setCantidadDeVida (objetivo.getTablero ().getPersonajeEnPosicion ( id-1).getCantidadDeVida () - cantDañoInflige);
         }
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
 }

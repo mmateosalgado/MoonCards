@@ -13,29 +13,28 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TableroGrafico extends JFrame  {
+public class TableroGrafico extends JFrame {
 
-    Font fontBelweH1 = new Font("Belwe",Font.BOLD,30);
-    Font fontBelweH2 = new Font("Belwe",Font.BOLD,25);
-    Font fontBelweH3 = new Font("Belwe",Font.BOLD,20);
-    Font fontBelweTextNormal = new Font("Belwe",Font.PLAIN,15);
-    Font fontBelweTextNormalNegrita = new Font("Belwe",Font.BOLD,15);
+    Font fontBelweH1 = new Font("Belwe", Font.BOLD, 30);
+    Font fontBelweH2 = new Font("Belwe", Font.BOLD, 25);
+    Font fontBelweH3 = new Font("Belwe", Font.BOLD, 20);
+    Font fontBelweTextNormal = new Font("Belwe", Font.PLAIN, 15);
+    Font fontBelweTextNormalNegrita = new Font("Belwe", Font.BOLD, 15);
 
-    private JPanel jPanelSouth,jPanelNorth,jPanelCenter,jPanelWest,jPanelEast;
+    private JPanel jPanelSouth, jPanelNorth, jPanelCenter, jPanelWest, jPanelEast;
     private JPanel jPanelCenterTurno, jPanelCenterEnemigo, jPanelWestSouth, jPanelWestCenter;
     private HeroeBoton jButtonHeroeEnemigo;
     private CartaBoton[] jButtonPersonajesEnemigos;
     private JButton jButtonHeroe;
     private CartaBoton[] jButtonPersonajes;
-    private JLabel jTextNorth,jTextEspecifaciones,jTextNombre,jTextDescripcion,jTextTipo,jTextObservaciones,jlabelImagenSelec;
+    private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
-    private JButton jButtonAtacar,jButtonCambiarTurno, jButtonAbandonarPartida;
+    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida;
 
     private Partida partida;
 
 
-
-    public TableroGrafico(Jugador jugador1, Jugador jugador2){
+    public TableroGrafico(Jugador jugador1, Jugador jugador2) {
         setBounds(0, 0, 1366, 900);
         setTitle("");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
@@ -44,7 +43,7 @@ public class TableroGrafico extends JFrame  {
         setLayout(new BorderLayout());
 
         try {
-            partida = new Partida(jugador1,jugador2,this);
+            partida = new Partida(jugador1, jugador2, this);
 
             constructorNorth(partida.getJugadorTurno());
             constructorCenter(partida);
@@ -54,11 +53,11 @@ public class TableroGrafico extends JFrame  {
 
             ///jPanelEast.setPreferredSize(new Dimension(120,));
 
-            add(jPanelNorth,BorderLayout.NORTH);
-            add(jPanelCenter,BorderLayout.CENTER);
-            add(jPanelSouth,BorderLayout.SOUTH);
-            add(jPanelWest,BorderLayout.WEST);
-            add(jPanelEast,BorderLayout.EAST);
+            add(jPanelNorth, BorderLayout.NORTH);
+            add(jPanelCenter, BorderLayout.CENTER);
+            add(jPanelSouth, BorderLayout.SOUTH);
+            add(jPanelWest, BorderLayout.WEST);
+            add(jPanelEast, BorderLayout.EAST);
 
 
             setVisible(true);
@@ -67,33 +66,31 @@ public class TableroGrafico extends JFrame  {
         }
 
 
-
     }
 
-    public void constructorNorth(Jugador jugadorTurno){
+    public void constructorNorth(Jugador jugadorTurno) {
         jPanelNorth = new JPanel();
-        jTextNorth = new JLabel("Turno Jugador: "+ jugadorTurno.getNombre().toUpperCase());
+        jTextNorth = new JLabel("Turno Jugador: " + jugadorTurno.getNombre().toUpperCase());
         jTextNorth.setFont(fontBelweH2);
         jPanelNorth.add(jTextNorth);
     }
 
 
-
-    public void constructorSouth(){
+    public void constructorSouth() {
         jPanelSouth = new JPanel();
-        jPanelSouth.setLayout(new BoxLayout(jPanelSouth,BoxLayout.Y_AXIS));
+        jPanelSouth.setLayout(new BoxLayout(jPanelSouth, BoxLayout.Y_AXIS));
         jTextObservaciones = new JLabel("Elije una carta de tu tablero con la que desees atacar ");
         jPanelSouth.add(jTextObservaciones);
     }
 
-    public void constructorWest(){
+    public void constructorWest() {
         jPanelWest = new JPanel();
-        jPanelWest.setPreferredSize(new Dimension(250,600));
+        jPanelWest.setPreferredSize(new Dimension(250, 600));
 
         jPanelWestSouth = new JPanel();
         jlabelImagenSelec = new JLabel();
         jPanelWestSouth.add(jlabelImagenSelec);
-        jPanelWest.setLayout(new BoxLayout(jPanelWest,BoxLayout.Y_AXIS));
+        jPanelWest.setLayout(new BoxLayout(jPanelWest, BoxLayout.Y_AXIS));
 
 
         //jPanelWestCenter = new JPanel();
@@ -111,24 +108,22 @@ public class TableroGrafico extends JFrame  {
         jPanelWestSouth.add(jTextNombre);
         jPanelWestSouth.add(jTextTipo);
         jPanelWestSouth.add(jTextDescripcion);
-
         jPanelWest.add(jPanelWestSouth);
 
         //jPanelWest.add(jPanelWestCenter);
-
     }
 
-    public void constructorEast(){
+    public void constructorEast() {
         jPanelEast = new JPanel();
-        jPanelEast.setLayout(new BoxLayout(jPanelEast,BoxLayout.Y_AXIS));
+        jPanelEast.setLayout(new BoxLayout(jPanelEast, BoxLayout.Y_AXIS));
 
         jButtonAtacar = new JButton("ATACAR");
         jButtonAtacar.setEnabled(false);
-       // jButtonAtacar.addActionListener(this);
+        // jButtonAtacar.addActionListener(this);
 
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
         jButtonCambiarTurno.setEnabled(false);
-       // jButtonCambiarTurno.addActionListener(this);
+        // jButtonCambiarTurno.addActionListener(this);
 
         jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
         //jButtonAbandonarPartida.addActionListener(this);
@@ -139,38 +134,38 @@ public class TableroGrafico extends JFrame  {
 
     }
 
-    public void constructorCenter(Partida partida){
+    public void constructorCenter(Partida partida) {
         jPanelCenter = new JPanel();
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
-        jPanelCenter.setLayout(new BoxLayout(jPanelCenter,BoxLayout.Y_AXIS));
+        jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.Y_AXIS));
         jPanelCenter.add(jLabelTableroEnemigo);
 
 
         jButtonHeroe = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
 
         jPanelCenterEnemigo = new JPanel();
-        jPanelCenterEnemigo.setLayout(new BoxLayout(jPanelCenterEnemigo,BoxLayout.X_AXIS));
+        jPanelCenterEnemigo.setLayout(new BoxLayout(jPanelCenterEnemigo, BoxLayout.X_AXIS));
 
-        jButtonHeroeEnemigo= new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
+        jButtonHeroeEnemigo = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
         jButtonHeroeEnemigo.setIcon(partida.getJugadorEnemigo().getTablero().getPosHeroe().getImage());
         jButtonHeroeEnemigo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Debe seleccionar una carta suya para iniciar el ataque");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
                 jButtonAtacar.setEnabled(false);
             }
         });
 
         jPanelCenterEnemigo.add(jButtonHeroeEnemigo);
         jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo().getTablero().getValidos()];
-        for(int i = 0;i<partida.getJugadorEnemigo().getTablero().getValidos();i++){
+        for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
             jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
             jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
             jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null,"Debe seleccionar una carta suya para iniciar el ataque");
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
                     jButtonAtacar.setEnabled(false);
                 }
             });
@@ -192,32 +187,32 @@ public class TableroGrafico extends JFrame  {
             public void actionPerformed(ActionEvent e) {
                 HeroeBoton heroe = (HeroeBoton) e.getSource();
                 jlabelImagenSelec.setIcon(heroe.getHeroe().getImage());
-                jTextNombre.setText("<html><p style=\"width:100px\">"+heroe.getHeroe().getNombre()+""+ "</p></html>");
-                jTextTipo.setText("<html><p style=\"width:100px\">"+ heroe.getHeroe().getClass().toString() + ""+ "</p></html>");
-                jTextDescripcion.setText("<html><p style=\"width:100px\">"+heroe.getHeroe().getDescripcion()+"" + "</p></html>");
+                jTextNombre.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getNombre() + "" + "</p></html>");
+                jTextTipo.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getClass().toString() + "" + "</p></html>");
+                jTextDescripcion.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getDescripcion() + "" + "</p></html>");
             }
         });
 
         jPanelCenterTurno.add(jButtonHeroe);
 
         jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
-        for(int i = 0;i< partida.getJugadorTurno().getTablero().getValidos();i++){
+        for (int i = 0; i < partida.getJugadorTurno().getTablero().getValidos(); i++) {
             jButtonPersonajes[i] = new CartaBoton(partida.getJugadorTurno().getTablero().getPersonajeEnPosicion(i));
             jButtonPersonajes[i].setIcon(jButtonPersonajes[i].getCarta().getImagen());
             jButtonPersonajes[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    CartaBoton carta = (CartaBoton)e.getSource();
+                    CartaBoton carta = (CartaBoton) e.getSource();
                     carta.setEstado(true);
                     jButtonAtacar.setEnabled(true);
                     jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
-                    jTextNombre.setText("<html><p style=\"width:100px\">"+carta.getCarta().getNombre()+""+ "</p></html>");
-                    jTextTipo.setText("<html><p style=\"width:100px\">"+ carta.getCarta().getClass().toString() + ""+ "</p></html>");
-                    jTextDescripcion.setText("<html><p style=\"width:100px\">"+"Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS"+"" + "</p></html>");;
-                    //SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero())
+                    jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
+                    jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
+                    jTextDescripcion.setText("<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>");
+                    SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero());
 
                     //for(int i = 0; i<jButtonPersonajesEnemigos.length;i++){
-                       // if(jButtonPersonajesEnemigos[i].getCarta().)
+                    // if(jButtonPersonajesEnemigos[i].getCarta().)
                     //}
                 }
             });
@@ -229,78 +224,4 @@ public class TableroGrafico extends JFrame  {
 
     }
 
-    /*
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==jButtonAtacar){
-            boolean flag = false;
-            int id = -1;
-            for (int i = 0; i<jButtonPersonajes.length;i++){
-                if(jButtonPersonajes[i].isEstado()){
-                    id = jButtonPersonajes[i].getCarta().getId();
-                    flag = true;
-                }
-            }
-            if(flag){
-                SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero());
-            }else{
-                JOptionPane.showMessageDialog(null,"No ha seleccionado ninguna carta suya");
-            }
-
-
-
-        }
-
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        for(int i = 0; i<jButtonPersonajes.length;i++){
-            if(e.getSource()==jButtonPersonajes[i]){
-                jButtonPersonajes[i].setEstado(true);
-                System.out.println("La carta seleccionada para el ataque es: "+ jButtonPersonajes[i].getCarta().toString());
-            }
-        }
-
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        /*
-        for(int i = 0; i<jButtonPersonajes.length;i++){
-            if(e.getSource()==jButtonPersonajes[i]){
-                jButtonPersonajes[i].setEstado(false);
-                System.out.println("La carta ha sido des seleccionada para el ataque");
-            }
-        }
-    }
-
-    }
-    */
 }

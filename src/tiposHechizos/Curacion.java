@@ -38,4 +38,7 @@ public class Curacion extends Hechizo implements I_SumarVida {
             }
         }
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 }

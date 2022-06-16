@@ -30,4 +30,8 @@ private int cantCartasRobadas;
             objetivo.getManoActual ().RobarCarta (objetivo);
         }
     }
+
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 }

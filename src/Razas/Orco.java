@@ -28,5 +28,8 @@ public class Orco extends Personaje implements I_AumentarAtaque {
             }
 
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
 }
