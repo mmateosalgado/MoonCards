@@ -40,5 +40,7 @@ private int cantCartasRobadas;
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
+        robarCarta(jugadorEjecutor);
+
     }
 }

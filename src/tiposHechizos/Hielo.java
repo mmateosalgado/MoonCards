@@ -37,5 +37,7 @@ public class Hielo extends Hechizo implements I_Congelar {
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
+        congelar(jugadorRival,id);
+
     }
 }

@@ -3,6 +3,7 @@ package Batalla;
 import Excepciones.*;
 import Razas.*;
 import model.*;
+import tiposHechizos.Danio;
 
 import javax.swing.*;
 
@@ -22,7 +23,8 @@ public class Partida {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
             }else{
             this.jugador1 = jugador1;
-            this.jugador2 = jugador2;}
+            this.jugador2 = jugador2;
+            }
     }
 
 
@@ -33,10 +35,18 @@ public class Partida {
     //Metodos de ataque---------------
     //IMPORTANTE: LA FUNCION RETORNA TRUE SI LA PARTIDA SIGUE EN JUEGO DESPUES DEL ATAQUE, FALSE SI EN ESTE ATAQUE SE MATO AL HEROE
     // contemplar los try catch en la clase de la pantalla de la partida, a la hora de llamar a la funcion de ataque
+
+    public int inicioPartida(Jugador jugador1, Jugador jugador2)
+    {
+        ///Verificar
+return 1;
+    }
+
+
+
     public boolean ataqueConPersonaje(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo) throws PasaNullExcepcion,PersonajeCongeladoAccionaExcepcion,ObjetivoInvalidoExcepcion
     {
         boolean resultado = true;
-
         if(( jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] == null) || (jugadorDefensor.getTablero().getPosiciones()[idObjetivo-1] == null) && idObjetivo != 0){
             throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO PERSONAJE EN EL ATAQUE O EN EL OBJETIVO");
             //controlamos que la id no sea 0 porque eso quiere decir que ataca al heroe
@@ -82,13 +92,13 @@ public class Partida {
 
     //Metodos de muerte--------------
 
-    public boolean controlarMuertes(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)
+    public boolean controlarMuertes(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)///Retorna true si el heroe sigue vivo, sino retorna false y finaliza la partida
     {
         if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0)
         {//Si el que ataco murio en el ataque lo quitamos y primero verificamos si es un necrofago para activar su efecto:
             if(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1] instanceof Necrofago) // si es necrofago
             {
-                efectoNecrofago( (Necrofago) jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1], jugadorAtacante);
+                jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].activarEfecto (jugadorAtacante,jugadorDefensor,idObjetivo);///Hace el efecto a la carta defensora
             }
             try {
                 jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
@@ -106,7 +116,7 @@ public class Partida {
                 }
                 if(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1] instanceof Necrofago) // si es necrofago
                 {
-                    efectoNecrofago((Necrofago) jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1], jugadorDefensor);
+                    jugadorDefensor.getTablero ().getPosiciones ()[idObjetivo-1].activarEfecto (jugadorDefensor,jugadorAtacante,idAtacante); ///Se pasa al revés, hace el efecto a la carta atacante
                 }
             }
         }else {
@@ -118,21 +128,9 @@ public class Partida {
         return true;
     }
 
-    ///Puede usarse tanto para el que ataca si es que muere como para el que defiende si se muere
-    public void efectoNecrofago(Necrofago personaje, Jugador ejecutor)
-    {
-        ///Implementa su efecto de robar carta
 
-        personaje.robarCarta(ejecutor);//TODO CHEQUEAR SI FUNCIONA ASI CON LA EXCEPCION
-
-        if(personaje.isRara())
-        {
-            //TODO Funcion de danio (como la de deformacion)
-        }
-    }
-
-    public void usarCarta(int idCarta, Jugador jugadorEjecutor, Jugador jugadorRival) throws DatoNoEcontradoExcepcion, ManaInsuficienteExcepcion, PasaNullExcepcion, TableroLlenoExcepcion {
-
+    public boolean usarCarta(int idCarta, Jugador jugadorEjecutor, Jugador jugadorRival) throws DatoNoEcontradoExcepcion, ManaInsuficienteExcepcion, PasaNullExcepcion, TableroLlenoExcepcion {
+        boolean control=true;
       Carta cartaUsada = buscarCartaEnMano(idCarta, jugadorEjecutor);
 
         if(cartaUsada == null || idCarta <= 0)
@@ -147,21 +145,31 @@ public class Partida {
             ///Empezamos a ver si la carta es un hechizo o personaje
             if(cartaUsada instanceof Hechizo)
             {
-                //usarHechizo
+
+                invocarHechizo ((Hechizo) cartaUsada, jugadorEjecutor, jugadorRival);
+                if(cartaUsada instanceof Danio)
+                {
+                    controlarMuertes (jugadorEjecutor,jugadorRival,idCarta,0);//TODO verificar que funcione bien
+                }
             }
             else if(cartaUsada instanceof Personaje)
             {
-                invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+                if(cartaUsada instanceof Necrofago)
+                {
+                    ///No activa su efecto porque éste se activa al morir
+                }
+                else
+                {
+                    invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+                }
             }
 
             jugadorEjecutor.getManoActual().getMano().remove(cartaUsada); //eliminamos la carta de la mano
             jugadorEjecutor.getManoActual().setValidos(jugadorEjecutor.getManoActual().getValidos() - 1);//restamos a los validos
-            jugadorEjecutor.setManaActual(jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia());
+            jugadorEjecutor.setManaActual(jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia());///Restamos la energia usada
         }
 
-
-
-
+return control;
     }
 
     public Carta buscarCartaEnMano (int idCarta, Jugador jugadorEjecutor)
@@ -192,8 +200,20 @@ public class Partida {
         //se asigna una id al personaje segun el lugar en el tablero
     }
 
-
-
+    public void invocarHechizo(Hechizo hechizo, Jugador jugadorEjecutor, Jugador jugadorRival) throws PasaNullExcepcion, TableroLlenoExcepcion {
+        ///No se invoca en el tablero porque es un hechizo
+        if(!hechizo.isRara ()) // si no es rara, osea que no tiene efecto en area
+        {
+            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
+            int id = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
+            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,id);
+        }
+        else{
+            //TODO hacer la ventana emergente que no pide una id, solo explica el hechizo
+            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,0);
+        }
+        //se asigna una id al personaje segun el lugar en el tablero
+    }
 
 
 }
