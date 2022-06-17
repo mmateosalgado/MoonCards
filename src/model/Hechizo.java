@@ -7,4 +7,6 @@ public abstract class Hechizo extends Carta {
     }
 
 
+
+
 }

@@ -1,11 +1,14 @@
 package com.company.app;
 
-import InterfacesGraficas.PantallaInicio;
-import InterfacesGraficas.SeleccionAdmin;
-import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.*;
 import InterfacesGraficas.pruebas.CartaGrafico;
 import Razas.Humano;
+import Razas.Necrofago;
+import Razas.Orco;
 import model.Carta;
+import model.ColeccionCartas;
+import model.ColeccionHeroe;
+import model.Heroe;
 
 import javax.swing.*;
 
@@ -18,6 +21,8 @@ public class Main {
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         //menu();
 /*
+
+
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
         Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
@@ -27,8 +32,9 @@ public class Main {
         coleccion.agregarHeroe(heroeTest);
         coleccion.agregarHeroe(heroeTest2);
 
-        SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
-*/
+        SeleccionHeroe seleccionHeroe = new SeleccionHeroe(null,coleccion);
+
+
 
         //test();
         //menu();
@@ -40,7 +46,26 @@ public class Main {
 
         CartaGrafico cartaGrafico = new CartaGrafico(carta);
 
-         */
+
+ */
+
+        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+        Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+        Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
+
+        carta1.setImagen(icono1);
+        carta2.setImagen(icono2);
+
+        ColeccionCartas lista=new ColeccionCartas();
+
+        lista.agregarCarta(carta1);
+        lista.agregarCarta(carta2);
+
+        //System.out.println(lista.devolverArregloCartas().toString());
+
+        //VerCartas test=new VerCartas(lista);
 
         menu();
 
@@ -72,4 +97,5 @@ public class Main {
     public static void test(){
         JOptionPane.showMessageDialog(null,"error : dato no encontrado");
     }
+
 }
