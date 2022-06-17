@@ -121,19 +121,6 @@ return 1;
         return true;
     }
 
-    //CASO 2
-    public void eliminarAtacante (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
-    {
-        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1] instanceof Necrofago) // si es necrofago
-        {
-            jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].activarEfecto (jugadorAtacante,jugadorDefensor,idObjetivo);///Hace el efecto a la carta defensora
-        }
-        try {
-            jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
-        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        }
-    }
 
     //CASO 1
     public boolean eliminarDefensor (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
@@ -154,6 +141,19 @@ return 1;
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
         return necrofagoActivaEfecto;
+    }
+    //CASO 2
+    public void eliminarAtacante (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
+    {
+        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1] instanceof Necrofago) // si es necrofago
+        {
+            jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].activarEfecto (jugadorAtacante,jugadorDefensor,idObjetivo);///Hace el efecto a la carta defensora
+        }
+        try {
+            jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
+        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
     }
 
 
