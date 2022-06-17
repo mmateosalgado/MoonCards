@@ -68,6 +68,10 @@ public abstract class Carta implements I_ActivarEfecto {
         return danoInflige;
     }
 
+    public ImageIcon getImage(){
+        return imagen;
+    }
+
     //SETTERS
 
     public void setNombre(String nombre) {
@@ -97,6 +101,8 @@ public abstract class Carta implements I_ActivarEfecto {
     public void setDanoInflige(int danoInflige) {
         this.danoInflige += danoInflige;
     }
+
+
 
     @Override
     public String toString() {

@@ -1,5 +1,10 @@
 package InterfacesGraficas;
 
+import Razas.Humano;
+import Razas.Orco;
+import model.Carta;
+import model.ColeccionCartas;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +15,8 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
     private JButton a1,a2,a3,b1,b2,b3,salir;
 
     public SeleccionAdmin(){
+        Font fuente=new Font("Belwe", Font.PLAIN,25);
+
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
@@ -22,36 +29,43 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
 
         a1=new JButton("Ver Cartas");
         a1.setBounds(50,50,300,100);
+        a1.setFont(fuente);
         add(a1);
         a1.addActionListener(this);
 
         a2=new JButton("Modificar Cartas");
         a2.setBounds(380,50,300,100);
+        a2.setFont(fuente);
         add(a2);
         a2.addActionListener(this);
 
         a3=new JButton("Agregar Cartas");
         a3.setBounds(710,50,300,100);
+        a3.setFont(fuente);
         add(a3);
         a3.addActionListener(this);
 
         b1=new JButton("Ver Heroes");
         b1.setBounds(50,170,300,100);
+        b1.setFont(fuente);
         add(b1);
         b1.addActionListener(this);
 
         b2=new JButton("Modificar Mazos");
         b2.setBounds(380,170,300,100);
+        b2.setFont(fuente);
         add(b2);
         b2.addActionListener(this);
 
         b3=new JButton("Agregar Heroes");
         b3.setBounds(710,170,300,100);
+        b3.setFont(fuente);
         add(b3);
         b3.addActionListener(this);
 
         salir=new JButton("Salir");
         salir.setBounds(380,500,300,100);
+        salir.setFont(fuente);
         add(salir);
         salir.addActionListener(this);
 
@@ -64,7 +78,24 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             setVisible(false);
             PantallaInicio inicio=new PantallaInicio();
         }else if(e.getSource()==a1) {//VER CARTAS
-            //LANZA VER CARTAS
+            //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
+           // setVisible(false);
+            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+            Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
+
+            carta1.setImagen(icono1);
+            carta2.setImagen(icono2);
+
+            ColeccionCartas lista=new ColeccionCartas();
+
+            lista.agregarCarta(carta1);
+            lista.agregarCarta(carta2);
+
+            VerCartas test=new VerCartas(lista);
+
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             //LANZA AGREGAR CARTAS
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
