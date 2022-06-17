@@ -31,7 +31,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
 
     //GETTERS
 
-
     public String getDescrip() {
         return descrip;
     }

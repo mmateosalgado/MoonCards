@@ -5,6 +5,7 @@ import Batalla.Tablero;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.SeleccionMoficarCarta;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import Razas.Humano;
@@ -37,8 +38,11 @@ public class Main {
 */
 
         //test();
-        //menu();
+        menu();
 
+        //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
+
+        /*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
@@ -90,6 +94,8 @@ public class Main {
             e.printStackTrace();
         }
 
+
+         */
     }
 
         public static void UISistema () {
