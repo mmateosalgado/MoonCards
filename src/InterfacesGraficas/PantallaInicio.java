@@ -16,6 +16,8 @@ public class PantallaInicio extends JFrame implements ActionListener {
     private JCheckBox mostrarContrasena;
 
     public PantallaInicio(){
+        Font h1=new Font("Belwe", Font.PLAIN,25);
+
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
         setBounds(0,0,500,400);
@@ -28,28 +30,30 @@ public class PantallaInicio extends JFrame implements ActionListener {
 
         botonJugar=new JButton("Jugar");
         botonJugar.setBounds(100,50,300,100);
+        botonJugar.setFont(h1);
         add(botonJugar);
         botonJugar.addActionListener( this);
 
         botonAdmin=new JButton("Aceptar");
-        botonAdmin.setBounds(360,250,80,25);
+        botonAdmin.setBounds(125,290,200,40);
+        botonAdmin.setFont(h1);
         add(botonAdmin);
         botonAdmin.addActionListener( this);
 
-        textAdmin=new JLabel("- Ingrese como administrador ");
-        textAdmin.setBounds(60,220,300,20);
+        textAdmin=new JLabel("- Ingrese como administrador -");
+        textAdmin.setBounds(30,220,300,20);
         add(textAdmin);
 
-        ingreseContrasena=new JLabel("CONTRASEÑA");
-        ingreseContrasena.setBounds(60,250,90,20);
+        ingreseContrasena=new JLabel("Contraseña");
+        ingreseContrasena.setBounds(30,250,90,20);
         add(ingreseContrasena);
 
         campoContrasena=new JPasswordField();
-        campoContrasena.setBounds(155,250,200,25);
+        campoContrasena.setBounds(125,250,200,25);
         add(campoContrasena);
 
         mostrarContrasena=new JCheckBox("Mostrar Contraseña");
-        mostrarContrasena.setBounds(170,275,200,25);
+        mostrarContrasena.setBounds(330,250,200,25);
         add(mostrarContrasena);
         mostrarContrasena.addActionListener(this);
 
@@ -69,7 +73,7 @@ public class PantallaInicio extends JFrame implements ActionListener {
 
         }else if(e.getSource().equals(botonAdmin)){
             String a= String.valueOf(campoContrasena.getPassword());
-            if(a.equals("MoonMaster616")) {
+            if(a.equals("messi")) {
                 setVisible(false);
                 SeleccionAdmin test = new SeleccionAdmin();
             }else{
