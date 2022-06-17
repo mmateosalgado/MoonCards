@@ -142,6 +142,7 @@ return 1;
 
         try {
             jugadorDefensor.getTablero().eliminarPersonaje(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1]);
+            jugadorDefensor.getTablero().setValidos(jugadorDefensor.getTablero().getValidos()-1);
         }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
@@ -156,6 +157,8 @@ return 1;
         }
         try {
             jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
+            jugadorAtacante.getTablero().setValidos(jugadorAtacante.getTablero().getValidos()-1);
+
         }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
