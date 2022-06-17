@@ -1,20 +1,24 @@
 package Razas;
 
+import Excepciones.ManoLlenaExcepcion;
+import Excepciones.MazoVacioExcepcion;
 import InterfacesCartas.I_HacerDanio;
 import InterfacesCartas.I_RobarCarta;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
-    private int cantDañoInflige;
+    private int cantDanioInflige;
     private int cantCartasRobadas;
 
     //Constructor--------------------------------------
 
-    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int infligeDanio, int cantCartasRobadas) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
-        this.cantDañoInflige = infligeDanio;
+    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int infligeDanio, int cantCartasRobadas, boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal);
+        this.cantDanioInflige = infligeDanio;
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
@@ -24,14 +28,20 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
     }
 
     public int getcantDañoInflige () {
-        return cantDañoInflige;
+        return cantDanioInflige;
     }
 
     @Override
-    public void RobarCarta (Jugador jugador) {
-        for(int i=0;i<cantCartasRobadas;i++)
+    public void robarCarta (Jugador jugador) {
+
+        for(int i=0;i<cantCartasRobadas && i!=99;i++)
         {
-            jugador.getManoActual ().RobarCarta (jugador);
+            try {
+                jugador.getManoActual().robarCarta(jugador);
+            }catch (ManoLlenaExcepcion  e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+                i=99;
+            }
         }
     }
 
@@ -39,11 +49,19 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
     public void infligeDanio (Jugador objetivo , int id) {
         if(isRara ())// id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
         {
-            objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setCantidadDeVida (objetivo.getTablero ().getPersonajeEnPosicion ( id-1).getCantidadDeVida () - cantDañoInflige);
+            objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setCantidadDeVida (objetivo.getTablero ().getPersonajeEnPosicion ( id-1).getCantidadDeVida () - cantDanioInflige);
         }
     }
     public String getTipoCarta() {
         return getClass().getName();
     }
 
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
+        if(isRara()) {
+            infligeDanio(jugadorRival, id);
+        }
+            robarCarta(jugadorEjecutor);
+    }
 }

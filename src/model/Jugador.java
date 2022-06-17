@@ -5,6 +5,7 @@ import Batalla.Tablero;
 public class Jugador {
     private Heroe heroeSeleccionado;
     private Mano manoActual;
+    private int manaActual;
     private Mazo mazoJugador;
     private String nombre;
     private Tablero tablero;
@@ -13,6 +14,7 @@ public class Jugador {
     private boolean congelado;
 
     public Jugador(Heroe heroeSeleccionado, Mano manoActual, Mazo mazoJugador, String nombre, int id, int numeroVictorias) {
+        //TODO posible error a futuro, a medida que continua el juego se le pasa el mazo vacio
         this.heroeSeleccionado = heroeSeleccionado;
         this.manoActual = manoActual;
         this.mazoJugador = mazoJugador;
@@ -20,6 +22,7 @@ public class Jugador {
         this.id = id;
         this.numeroVictorias = numeroVictorias;
         congelado=false;
+        manaActual = 0;
     }
 
     public Heroe getHeroeSeleccionado() {
@@ -62,6 +65,10 @@ public class Jugador {
         return mazoJugador;
     }
 
+    public int getValMazo(){
+        return mazoJugador.getValidos();
+    }
+
     public void setManoActual(Mano manoActual) {
         this.manoActual = manoActual;
     }
@@ -81,5 +88,18 @@ public class Jugador {
 
     public void setCongelado(boolean congelado) {
         this.congelado = congelado;
+    }
+
+    public void setManaActual(int manaActual) {
+        if(this.manaActual <= 10) {
+            this.manaActual = manaActual;
+        }else
+        {
+            this.manaActual = 10;
+        }
+    }
+
+    public int getManaActual() {
+        return manaActual;
     }
 }

@@ -1,8 +1,9 @@
 package model;
 
+import Excepciones.MazoVacioExcepcion;
+
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Stack;
+
 
 public class Mazo {
     private ArrayList<Carta> mazoCartas;
@@ -22,15 +23,24 @@ public class Mazo {
        validos++;
     }
 
-    public Carta sacarCartaRandom(){
-        int numero = (int)(Math.random()*validos+0);
-        Carta sacada = mazoCartas.get(numero);
-        mazoCartas.remove(numero);
-        validos--;
+    public Carta sacarCartaRandom() throws MazoVacioExcepcion {
+        Carta sacada=null;
+
+        if(mazoCartas.size()!=0){
+            int numero = (int)(Math.random()*validos+0);
+            sacada = mazoCartas.get(numero);
+            mazoCartas.remove(numero);
+            validos--;
+        }else {
+            throw new MazoVacioExcepcion("SE TERMINO TU MAZO! HAS PERDIDO!!");
+        }
+
         return sacada;
     }
 
-
+    public int getValidos() {
+        return validos;
+    }
 
     //teste
     public String mostrarMazo(){

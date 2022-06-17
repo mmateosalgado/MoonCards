@@ -40,17 +40,17 @@ public class Main {
         //menu();
 
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0);
+        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta.setImagen(icono1);
 
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0);
+        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta2.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta2.setImagen(icono2);
 
         ImageIcon icono3 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0);
+        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta3.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta3.setImagen(icono3);
 

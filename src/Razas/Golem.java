@@ -12,8 +12,8 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     //Constructor--------------------------------------
 
-    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , int cantTurnosCongela) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
+    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , int cantTurnosCongela, boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.sumarVida         = sumarVida;
         this.cantTurnosCongela = cantTurnosCongela;
     }
@@ -50,7 +50,21 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     }
 
     @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
+        if(isRara())
+        {
+            sumarVida(jugadorEjecutor,0);
+            congelar(jugadorRival,id);
+        }
+        else{
+            sumarVida(jugadorEjecutor,id);
+        }
+
+    }
+
+    @Override
     public String getTipoCarta() {
-        return getClass().getName();
+        return getClass().getSimpleName();
     }
 }

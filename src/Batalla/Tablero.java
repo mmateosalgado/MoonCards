@@ -60,6 +60,19 @@ public class Tablero {
                 }
             }
     }
+
+    public boolean isVacio ()
+    {
+        boolean resultado = true;
+
+        for (int i = 0; i < 3 && resultado != false; i++) {
+            if(posiciones[i] != null)
+            {
+                resultado = false;
+            }
+        }
+        return resultado;
+    }
     
     //Getters y Setters-----------------------------------------------------------
 

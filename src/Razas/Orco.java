@@ -11,8 +11,8 @@ public class Orco extends Personaje implements I_AumentarAtaque {
 
     //Constructor--------------------------------------
 
-    public Orco (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida );
+    public Orco (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional, boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.danioAdicional = danioAdicional;
     }
 
@@ -32,4 +32,10 @@ public class Orco extends Personaje implements I_AumentarAtaque {
         return getClass().getName();
     }
 
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+
+            aumentarAtaque(jugadorEjecutor,0);
+
+    }
 }

@@ -39,6 +39,11 @@ public class Curacion extends Hechizo implements I_SumarVida {
         }
     }
     public String getTipoCarta() {
-        return getClass().getName();
+        return getClass().getSimpleName();
+    }
+
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+           sumarVida(jugadorEjecutor,id);
     }
 }
