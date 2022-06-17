@@ -1,14 +1,10 @@
 package com.company.app;
 
 import InterfacesGraficas.*;
-import InterfacesGraficas.pruebas.CartaGrafico;
 import Razas.Humano;
-import Razas.Necrofago;
 import Razas.Orco;
 import model.Carta;
-import model.ColeccionCartas;
-import model.ColeccionHeroe;
-import model.Heroe;
+import model.Coleccion;
 
 import javax.swing.*;
 
@@ -49,6 +45,7 @@ public class Main {
 
  */
 
+        /*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
@@ -58,10 +55,10 @@ public class Main {
         carta1.setImagen(icono1);
         carta2.setImagen(icono2);
 
-        ColeccionCartas lista=new ColeccionCartas();
+        Coleccion lista=new Coleccion();
 
-        lista.agregarCarta(carta1);
-        lista.agregarCarta(carta2);
+        lista.agregar(carta1);
+        lista.agregar(carta2);*/
 
         //System.out.println(lista.devolverArregloCartas().toString());
 

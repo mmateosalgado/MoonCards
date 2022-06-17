@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.*;
 
-public class Heroe {
+public class Heroe extends DatoPrincipal{
     private String nombre;
     private int cantVida;
     static int cantidad;
@@ -19,6 +19,7 @@ public class Heroe {
     public Heroe() {
     }
 
+    @Override
     public String getNombre() {
         return nombre;
     }

@@ -4,7 +4,7 @@ import InterfacesCartas.I_ActivarEfecto;
 
 import javax.swing.*;
 
-public abstract class Carta implements I_ActivarEfecto {
+public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
 
     private static int totalCartas=0;
     private int id;
@@ -38,6 +38,7 @@ public abstract class Carta implements I_ActivarEfecto {
         return id;
     }
 
+    @Override
     public String getNombre() {
         return nombre;
     }
