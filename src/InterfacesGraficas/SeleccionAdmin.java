@@ -3,7 +3,8 @@ package InterfacesGraficas;
 import Razas.Humano;
 import Razas.Orco;
 import model.Carta;
-import model.ColeccionCartas;
+import model.Coleccion;
+import model.Heroe;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,7 +80,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             PantallaInicio inicio=new PantallaInicio();
         }else if(e.getSource()==a1) {//VER CARTAS
             //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
-           // setVisible(false);
+            setVisible(false);
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
             ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
@@ -89,19 +90,45 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             carta1.setImagen(icono1);
             carta2.setImagen(icono2);
 
-            ColeccionCartas lista=new ColeccionCartas();
+            Coleccion <Carta>lista=new Coleccion();
 
-            lista.agregarCarta(carta1);
-            lista.agregarCarta(carta2);
+            lista.agregar(carta1);
+            lista.agregar(carta2);
 
-            VerCartas test=new VerCartas(lista);
+            VerColeccion test=new VerColeccion(lista,false);
 
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
-            //LANZA AGREGAR CARTAS
+            setVisible(false);
+            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+            Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
+
+            carta1.setImagen(icono1);
+            carta2.setImagen(icono2);
+
+            Coleccion <Carta>lista=new Coleccion();
+
+            lista.agregar(carta1);
+            lista.agregar(carta2);
+
+            VerColeccion test=new VerColeccion(lista,true);
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
             //LANZA AGREGAR CARTAS
         }else if(e.getSource()==b1) {//VER HEROES
-            //LANZA VER HEROES
+            setVisible(false);
+            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+            Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
+            Heroe heroeTest2 = new Heroe("Kratos",50,icono2,"Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
+
+            Coleccion <Heroe> coleccion = new Coleccion();
+            coleccion.agregar(heroeTest);
+            coleccion.agregar(heroeTest2);
+
+            VerColeccion test=new VerColeccion(coleccion,false);
         }else if(e.getSource()==b2) {//MODIFICAR CARTAS
             //LANZA MODIFICAR CARTAS
         }else if(e.getSource()==b3) {//AGREGAR HEROES
