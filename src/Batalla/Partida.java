@@ -7,6 +7,7 @@ import model.*;
 import tiposHechizos.Danio;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Partida {
 
@@ -18,7 +19,8 @@ public class Partida {
 
     // El constructor correspondiente
 
-    public Partida(Jugador jugador1, Jugador jugador2, TableroGrafico tableroGrafico) throws PasaNullExcepcion {//TODO donde se aplique poner try - catch
+    public Partida(Jugador jugador1, Jugador jugador2, TableroGrafico tableroGrafico) throws PasaNullExcepcion {
+        //TODO donde se aplique poner try - catch
             this.turno = 0;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
@@ -124,6 +126,7 @@ return 1;
     }
 
 
+
     //CASO 1
     public boolean eliminarDefensor (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
     {
@@ -157,10 +160,6 @@ return 1;
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }
-
-
-
-
 
 
 

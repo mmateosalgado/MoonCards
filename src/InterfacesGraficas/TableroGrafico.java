@@ -30,6 +30,7 @@ public class TableroGrafico extends JFrame {
     private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
     private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida;
+    private JButton[] jButtonMana;
 
     private Partida partida;
 
@@ -78,9 +79,21 @@ public class TableroGrafico extends JFrame {
 
     public void constructorSouth() {
         jPanelSouth = new JPanel();
-        jPanelSouth.setLayout(new BoxLayout(jPanelSouth, BoxLayout.Y_AXIS));
-        jTextObservaciones = new JLabel("Elije una carta de tu tablero con la que desees atacar ");
+        jPanelSouth.setLayout(new BoxLayout(jPanelSouth, BoxLayout.X_AXIS));
+        jTextObservaciones = new JLabel("Mana disponible: ");
+        jTextObservaciones.setFont(fontBelweTextNormal);
         jPanelSouth.add(jTextObservaciones);
+
+        partida.getJugadorTurno().setManaActual(3);
+        jButtonMana = new JButton[partida.getJugadorTurno().getManaActual()];
+
+        for(int i = 0; i<jButtonMana.length;i++){
+            jButtonMana[i] = new JButton(""+(i+1));
+            jButtonMana[i].setPreferredSize(new Dimension(20,10));
+            jButtonMana[i].setBackground(Color.cyan);
+            jButtonMana[i].setFont(fontBelweTextNormal);
+            jPanelSouth.add(jButtonMana[i]);
+        }
     }
 
     public void constructorWest() {
@@ -143,7 +156,6 @@ public class TableroGrafico extends JFrame {
 
 
         jButtonHeroe = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
-
         jPanelCenterEnemigo = new JPanel();
         jPanelCenterEnemigo.setLayout(new BoxLayout(jPanelCenterEnemigo, BoxLayout.X_AXIS));
 
@@ -209,7 +221,7 @@ public class TableroGrafico extends JFrame {
                     jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
                     jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
                     jTextDescripcion.setText("<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>");
-                    SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero());
+                   // SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero());
 
                     //for(int i = 0; i<jButtonPersonajesEnemigos.length;i++){
                     // if(jButtonPersonajesEnemigos[i].getCarta().)
