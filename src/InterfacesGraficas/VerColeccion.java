@@ -99,8 +99,7 @@ public class VerColeccion extends JFrame implements ListSelectionListener, Actio
             SeleccionAdmin vuelta=new SeleccionAdmin();
         }else if(e.getSource()==modificarBoton){
             setVisible(false);
-            System.out.println(jsListT.getSelectedValue().toString());
-            //LANZAR MODIFICAR
+            SeleccionMoficarCarta ida=new SeleccionMoficarCarta((Carta) jsListT.getSelectedValue());
         }
     }
 }
