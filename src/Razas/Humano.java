@@ -46,6 +46,9 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
             caster.getTablero().getPosHeroe().setCantVida(caster.getTablero().getPosHeroe().getCantVida() + sumarVida);
         }
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {

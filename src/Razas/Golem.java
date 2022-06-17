@@ -62,4 +62,9 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
         }
 
     }
+
+    @Override
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
 }

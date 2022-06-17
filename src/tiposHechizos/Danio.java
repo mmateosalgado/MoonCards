@@ -37,6 +37,9 @@ public class Danio extends Hechizo implements I_HacerDanio {
             }
         }
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {

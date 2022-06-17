@@ -28,6 +28,9 @@ public class Orco extends Personaje implements I_AumentarAtaque {
             }
 
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {

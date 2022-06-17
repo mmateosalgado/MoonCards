@@ -1,6 +1,7 @@
 package Batalla;
 
 import Excepciones.*;
+import InterfacesGraficas.TableroGrafico;
 import Razas.*;
 import model.*;
 import tiposHechizos.Danio;
@@ -10,20 +11,21 @@ import javax.swing.*;
 public class Partida {
 
     private int turno;
-
     private Jugador jugador1;
     private Jugador jugador2;
+    private TableroGrafico tableroGrafico;
 
 
     // El constructor correspondiente
 
-    public Partida(Jugador jugador1, Jugador jugador2) throws PasaNullExcepcion {//TODO donde se aplique poner try - catch
+    public Partida(Jugador jugador1, Jugador jugador2, TableroGrafico tableroGrafico) throws PasaNullExcepcion {//TODO donde se aplique poner try - catch
             this.turno = 0;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
             }else{
             this.jugador1 = jugador1;
             this.jugador2 = jugador2;
+            this.tableroGrafico = tableroGrafico;
             }
     }
 
@@ -65,7 +67,7 @@ return 1;
             }
 
             jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].setEstado();
-            resultado = controlarMuertes(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
+            resultado = controlarMuertes(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo); //Si devuelve false quiere decir que la partida termina luego de este ataque
 
             }
 
@@ -93,30 +95,23 @@ return 1;
     //Metodos de muerte--------------
 
     public boolean controlarMuertes(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)///Retorna true si el heroe sigue vivo, sino retorna false y finaliza la partida
-    {
-        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0)
+    { //TODO verificar reduccion de validos al morir
+        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0 && jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] != null)
         {//Si el que ataco murio en el ataque lo quitamos y primero verificamos si es un necrofago para activar su efecto:
-            if(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1] instanceof Necrofago) // si es necrofago
-            {
-                jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].activarEfecto (jugadorAtacante,jugadorDefensor,idObjetivo);///Hace el efecto a la carta defensora
-            }
-            try {
-                jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
-            }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
-                JOptionPane.showMessageDialog(null,e.getMessage());
-            }
+            eliminarAtacante(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
         }
 
         if(idObjetivo != 0) { // Si el objetivo es un esbirro
             if (jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1].getCantidadDeVida() < 0) { //si se murio
-                try {
-                    jugadorDefensor.getTablero().eliminarPersonaje(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1]);
-                }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
-                    JOptionPane.showMessageDialog(null,e.getMessage());
-                }
-                if(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1] instanceof Necrofago) // si es necrofago
+
+                boolean necrofagoActivaEfecto = eliminarDefensor(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
+
+                if(necrofagoActivaEfecto)
                 {
-                    jugadorDefensor.getTablero ().getPosiciones ()[idObjetivo-1].activarEfecto (jugadorDefensor,jugadorAtacante,idAtacante); ///Se pasa al revés, hace el efecto a la carta atacante
+                    if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0)
+                    {//Si el que ataco murio en la devolucion del efecto del necrofago, lo quitamos y primero verificamos si es un necrofago para activar su efecto:
+                        eliminarAtacante(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
+                    }
                 }
             }
         }else {
@@ -127,6 +122,47 @@ return 1;
         }
         return true;
     }
+
+
+    //CASO 1
+    public boolean eliminarDefensor (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
+    {
+        boolean necrofagoActivaEfecto = false;
+        if(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1] instanceof Necrofago) // si es necrofago
+        {
+            jugadorDefensor.getTablero ().getPosiciones ()[idObjetivo-1].activarEfecto (jugadorDefensor,jugadorAtacante,idAtacante); ///Se pasa al revés, hace el efecto a la carta atacante
+            if( jugadorDefensor.getTablero ().getPosiciones ()[idObjetivo-1].isRara()) // si somos el necrofago raro devolvemos true para saber si tenemos que verificar si se muere el hdp que nos ataco cuando le devolvamos el que nos dio con nuestro efecto.
+            {
+                necrofagoActivaEfecto = true;
+            }
+        }
+
+        try {
+            jugadorDefensor.getTablero().eliminarPersonaje(jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1]);
+        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        return necrofagoActivaEfecto;
+    }
+    //CASO 2
+    public void eliminarAtacante (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
+    {
+        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1] instanceof Necrofago) // si es necrofago
+        {
+            jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].activarEfecto (jugadorAtacante,jugadorDefensor,idObjetivo);///Hace el efecto a la carta defensora
+        }
+        try {
+            jugadorAtacante.getTablero().eliminarPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante - 1]);
+        }catch (PasaNullExcepcion | DatoNoEcontradoExcepcion e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }
+
+
+
+
+
+
 
 
     public boolean usarCarta(int idCarta, Jugador jugadorEjecutor, Jugador jugadorRival) throws DatoNoEcontradoExcepcion, ManaInsuficienteExcepcion, PasaNullExcepcion, TableroLlenoExcepcion {
@@ -147,10 +183,7 @@ return 1;
             {
 
                 invocarHechizo ((Hechizo) cartaUsada, jugadorEjecutor, jugadorRival);
-                if(cartaUsada instanceof Danio)
-                {
-                    controlarMuertes (jugadorEjecutor,jugadorRival,idCarta,0);//TODO verificar que funcione bien
-                }
+
             }
             else if(cartaUsada instanceof Personaje)
             {
@@ -205,15 +238,42 @@ return control;
         if(!hechizo.isRara ()) // si no es rara, osea que no tiene efecto en area
         {
             //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
-            int id = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
-            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,id);
+            int idObjetivo = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
+            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,idObjetivo);
+            if(hechizo instanceof Danio)
+            {
+                //controlarMuertes (jugadorEjecutor,jugadorRival,0,idObjetivo);//TODO verificar si muere al que matamos con bola de fuego
+            }
         }
         else{
             //TODO hacer la ventana emergente que no pide una id, solo explica el hechizo
             hechizo.activarEfecto(jugadorEjecutor,jugadorRival,0);
+            if(hechizo instanceof Danio)
+            {
+               //TODO controlar todos los que murieron en el tablero
+            }
         }
         //se asigna una id al personaje segun el lugar en el tablero
     }
 
 
+    public Jugador getJugadorTurno() {
+        Jugador jugador = null;
+        if(turno==1){
+            jugador = jugador2;
+        }else{
+            jugador = jugador1;
+        }
+        return jugador;
+    }
+
+    public Jugador getJugadorEnemigo(){
+        Jugador jugador = null;
+        if (turno==1){
+            jugador = jugador1;
+        }else{
+            jugador = jugador2;
+        }
+        return jugador;
+    }
 }

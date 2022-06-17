@@ -1,10 +1,17 @@
 package com.company.app;
 
-import InterfacesGraficas.*;
+import Batalla.Partida;
+import Batalla.Tablero;
+import Excepciones.PasaNullExcepcion;
+import Excepciones.TableroLlenoExcepcion;
+import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import Razas.Humano;
-import Razas.Orco;
 import model.Carta;
-import model.Coleccion;
+import model.Heroe;
+import model.Jugador;
+import model.Personaje;
 
 import javax.swing.*;
 
@@ -17,8 +24,6 @@ public class Main {
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         //menu();
 /*
-
-
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
         Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
@@ -28,71 +33,89 @@ public class Main {
         coleccion.agregarHeroe(heroeTest);
         coleccion.agregarHeroe(heroeTest2);
 
-        SeleccionHeroe seleccionHeroe = new SeleccionHeroe(null,coleccion);
-
-
+        SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
+*/
 
         //test();
         //menu();
 
-        /*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta = new Humano("Gonzalo",false,4,7,5,0,0,false);
+        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+        carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta.setImagen(icono1);
 
-        CartaGrafico cartaGrafico = new CartaGrafico(carta);
-
-
- */
-
-        /*
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-
-        Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
-        Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
-
-        carta1.setImagen(icono1);
+        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+        carta2.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta2.setImagen(icono2);
 
-        Coleccion lista=new Coleccion();
+        ImageIcon icono3 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+        carta3.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
+        carta3.setImagen(icono3);
 
-        lista.agregar(carta1);
-        lista.agregar(carta2);*/
+        Carta arrayCarta[] = new Carta[3];
+        arrayCarta[0] = carta;
+        arrayCarta[1] = carta;
+        arrayCarta[2] = carta;
 
-        //System.out.println(lista.devolverArregloCartas().toString());
+        ImageIcon icono4 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        ImageIcon icono5 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+        Heroe heroeTest = new Heroe("Ekcros", 100, icono4, "Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
+        Heroe heroeTest2 = new Heroe("Kratos", 50, icono5, "Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
 
-        //VerCartas test=new VerCartas(lista);
+        Jugador jugador1 = new Jugador(heroeTest,null,null,"Gonzalo",1,100);
+        Jugador jugador2 = new Jugador(heroeTest2,null,null,"Salga",2,50);
 
-        menu();
+        Tablero batalla = new Tablero(heroeTest);
 
 
-    }
-
-    public static void UISistema(){
-        UIManager.LookAndFeelInfo info[] = UIManager.getInstalledLookAndFeels();
-        for(UIManager.LookAndFeelInfo look: info)
-           // System.out.println(look.getClassName());
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (ClassNotFoundException e) {
+            batalla.agregarPersonaje((Personaje) carta);
+            batalla.agregarPersonaje((Personaje) carta2);
+            batalla.agregarPersonaje((Personaje) carta3);
+            batalla.setValidos(3);
+
+
+            jugador1.setTablero(batalla);
+            jugador2.setTablero(batalla);
+
+            TableroGrafico tablerito = new TableroGrafico(jugador1,jugador2);
+
+
+
+        } catch (PasaNullExcepcion e) {
             e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (TableroLlenoExcepcion e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void menu(){
-        PantallaInicio inicio=new PantallaInicio();
+        public static void UISistema () {
+            UIManager.LookAndFeelInfo info[] = UIManager.getInstalledLookAndFeels();
+            for (UIManager.LookAndFeelInfo look : info)
+                // System.out.println(look.getClassName());
+                try {
+                    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
+
+        }
+
+        public static void menu() {
+            PantallaInicio inicio = new PantallaInicio();
+        }
+
+        public static void test() {
+            JOptionPane.showMessageDialog(null, "error : dato no encontrado");
+        }
     }
 
-    public static void test(){
-        JOptionPane.showMessageDialog(null,"error : dato no encontrado");
-    }
-
-}

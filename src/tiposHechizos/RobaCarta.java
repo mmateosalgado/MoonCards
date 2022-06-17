@@ -37,6 +37,10 @@ private int cantCartasRobadas;
         }
     }
 
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
+
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 

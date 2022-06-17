@@ -47,16 +47,17 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     @Override
     public void infligeDanio (Jugador objetivo , int id) {
-        if(isRara ())// id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
-        {
+        // id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
             objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setCantidadDeVida (objetivo.getTablero ().getPersonajeEnPosicion ( id-1).getCantidadDeVida () - cantDanioInflige);
-        }
+    }
+    public String getTipoCarta() {
+        return getClass().getName();
     }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
-        if(isRara()) {
+        if(isRara() && jugadorRival.getTablero().getPosiciones()[id-1] != null) { //aca controlamos que si el necrofago va a devolver el ataque al atacante, este siga vivo (no vamos a atacar a alguien que ya sacamos del tablero)
             infligeDanio(jugadorRival, id);
         }
             robarCarta(jugadorEjecutor);

@@ -34,6 +34,10 @@ public class Hielo extends Hechizo implements I_Congelar {
             }
         }
 
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
+
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
