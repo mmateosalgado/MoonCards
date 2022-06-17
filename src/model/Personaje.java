@@ -15,7 +15,7 @@ public abstract class Personaje extends Carta  {
         super(nombre, isRara, costoEnergia, danoInflige);
         this.cantidadDeVida = cantidadDeVida;
         this.estado = false;
-        this.turnosCongelado = 0;
+        this.turnosCongelado = 1; ///Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
         this.rangoGlobal = rangoGlobal;
     }
 
@@ -40,11 +40,11 @@ public abstract class Personaje extends Carta  {
         return rangoGlobal;
     }
 
+
+    //Setters---------------------
     public void setRangoGlobal(boolean rangoGlobal) {
         this.rangoGlobal = rangoGlobal;
     }
-
-    //Setters---------------------
 
     public void setTurnosCongelado (int turnosCongelado) {
         this.turnosCongelado = turnosCongelado;

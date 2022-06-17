@@ -102,7 +102,9 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
         this.danoInflige += danoInflige;
     }
 
-
+    public void setId (int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

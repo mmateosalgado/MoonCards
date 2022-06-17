@@ -35,9 +35,13 @@ public class Tablero {
 
                 if (i == posiciones.length) {
                     //lanzar exepcion de que el tablero ya esta lleno y no se puede agregar mas
+                    ///Sino incrementa los validos y asigna id del tablero al Personaje
                 } else {
+                    nuevo.setId (i+1);
+                    validos++;
                     posiciones[i] = nuevo;
                 }
+
             }
     }
     
@@ -55,6 +59,8 @@ public class Tablero {
 
                 if(flag!=0){
                     posiciones[flag]=null;
+
+                    validos--;
                 }else {
                     throw new DatoNoEcontradoExcepcion("ERROR: PERSONAJE A ELIMINAR NO ESTA EN EL TABLERO");
                 }
