@@ -2,7 +2,7 @@ package model;
 
 import InterfacesCartas.I_ActivarEfecto;
 
-public abstract class Personaje extends Carta  {
+public abstract class Personaje extends Carta {
 
     private int cantidadDeVida;
     private boolean estado; // para saber si ya ataco en este turno o no, true = ya ataco / false = no ataco aun
@@ -15,7 +15,7 @@ public abstract class Personaje extends Carta  {
         super(nombre, isRara, costoEnergia, danoInflige);
         this.cantidadDeVida = cantidadDeVida;
         this.estado = false;
-        this.turnosCongelado = 0;
+        this.turnosCongelado = 1; //Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
         this.rangoGlobal = rangoGlobal;
     }
 
@@ -46,20 +46,17 @@ public abstract class Personaje extends Carta  {
 
     //Setters---------------------
 
-    public void setTurnosCongelado (int turnosCongelado) {
-        if(turnosCongelado < 0)
-        {
+    public void setTurnosCongelado(int turnosCongelado) {
+        if (turnosCongelado < 0) {
             turnosCongelado = 0;
-        }
-        else
-        {
+        } else {
             this.turnosCongelado = turnosCongelado;
         }
 
     }
 
     public void setEstado() {
-        if(estado) {
+        if (estado) {
             this.estado = false;
         } else {
             this.estado = true;
@@ -71,3 +68,5 @@ public abstract class Personaje extends Carta  {
         this.cantidadDeVida = cantidadDeVida;
     }
 }
+
+
