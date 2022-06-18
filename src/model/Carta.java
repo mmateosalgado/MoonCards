@@ -47,6 +47,10 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String getNombre() {
         return nombre;
