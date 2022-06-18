@@ -93,7 +93,9 @@ public class Main {
             jugador1.setTablero(batalla);
             jugador2.setTablero(batalla);
 
-            TableroGrafico tablerito = new TableroGrafico(jugador1,jugador2);
+            //Partida partida = new Partida(jugador1,jugador2,)
+
+           // TableroGrafico tablerito = new TableroGrafico(jugador1,jugador2);
 
 
 

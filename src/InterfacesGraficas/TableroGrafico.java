@@ -30,7 +30,7 @@ public class TableroGrafico extends JFrame {
     private CartaBoton[] jButtonPersonajes;
     private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
-    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida;
+    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida, jButtonInvocar, jButtonActivarEfecto;
     private JButton[] jButtonMana;
     private JLabel jLabelCartasMano;
     private CartaBoton[] jCartasMano;
@@ -38,7 +38,7 @@ public class TableroGrafico extends JFrame {
     private Partida partida;
 
 
-    public TableroGrafico(Jugador jugador1, Jugador jugador2) {
+    public TableroGrafico(Partida partida) {
         setBounds(0, 0, 1500, 900);
         setTitle("");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
@@ -46,28 +46,24 @@ public class TableroGrafico extends JFrame {
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         setLayout(new BorderLayout());
 
-        try {
-            partida = new Partida(jugador1, jugador2, this);
+        this.partida = partida;
 
-            constructorNorth(partida.getJugadorTurno());
-            constructorCenter(partida);
-            constructorSouth();
-            constructorWest();
-            constructorEast();
+        constructorNorth(partida.getJugadorTurno());
+        constructorCenter(partida);
+        constructorSouth();
+        constructorWest();
+        constructorEast();
 
-            ///jPanelEast.setPreferredSize(new Dimension(120,));
+        ///jPanelEast.setPreferredSize(new Dimension(120,));
 
-            add(jPanelNorth, BorderLayout.NORTH);
-            add(jPanelCenter, BorderLayout.CENTER);
-            add(jPanelSouth, BorderLayout.SOUTH);
-            add(jPanelWest, BorderLayout.WEST);
-            add(jPanelEast, BorderLayout.EAST);
+        add(jPanelNorth, BorderLayout.NORTH);
+        add(jPanelCenter, BorderLayout.CENTER);
+        add(jPanelSouth, BorderLayout.SOUTH);
+        add(jPanelWest, BorderLayout.WEST);
+        add(jPanelEast, BorderLayout.EAST);
 
 
-            setVisible(true);
-        } catch (PasaNullExcepcion e) {
-            e.printStackTrace();
-        }
+        setVisible(true);
 
 
     }
@@ -101,6 +97,7 @@ public class TableroGrafico extends JFrame {
         jButtonAtacar = new JButton("ATACAR");
         jButtonAtacar.setEnabled(false);
         // jButtonAtacar.addActionListener(this);
+
 
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
         jButtonCambiarTurno.setEnabled(false);
