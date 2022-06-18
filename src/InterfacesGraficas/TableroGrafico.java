@@ -10,6 +10,7 @@ import model.Jugador;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -29,49 +30,47 @@ public class TableroGrafico extends JFrame {
     private CartaBoton[] jButtonPersonajes;
     private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
-    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida;
+    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida, jButtonInvocar, jButtonActivarEfecto;
     private JButton[] jButtonMana;
+    private JLabel jLabelCartasMano;
+    private CartaBoton[] jCartasMano;
 
     private Partida partida;
 
 
-    public TableroGrafico(Jugador jugador1, Jugador jugador2) {
-        setBounds(0, 0, 1366, 900);
+    public TableroGrafico(Partida partida) {
+        setBounds(0, 0, 1500, 900);
         setTitle("");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         setLayout(new BorderLayout());
 
-        try {
-            partida = new Partida(jugador1, jugador2, this);
+        this.partida = partida;
 
-            constructorNorth(partida.getJugadorTurno());
-            constructorCenter(partida);
-            constructorSouth();
-            constructorWest();
-            constructorEast();
+        constructorNorth(partida.getJugadorTurno());
+        constructorCenter(partida);
+        constructorSouth();
+        constructorWest();
+        constructorEast();
 
-            ///jPanelEast.setPreferredSize(new Dimension(120,));
+        ///jPanelEast.setPreferredSize(new Dimension(120,));
 
-            add(jPanelNorth, BorderLayout.NORTH);
-            add(jPanelCenter, BorderLayout.CENTER);
-            add(jPanelSouth, BorderLayout.SOUTH);
-            add(jPanelWest, BorderLayout.WEST);
-            add(jPanelEast, BorderLayout.EAST);
+        add(jPanelNorth, BorderLayout.NORTH);
+        add(jPanelCenter, BorderLayout.CENTER);
+        add(jPanelSouth, BorderLayout.SOUTH);
+        add(jPanelWest, BorderLayout.WEST);
+        add(jPanelEast, BorderLayout.EAST);
 
 
-            setVisible(true);
-        } catch (PasaNullExcepcion e) {
-            e.printStackTrace();
-        }
+        setVisible(true);
 
 
     }
 
     public void constructorNorth(Jugador jugadorTurno) {
         jPanelNorth = new JPanel();
-        jTextNorth = new JLabel("Turno Jugador: " + jugadorTurno.getNombre().toUpperCase());
+        jTextNorth = new JLabel("Turno Jugador: " +   jugadorTurno.getNombre().toUpperCase());
         jTextNorth.setFont(fontBelweH2);
         jPanelNorth.add(jTextNorth);
     }
@@ -84,7 +83,6 @@ public class TableroGrafico extends JFrame {
         jTextObservaciones.setFont(fontBelweTextNormal);
         jPanelSouth.add(jTextObservaciones);
 
-        partida.getJugadorTurno().setManaActual(3);
         jButtonMana = new JButton[partida.getJugadorTurno().getManaActual()];
 
         for(int i = 0; i<jButtonMana.length;i++){
@@ -94,20 +92,53 @@ public class TableroGrafico extends JFrame {
             jButtonMana[i].setFont(fontBelweTextNormal);
             jPanelSouth.add(jButtonMana[i]);
         }
+
+        jButtonAtacar = new JButton("ATACAR");
+        jButtonAtacar.setEnabled(false);
+        // jButtonAtacar.addActionListener(this);
+
+        jButtonInvocar = new JButton("INVOCAR EFECTO");
+        jButtonInvocar.setEnabled(false);
+
+        jButtonActivarEfecto = new JButton("ACTIVAR EFECTO");
+        jButtonActivarEfecto.setEnabled(false);
+
+
+        jButtonCambiarTurno = new JButton("PASAR DE RONDA");
+        jButtonCambiarTurno.setEnabled(true);
+        jButtonCambiarTurno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida()>0 && partida.getJugadorTurno().getHeroeSeleccionado().getCantVida()>0){
+                    JOptionPane.showMessageDialog(null,"Se va a pasar al siguiente jugador");
+                   new TableroGrafico(partida.pasarTurno());
+                }else{
+                    System.out.println("Partida Finalizada");
+                }
+
+            }
+        });
+        // jButtonCambiarTurno.addActionListener(this);
+
+        jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
+        //jButtonAbandonarPartida.addActionListener(this);
+
+        jPanelSouth.add(jButtonAtacar);
+        jPanelSouth.add(jButtonInvocar);
+        jPanelSouth.add(jButtonActivarEfecto);
+        jPanelSouth.add(jButtonCambiarTurno);
+        jPanelSouth.add(jButtonAbandonarPartida);
+
     }
+
 
     public void constructorWest() {
         jPanelWest = new JPanel();
-        jPanelWest.setPreferredSize(new Dimension(250, 600));
-
+        jPanelWest.setPreferredSize(new Dimension(220, 600));
         jPanelWestSouth = new JPanel();
         jlabelImagenSelec = new JLabel();
         jPanelWestSouth.add(jlabelImagenSelec);
         jPanelWest.setLayout(new BoxLayout(jPanelWest, BoxLayout.Y_AXIS));
-
-
-        //jPanelWestCenter = new JPanel();
-        //jPanelWestCenter.setLayout(new BoxLayout(jPanelWestCenter,BoxLayout.Y_AXIS));
 
         jTextEspecifaciones = new JLabel();
         jTextNombre = new JLabel();
@@ -128,36 +159,53 @@ public class TableroGrafico extends JFrame {
 
     public void constructorEast() {
         jPanelEast = new JPanel();
+        jPanelEast.setPreferredSize(new Dimension(200, 600));
         jPanelEast.setLayout(new BoxLayout(jPanelEast, BoxLayout.Y_AXIS));
+        jPanelEast.setBorder(new LineBorder(Color.black));
 
-        jButtonAtacar = new JButton("ATACAR");
-        jButtonAtacar.setEnabled(false);
-        // jButtonAtacar.addActionListener(this);
+        jLabelCartasMano = new JLabel("CARTAS EN MANO");
+        jLabelCartasMano.setFont(fontBelweH3);
+        jPanelEast.add(jLabelCartasMano);
+        System.out.println(partida.getJugadorTurno().getManoActual().getValidos());
+        jCartasMano = new CartaBoton[partida.getJugadorTurno().getManoActual().getValidos()];
 
-        jButtonCambiarTurno = new JButton("PASAR DE RONDA");
-        jButtonCambiarTurno.setEnabled(false);
-        // jButtonCambiarTurno.addActionListener(this);
+        for (int i = 0; i<jCartasMano.length;i++){
+            jCartasMano[i] = new CartaBoton(partida.getJugadorTurno().getManoActual().getMano().get(i));
+            jCartasMano[i].setText(partida.getJugadorTurno().getManoActual().getMano().get(i).getNombre() + " ("+ partida.getJugadorTurno().getManoActual().getMano().get(i).getCostoEnergia()+ ")");
+            jCartasMano[i].setFont(fontBelweTextNormal);
 
-        jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
-        //jButtonAbandonarPartida.addActionListener(this);
+            jCartasMano[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    CartaBoton carta = (CartaBoton) e.getSource();
+                    carta.setEstado(true);
+                    jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
+                    jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
+                    jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
+                    jTextDescripcion.setText("<html><p style=\"width:100px\">" + carta.getCarta().getDescrip() + "" + "</p></html>");
+                }
+            });
+            jPanelEast.add(jCartasMano[i]);
 
-        jPanelEast.add(jButtonAtacar);
-        jPanelEast.add(jButtonCambiarTurno);
-        jPanelEast.add(jButtonAbandonarPartida);
+        }
 
     }
 
+
     public void constructorCenter(Partida partida) {
         jPanelCenter = new JPanel();
+        jPanelCenter.setBorder(new LineBorder(Color.black));
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
         jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.Y_AXIS));
+        //jPanelCenter.setPreferredSize(new Dimension(250, 600));
         jPanelCenter.add(jLabelTableroEnemigo);
 
 
         jButtonHeroe = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
         jPanelCenterEnemigo = new JPanel();
         jPanelCenterEnemigo.setLayout(new BoxLayout(jPanelCenterEnemigo, BoxLayout.X_AXIS));
+        //jPanelCenterEnemigo.setPreferredSize(jPanelCenter.getSize());
 
         jButtonHeroeEnemigo = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
         jButtonHeroeEnemigo.setIcon(partida.getJugadorEnemigo().getTablero().getPosHeroe().getImage());
@@ -191,8 +239,10 @@ public class TableroGrafico extends JFrame {
         jPanelCenter.add(jLabelTableroTurno);
 
         jPanelCenterTurno = new JPanel();
+        jPanelCenterTurno.setLayout(new BoxLayout(jPanelCenterTurno, BoxLayout.X_AXIS));
 
         jButtonHeroe = new HeroeBoton(partida.getJugadorTurno().getTablero().getPosHeroe());
+        jButtonHeroe.setSize(partida.getJugadorTurno().getTablero().getPosHeroe().getImage().getIconWidth(),partida.getJugadorTurno().getTablero().getPosHeroe().getImage().getIconHeight());
         jButtonHeroe.setIcon(partida.getJugadorTurno().getTablero().getPosHeroe().getImage());
         jButtonHeroe.addActionListener(new ActionListener() {
             @Override

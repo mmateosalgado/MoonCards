@@ -16,6 +16,11 @@ public class Mano implements I_RobarCarta {
         this.validos = 0;
     }
 
+    public void agregarMano(Carta carta){
+        mano.add(carta);
+        validos++;
+    }
+
     @Override
     public void robarCarta (Jugador jugador) throws ManoLlenaExcepcion {
         if(validos<10)

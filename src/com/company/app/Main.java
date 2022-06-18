@@ -9,10 +9,7 @@ import InterfacesGraficas.SeleccionMoficarCarta;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import Razas.Humano;
-import model.Carta;
-import model.Heroe;
-import model.Jugador;
-import model.Personaje;
+import model.*;
 
 import javax.swing.*;
 
@@ -38,11 +35,10 @@ public class Main {
 */
 
         //test();
-        menu();
+       // menu();
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
-        /*
 
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
@@ -72,6 +68,19 @@ public class Main {
         Jugador jugador1 = new Jugador(heroeTest,null,null,"Gonzalo",1,100);
         Jugador jugador2 = new Jugador(heroeTest2,null,null,"Salga",2,50);
 
+        Mazo mazo1 = new Mazo();
+        mazo1.agregarCarta(carta);
+        mazo1.agregarCarta(carta2);
+        mazo1.agregarCarta(carta3);
+
+        Mano mano = new Mano();
+        mano.agregarMano(carta);
+        mano.agregarMano(carta2);
+        mano.agregarMano(carta3);
+
+        jugador1.setManoActual(mano);
+        jugador2.setManoActual(mano);
+
         Tablero batalla = new Tablero(heroeTest);
 
 
@@ -81,11 +90,14 @@ public class Main {
             batalla.agregarPersonaje((Personaje) carta3);
             batalla.setValidos(3);
 
-
             jugador1.setTablero(batalla);
             jugador2.setTablero(batalla);
 
-            TableroGrafico tablerito = new TableroGrafico(jugador1,jugador2);
+            Partida partida = new Partida(jugador1,jugador2);
+
+            TableroGrafico tablero = new TableroGrafico(partida);
+
+
 
 
 
@@ -96,8 +108,6 @@ public class Main {
         }
 
 
-
-         */
 
     }
 
