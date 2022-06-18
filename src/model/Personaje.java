@@ -47,7 +47,15 @@ public abstract class Personaje extends Carta  {
     //Setters---------------------
 
     public void setTurnosCongelado (int turnosCongelado) {
-        this.turnosCongelado = turnosCongelado;
+        if(turnosCongelado < 0)
+        {
+            turnosCongelado = 0;
+        }
+        else
+        {
+            this.turnosCongelado = turnosCongelado;
+        }
+
     }
 
     public void setEstado() {

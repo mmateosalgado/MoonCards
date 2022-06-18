@@ -83,7 +83,6 @@ public class TableroGrafico extends JFrame {
         jTextObservaciones.setFont(fontBelweTextNormal);
         jPanelSouth.add(jTextObservaciones);
 
-        partida.getJugadorTurno().setManaActual(3);
         jButtonMana = new JButton[partida.getJugadorTurno().getManaActual()];
 
         for(int i = 0; i<jButtonMana.length;i++){
@@ -98,18 +97,40 @@ public class TableroGrafico extends JFrame {
         jButtonAtacar.setEnabled(false);
         // jButtonAtacar.addActionListener(this);
 
+        jButtonInvocar = new JButton("INVOCAR EFECTO");
+        jButtonInvocar.setEnabled(false);
+
+        jButtonActivarEfecto = new JButton("ACTIVAR EFECTO");
+        jButtonActivarEfecto.setEnabled(false);
+
 
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
-        jButtonCambiarTurno.setEnabled(false);
+        jButtonCambiarTurno.setEnabled(true);
+        jButtonCambiarTurno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida()>0 && partida.getJugadorTurno().getHeroeSeleccionado().getCantVida()>0){
+                    JOptionPane.showMessageDialog(null,"Se va a pasar al siguiente jugador");
+                   new TableroGrafico(partida.pasarTurno());
+                }else{
+                    System.out.println("Partida Finalizada");
+                }
+
+            }
+        });
         // jButtonCambiarTurno.addActionListener(this);
 
         jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
         //jButtonAbandonarPartida.addActionListener(this);
 
         jPanelSouth.add(jButtonAtacar);
+        jPanelSouth.add(jButtonInvocar);
+        jPanelSouth.add(jButtonActivarEfecto);
         jPanelSouth.add(jButtonCambiarTurno);
         jPanelSouth.add(jButtonAbandonarPartida);
+
     }
+
 
     public void constructorWest() {
         jPanelWest = new JPanel();

@@ -14,21 +14,49 @@ public class Partida {
     private int turno;
     private Jugador jugador1;
     private Jugador jugador2;
-    private TableroGrafico tableroGrafico;
+    //private TableroGrafico tableroGrafico;
 
 
     // El constructor correspondiente
 
-    public Partida(Jugador jugador1, Jugador jugador2, TableroGrafico tableroGrafico) throws PasaNullExcepcion {
+    public Partida(Jugador jugador1, Jugador jugador2) throws PasaNullExcepcion {
         //TODO donde se aplique poner try - catch
-            this.turno = 0;
+            this.turno = 1;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
             }else{
             this.jugador1 = jugador1;
             this.jugador2 = jugador2;
-            this.tableroGrafico = tableroGrafico;
+            jugador1.setManaActual(turno);
+            jugador2.setManaActual(turno);
+
             }
+    }
+
+    public Partida pasarTurno()
+    {
+        turno++;
+        int cantMana = turno/2;
+        if(turno%2 != 0)
+        {
+            cantMana = (turno+1)/2;
+        }
+        this.getJugadorTurno().setManaActual(cantMana);
+
+        actualizarValoresPersonajes(this.getJugadorTurno());
+
+        return this;
+    }
+
+    public void actualizarValoresPersonajes(Jugador jugador)
+    {
+        for (int i = 0; i < 3; i++) {
+            if(jugador.getTablero().getPersonajeEnPosicion(i) != null)
+            {
+                jugador.getTablero().getPersonajeEnPosicion(i).setEstado();
+                jugador.getTablero().getPersonajeEnPosicion(i).setTurnosCongelado(jugador.getTablero().getPersonajeEnPosicion(i).getTurnosCongelado() - 1);
+            }
+        }
     }
 
 
@@ -43,7 +71,7 @@ public class Partida {
     public int inicioPartida(Jugador jugador1, Jugador jugador2)
     {
         ///Verificar
-return 1;
+        return 1;
     }
 
 
@@ -189,13 +217,10 @@ return 1;
             }
             else if(cartaUsada instanceof Personaje)
             {
-                if(cartaUsada instanceof Necrofago)
-                {
-                    ///No activa su efecto porque éste se activa al morir
-                }
-                else
+                if(!(cartaUsada instanceof Necrofago))
                 {
                     invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+                    //No activa su efecto porque éste se activa al morir
                 }
             }
 
@@ -204,7 +229,7 @@ return 1;
             jugadorEjecutor.setManaActual(jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia());///Restamos la energia usada
         }
 
-return control;
+        return control;
     }
 
     public Carta buscarCartaEnMano (int idCarta, Jugador jugadorEjecutor)
@@ -261,20 +286,20 @@ return control;
 
     public Jugador getJugadorTurno() {
         Jugador jugador = null;
-        if(turno==1){
-            jugador = jugador2;
-        }else{
+        if(turno%2==0){
             jugador = jugador1;
+        }else{
+            jugador = jugador2;
         }
         return jugador;
     }
 
     public Jugador getJugadorEnemigo(){
         Jugador jugador = null;
-        if (turno==1){
-            jugador = jugador1;
-        }else{
+        if (turno%2==1){
             jugador = jugador2;
+        }else{
+            jugador = jugador1;
         }
         return jugador;
     }
