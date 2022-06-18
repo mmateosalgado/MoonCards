@@ -24,7 +24,7 @@ public class VerColeccion extends JFrame implements ListSelectionListener, Actio
     public VerColeccion(Coleccion lista, boolean modificar){
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
-        setTitle("MoonCards Admin - Ver Cartas");
+        setTitle("MoonCards Admin");
 
         setBounds(0,0,1280,720);
         setLocationRelativeTo(null); // coloca al centro de la pantalla

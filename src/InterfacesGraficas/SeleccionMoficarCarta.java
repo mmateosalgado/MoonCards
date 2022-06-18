@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SeleccionMoficarCarta extends JFrame implements ActionListener {
-    private  JCheckBox nombreCheck,vidaCheck,danioCheck,energiaCheck,altaCheck;
+    private  JCheckBox nombreCheck,vidaCheck,danioCheck,energiaCheck;
+   // private JCheckBox altaCheck;
     private JButton aceptar,salir;
     private Carta aModificar;
 
@@ -33,6 +34,7 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         nombreCheck=new JCheckBox("Nombre");
         nombreCheck.setBounds(30,40,90,20);
         nombreCheck.setFont(h1);
+        nombreCheck.addActionListener(this);
         add(nombreCheck);
 
         if(aModificar instanceof Personaje){
@@ -45,22 +47,27 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         danioCheck=new JCheckBox("Daño");
         danioCheck.setBounds(30,100,90,20);
         danioCheck.setFont(h1);
+        danioCheck.addActionListener(this);
         add(danioCheck);
 
         energiaCheck=new JCheckBox("Energia");
         energiaCheck.setBounds(30,130,90,20);
         energiaCheck.setFont(h1);
+        energiaCheck.addActionListener(this);
         add(energiaCheck);
 
+        /*
         altaCheck=new JCheckBox("Alta");
         altaCheck.setBounds(30,160,90,20);
         altaCheck.setFont(h1);
-        add(altaCheck);
+        altaCheck.addActionListener(this);
+        add(altaCheck);*/
 
         aceptar=new JButton("Aceptar");
         aceptar.setBounds(230,30,150,50);
         aceptar.setFont(h1);
         aceptar.addActionListener(this);
+        aceptar.setEnabled(false);
         add(aceptar);
 
         salir=new JButton("Salir");
@@ -72,12 +79,20 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+       // if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||altaCheck.isSelected() ||danioCheck.isSelected()){
+        if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
+            aceptar.setEnabled(true);
+        }else{
+            aceptar.setEnabled(false);
+        }
+
         if(e.getSource().equals(salir)){
             setVisible(false);
             SeleccionAdmin volver=new SeleccionAdmin();
         }else if(e.getSource().equals(aceptar)){
             setVisible(false);
-            ModificarCarta ida=new ModificarCarta(nombreCheck.isSelected(),vidaCheck.isSelected(),energiaCheck.isSelected(),altaCheck.isSelected(),danioCheck.isSelected(),aModificar);
+            ModificarCarta ida=new ModificarCarta(nombreCheck.isSelected(),vidaCheck.isSelected(),energiaCheck.isSelected(),danioCheck.isSelected(),aModificar);
         }
     }
 }
