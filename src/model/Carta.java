@@ -76,6 +76,7 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
         return imagen;
     }
 
+
     //SETTERS
 
     public void setNombre(String nombre) {

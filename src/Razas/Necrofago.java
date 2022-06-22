@@ -18,7 +18,13 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int infligeDanio, int cantCartasRobadas, boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal);
-        this.cantDanioInflige = infligeDanio;
+        this.cantDanioInflige = 5;
+        this.cantCartasRobadas = cantCartasRobadas;
+    }
+
+    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int cantCartasRobadas, boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal);
+        this.cantDanioInflige = 5;
         this.cantCartasRobadas = cantCartasRobadas;
     }
 

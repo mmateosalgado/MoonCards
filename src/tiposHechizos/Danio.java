@@ -11,7 +11,7 @@ public class Danio extends Hechizo implements I_HacerDanio {
     //Constructor--------------------------------------
 
     public Danio (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantDañoInflige) {
-        super ( nombre , isRara , costoEnergia , danoInflige );
+        super ( nombre , isRara , costoEnergia , 0 );
         cantDañoInflige = cantDañoInflige;
     }
 
@@ -37,6 +37,11 @@ public class Danio extends Hechizo implements I_HacerDanio {
             }
         }
     }
+
+    public int getCantDañoInflige () {
+        return cantDañoInflige;
+    }
+
     public String getTipoCarta() {
         return getClass().getName();
     }

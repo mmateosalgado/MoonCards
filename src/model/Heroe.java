@@ -16,6 +16,11 @@ public class Heroe extends DatoPrincipal{
         this.image = image;
     }
 
+    public Heroe(String nombre, int cantVida, String descr) {
+        this.nombre = nombre;
+        this.cantVida = cantVida;
+        this.descripcion = descr;
+    }
     public Heroe() {
     }
 

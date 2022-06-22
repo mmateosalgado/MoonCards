@@ -8,19 +8,46 @@ import InterfacesGraficas.PantallaInicio;
 import InterfacesGraficas.SeleccionMoficarCarta;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
+import Json.JsonControladora;
+import Razas.Golem;
 import Razas.Humano;
+import Razas.Necrofago;
+import Razas.Orco;
 import model.*;
+import tiposHechizos.Curacion;
+import tiposHechizos.Danio;
+import tiposHechizos.Hielo;
+import tiposHechizos.RobaCarta;
 
 import javax.swing.*;
-
+import java.util.ArrayList;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-        UISistema(); // Esto define el diseño UI DEL SISTEMA
-        //menu();
+        ArrayList<Carta>listaCartas= new ArrayList<Carta> ();
+        listaCartas.add (new Orco ("Orco",true,10,10,10,10,true));
+        listaCartas.add (new Humano ("Humano",true,10,10,10,10,100,true));
+        listaCartas.add (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
+        listaCartas.add (new Golem ("Golem",true,10,10,10,10,10,true));
+        listaCartas.add (new Curacion ("HCuracion",true,10,10,10));
+        listaCartas.add (new Danio ("HDanio",true,10,10,10));
+        listaCartas.add (new Hielo ("HHielo",true,10,10,10));
+        listaCartas.add (new RobaCarta ("HRobarCarta",true,10,10,10));
+
+        JsonControladora jsonControladora = new JsonControladora ();
+        jsonControladora.grabarEnJsonCartas (listaCartas);
+        ArrayList<Heroe> listaHeroes = new ArrayList<Heroe> ();
+        listaHeroes.add (new Heroe ("Pepe",10,"GranSapoPepe"));
+        listaHeroes.add (new Heroe ("Juan",20,"GranJuansettoo"));
+        listaHeroes.add (new Heroe ("Cristian",15,"GranCristi"));
+        listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
+        jsonControladora.grabarEnJsonHeroes (listaHeroes);
+
+        /*UISistema(); // Esto define el diseño UI DEL SISTEMA
+        menu();
 /*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
@@ -39,7 +66,7 @@ public class Main {
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
-
+/*
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
@@ -108,7 +135,7 @@ public class Main {
         }
 
 
-
+*/
     }
 
         public static void UISistema () {

@@ -15,7 +15,21 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , int cantTurnosCongela, boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.sumarVida         = sumarVida;
-        this.cantTurnosCongela = cantTurnosCongela;
+        this.cantTurnosCongela = 4;
+    }
+
+    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
+        this.sumarVida         = sumarVida;
+        this.cantTurnosCongela = 4;
+    }
+
+    public int getSumarVida () {
+        return sumarVida;
+    }
+
+    public int getCantTurnosCongela () {
+        return cantTurnosCongela;
     }
 
     @Override

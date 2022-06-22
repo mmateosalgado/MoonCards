@@ -259,6 +259,7 @@ public class Partida {
         }
         //se asigna una id al personaje segun el lugar en el tablero
     }
+
     public boolean controlarMuerteHechizoDanio(Jugador jugadorAtacante, Jugador jugadorDefensor, int idObjetivo)
     {
         ///El daño ya se hizo
