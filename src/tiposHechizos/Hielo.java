@@ -12,7 +12,7 @@ public class Hielo extends Hechizo implements I_Congelar {
     //Constructor--------------------------------------
 
     public Hielo (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantTurnosCongela) {
-        super ( nombre , isRara , costoEnergia , danoInflige );
+        super ( nombre , isRara , costoEnergia , 0 );
         cantTurnosCongela = cantTurnosCongela;
     }
 
@@ -33,6 +33,10 @@ public class Hielo extends Hechizo implements I_Congelar {
                     objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
             }
         }
+
+    public int getCantTurnosCongela () {
+        return cantTurnosCongela;
+    }
 
     public String getTipoCarta() {
         return getClass().getSimpleName();

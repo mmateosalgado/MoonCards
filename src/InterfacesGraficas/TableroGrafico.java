@@ -14,7 +14,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TableroGrafico extends JFrame {
+public class TableroGrafico extends JFrame{
 
     Font fontBelweH1 = new Font("Belwe", Font.BOLD, 30);
     Font fontBelweH2 = new Font("Belwe", Font.BOLD, 25);
@@ -44,7 +44,9 @@ public class TableroGrafico extends JFrame {
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
+
         setLayout(new BorderLayout());
+
 
         this.partida = partida;
 
@@ -57,10 +59,12 @@ public class TableroGrafico extends JFrame {
         ///jPanelEast.setPreferredSize(new Dimension(120,));
 
         add(jPanelNorth, BorderLayout.NORTH);
+
         add(jPanelCenter, BorderLayout.CENTER);
         add(jPanelSouth, BorderLayout.SOUTH);
         add(jPanelWest, BorderLayout.WEST);
         add(jPanelEast, BorderLayout.EAST);
+
 
 
         setVisible(true);
@@ -95,7 +99,21 @@ public class TableroGrafico extends JFrame {
 
         jButtonAtacar = new JButton("ATACAR");
         jButtonAtacar.setEnabled(false);
-        // jButtonAtacar.addActionListener(this);
+         jButtonAtacar.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 Carta carta = null;
+                 for(int i = 0 ; i<jButtonPersonajes.length;i++){
+                     if(jButtonPersonajes[i].isEstado()){
+                         carta = jButtonPersonajes[i].getCarta();
+                     }
+                 }
+                 if(carta!=null){
+                    SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero(),carta);
+                 }
+
+             }
+         });
 
         jButtonInvocar = new JButton("INVOCAR EFECTO");
         jButtonInvocar.setEnabled(false);
@@ -195,6 +213,7 @@ public class TableroGrafico extends JFrame {
     public void constructorCenter(Partida partida) {
         jPanelCenter = new JPanel();
         jPanelCenter.setBorder(new LineBorder(Color.black));
+
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
         jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.Y_AXIS));
@@ -221,6 +240,7 @@ public class TableroGrafico extends JFrame {
         jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo().getTablero().getValidos()];
         for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
             jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
+            jButtonPersonajesEnemigos[i].getCarta().actualizarValoresCarta();
             jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
             jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
                 @Override
@@ -244,6 +264,7 @@ public class TableroGrafico extends JFrame {
         jButtonHeroe = new HeroeBoton(partida.getJugadorTurno().getTablero().getPosHeroe());
         jButtonHeroe.setSize(partida.getJugadorTurno().getTablero().getPosHeroe().getImage().getIconWidth(),partida.getJugadorTurno().getTablero().getPosHeroe().getImage().getIconHeight());
         jButtonHeroe.setIcon(partida.getJugadorTurno().getTablero().getPosHeroe().getImage());
+
         jButtonHeroe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -261,6 +282,7 @@ public class TableroGrafico extends JFrame {
         for (int i = 0; i < partida.getJugadorTurno().getTablero().getValidos(); i++) {
             jButtonPersonajes[i] = new CartaBoton(partida.getJugadorTurno().getTablero().getPersonajeEnPosicion(i));
             jButtonPersonajes[i].setIcon(jButtonPersonajes[i].getCarta().getImagen());
+            jButtonPersonajes[i].getCarta().actualizarValoresCarta();
             jButtonPersonajes[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -271,8 +293,6 @@ public class TableroGrafico extends JFrame {
                     jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
                     jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
                     jTextDescripcion.setText("<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>");
-                   // SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero());
-
                     //for(int i = 0; i<jButtonPersonajesEnemigos.length;i++){
                     // if(jButtonPersonajesEnemigos[i].getCarta().)
                     //}

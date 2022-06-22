@@ -8,50 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class CartaGrafico extends JFrame {
-
-    BufferedImage combinedImage;
-    BufferedImage imagenCarta;
-    BufferedImage imagenValorAtaque;
-    BufferedImage imagenValorCostoEnergia;
-    BufferedImage imagenValorVida;
-
-    public CartaGrafico(Carta carta) {
-        // Extrae la imagen de la carta.
-        Image imagePrincipal;
-        imagePrincipal = carta.getImagen().getImage();
-        imagenCarta = toBufferedImage(imagePrincipal);
-
-        Image imageCostoEnergia;
-        int nroCosto = carta.getCostoEnergia(); // por ejemplo que el costo es 5.
-        ImageIcon valorCostoEnergia = devolverValorEnArreglo(nroCosto);
-        imageCostoEnergia = valorCostoEnergia.getImage();
-        imagenValorCostoEnergia = toBufferedImage(imageCostoEnergia);
-
-        Image imageCostoAtaque;
-        int nroAtaque = carta.getDanoInflige();
-        ImageIcon valorAtaque = devolverValorEnArreglo(nroAtaque);
-        imageCostoAtaque = valorAtaque.getImage();
-        imagenValorAtaque = toBufferedImage(imageCostoAtaque);
-
-        combinedImage = new BufferedImage(800,800,BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g = combinedImage.createGraphics();
-
-        g.drawImage(imagenCarta, 0, 0, null);
-        g.drawImage(imagenValorCostoEnergia, 10, 455, null);
-        g.drawImage(imagenValorAtaque, 300, 455, null);
-        g.dispose();
-
-        JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(combinedImage));
-        this.add(label);
-
-        this.setVisible(true);
-
-    }
-
-
+public class CartaGrafico {
     public static BufferedImage toBufferedImage(Image img)
     {
         if (img instanceof BufferedImage)

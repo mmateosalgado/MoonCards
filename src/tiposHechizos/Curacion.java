@@ -11,8 +11,12 @@ public class Curacion extends Hechizo implements I_SumarVida {
     //Constructor--------------------------------------
 
     public Curacion(String nombre, boolean isRara, int costoEnergia, int danoInflige, int sumaVida) {
-        super(nombre, isRara, costoEnergia, danoInflige);
+        super(nombre, isRara, costoEnergia, 0);
         this.sumarVida = sumaVida;
+    }
+
+    public int getSumarVida () {
+        return sumarVida;
     }
 
     @Override

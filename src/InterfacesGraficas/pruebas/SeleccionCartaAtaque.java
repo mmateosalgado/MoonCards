@@ -16,7 +16,9 @@ public class SeleccionCartaAtaque extends JFrame implements ActionListener {
     private JLabel jLabelMessageSur,jLabelMessageNorth;
     private Dimension personajeDimension = new Dimension(230,330); // importante aqui
 
-    public SeleccionCartaAtaque(Tablero tablero) {
+    private Carta carta;
+
+    public SeleccionCartaAtaque(Tablero tablero, Carta carta) {
         setBounds(0, 0, 1280, 720);
         setTitle("Seleccionar Carta");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
@@ -24,6 +26,8 @@ public class SeleccionCartaAtaque extends JFrame implements ActionListener {
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         setLayout(new BorderLayout());
 
+        this.carta = carta;
+        System.out.println(carta.toString());
         constructorNorth();
         constructorCenter(tablero.getPosiciones());
         constructorWest(tablero.getPosHeroe());

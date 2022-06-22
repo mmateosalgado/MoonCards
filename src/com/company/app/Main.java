@@ -8,32 +8,62 @@ import InterfacesGraficas.PantallaInicio;
 import InterfacesGraficas.SeleccionMoficarCarta;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
+import Json.JsonControladora;
+import Razas.Golem;
 import Razas.Humano;
+import Razas.Necrofago;
+import Razas.Orco;
 import model.*;
+import tiposHechizos.Curacion;
+import tiposHechizos.Danio;
+import tiposHechizos.Hielo;
+import tiposHechizos.RobaCarta;
 
 import javax.swing.*;
-
+import java.util.ArrayList;
 
 
 public class Main {
 
     public static void main(String[] args) {
+/*
+        ArrayList<Carta>listaCartas= new ArrayList<Carta> ();
+        listaCartas.add (new Orco ("Orco",true,10,10,10,10,true));
+        listaCartas.add (new Humano ("Humano",true,10,10,10,10,100,true));
+        listaCartas.add (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
+        listaCartas.add (new Golem ("Golem",true,10,10,10,10,10,true));
+        listaCartas.add (new Curacion ("HCuracion",true,10,10,10));
+        listaCartas.add (new Danio ("HDanio",true,10,10,10));
+        listaCartas.add (new Hielo ("HHielo",true,10,10,10));
+        listaCartas.add (new RobaCarta ("HRobarCarta",true,10,10,10));
+
+        JsonControladora jsonControladora = new JsonControladora ();
+        jsonControladora.grabarEnJsonCartas (listaCartas);
+        ArrayList<Heroe> listaHeroes = new ArrayList<Heroe> ();
+        listaHeroes.add (new Heroe ("Pepe",10,"GranSapoPepe"));
+        listaHeroes.add (new Heroe ("Juan",20,"GranJuansettoo"));
+        listaHeroes.add (new Heroe ("Cristian",15,"GranCristi"));
+        listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
+        jsonControladora.grabarEnJsonHeroes (listaHeroes);
+
+        */
+
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
-        //menu();
-/*
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-        Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
-        Heroe heroeTest2 = new Heroe("Kratos",50,icono2,"Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
+        menu();
 
+       // ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        //ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+
+        /*
         ColeccionHeroe coleccion = new ColeccionHeroe();
         coleccion.agregarHeroe(heroeTest);
         coleccion.agregarHeroe(heroeTest2);
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
-*/
 
+*/
         //test();
        // menu();
 

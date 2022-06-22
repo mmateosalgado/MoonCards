@@ -15,7 +15,21 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
     public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , int sumaVida, boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.danioAdicional = danioAdicional;
-        this.sumarVida = sumaVida;
+        this.sumarVida = 2;
+    }
+
+    public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , boolean esGlobal) {
+        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
+        this.danioAdicional = danioAdicional;
+        this.sumarVida = 2;
+    }
+
+    public int getDanioAdicional () {
+        return danioAdicional;
+    }
+
+    public int getSumarVida () {
+        return sumarVida;
     }
 
     @Override
