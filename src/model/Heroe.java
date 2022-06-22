@@ -1,6 +1,10 @@
 package model;
 
+import InterfacesGraficas.pruebas.CartaGrafico;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Heroe extends DatoPrincipal{
     private String nombre;
@@ -14,6 +18,7 @@ public class Heroe extends DatoPrincipal{
         this.cantVida = cantVida;
         this.descripcion = descr;
         this.image = image;
+        actualizarValoresCarta();
     }
 
     public Heroe() {
@@ -48,12 +53,38 @@ public class Heroe extends DatoPrincipal{
         return image;
     }
 
+    public void setImage(ImageIcon image) {
+        this.image = image;
+        actualizarValoresCarta();
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void actualizarValoresCarta(){
+        Image imagePrincipal;
+        imagePrincipal = image.getImage();
+        BufferedImage imagenCarta = CartaGrafico.toBufferedImage(imagePrincipal);
+
+        Image imageCostoEnergia;
+        ImageIcon valorCostoEnergia = CartaGrafico.devolverValorEnArreglo(cantVida);
+        imageCostoEnergia = valorCostoEnergia.getImage();
+        BufferedImage imagenValorCostoEnergia = CartaGrafico.toBufferedImage(imageCostoEnergia);
+
+
+        BufferedImage combinedImage = new BufferedImage(image.getIconWidth(),image.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = combinedImage.createGraphics();
+
+        g.drawImage(imagenCarta,0,0,null);
+        g.drawImage(imageCostoEnergia,-10,25,null);
+        g.dispose();
+
+        image = new ImageIcon(combinedImage);
     }
 
 
