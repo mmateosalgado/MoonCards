@@ -12,7 +12,7 @@ private int cantCartasRobadas;
     //Constructor--------------------------------------
 
     public RobaCarta (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantCartasRobadas) {
-        super ( nombre , isRara , costoEnergia , danoInflige );
+        super ( nombre , isRara , costoEnergia , 0 );
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
@@ -36,7 +36,6 @@ private int cantCartasRobadas;
             }
         }
     }
-
     public String getTipoCarta() {
         return getClass().getSimpleName();
     }

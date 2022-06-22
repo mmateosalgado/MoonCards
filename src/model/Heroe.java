@@ -21,6 +21,11 @@ public class Heroe extends DatoPrincipal{
         actualizarValoresCarta();
     }
 
+    public Heroe(String nombre, int cantVida, String descr) {
+        this.nombre = nombre;
+        this.cantVida = cantVida;
+        this.descripcion = descr;
+    }
     public Heroe() {
     }
 
