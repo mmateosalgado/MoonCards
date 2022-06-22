@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         ArrayList<Carta>listaCartas= new ArrayList<Carta> ();
         listaCartas.add (new Orco ("Orco",true,10,10,10,10,true));
         listaCartas.add (new Humano ("Humano",true,10,10,10,10,100,true));
@@ -46,27 +46,30 @@ public class Main {
         listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
         jsonControladora.grabarEnJsonHeroes (listaHeroes);
 
-        /*UISistema(); // Esto define el diseño UI DEL SISTEMA
-        menu();
-/*
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-        Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
-        Heroe heroeTest2 = new Heroe("Kratos",50,icono2,"Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
+        */
 
+
+        UISistema(); // Esto define el diseño UI DEL SISTEMA
+        menu();
+
+       // ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        //ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+
+
+        /*
         ColeccionHeroe coleccion = new ColeccionHeroe();
         coleccion.agregarHeroe(heroeTest);
         coleccion.agregarHeroe(heroeTest2);
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
-*/
 
+*/
         //test();
        // menu();
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
-/*
+
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
@@ -135,7 +138,7 @@ public class Main {
         }
 
 
-*/
+
     }
 
         public static void UISistema () {
