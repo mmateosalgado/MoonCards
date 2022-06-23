@@ -5,6 +5,7 @@ import Batalla.Tablero;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.SeleccionCartaACrear;
 import InterfacesGraficas.SeleccionMoficarCarta;
 import InterfacesGraficas.TableroGrafico;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
@@ -49,7 +50,7 @@ public class Main {
         */
 
 
-        UISistema(); // Esto define el diseño UI DEL SISTEMA
+      //  UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
 
        // ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
@@ -69,6 +70,7 @@ public class Main {
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
+        /*
 
         ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
         Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
@@ -138,7 +140,7 @@ public class Main {
         }
 
 
-
+         */
     }
 
         public static void UISistema () {

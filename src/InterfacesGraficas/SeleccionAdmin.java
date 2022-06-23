@@ -81,6 +81,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
         }else if(e.getSource()==a1) {//VER CARTAS
             //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
             setVisible(false);
+
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
             ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
@@ -95,7 +96,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             lista.agregar(carta1);
             lista.agregar(carta2);
 
-            VerColeccion test=new VerColeccion(lista,false);
+            VerColeccion ida=new VerColeccion(lista,false);
 
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             setVisible(false);
@@ -113,9 +114,10 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             lista.agregar(carta1);
             lista.agregar(carta2);
 
-            VerColeccion test=new VerColeccion(lista,true);
+            VerColeccion ida=new VerColeccion(lista,true);
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
-            //LANZA AGREGAR CARTAS
+            setVisible(false);
+            SeleccionCartaACrear ida=new SeleccionCartaACrear();
         }else if(e.getSource()==b1) {//VER HEROES
             setVisible(false);
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
