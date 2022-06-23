@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class JsonControladora {
 
-    public void grabarEnJsonCartas(ArrayList<Carta> listaCartas)
+    public static void grabarEnJsonCartas(ArrayList<Carta> listaCartas)
     {
         JSONArray jsonMoonCards = new JSONArray ();
         try {
@@ -91,7 +91,7 @@ public class JsonControladora {
         JsonUtiles.grabarCartas (jsonMoonCards);
     }
 
-    public void grabarEnJsonHeroes(ArrayList<Heroe> listaHeroes)
+    public static void grabarEnJsonHeroes(ArrayList<Heroe> listaHeroes)
     {
         JSONArray jsonMoonHeroes = new JSONArray ();
         try{

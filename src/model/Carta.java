@@ -6,8 +6,9 @@ import InterfacesGraficas.pruebas.CartaGrafico;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
+public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Serializable {
 
     private static int totalCartas=0;
     private int id;
@@ -148,15 +149,18 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto {
 
     @Override
     public String toString() {
-        return "Carta{" +
+        return "\nCarta{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", isRara=" + isRara +
                 ", alta=" + alta +
                 ", costoEnergia=" + costoEnergia +
                 ", danoInflige=" + danoInflige +
-                '}';
+                ", imagen=" + imagen +
+                ", descrip='" + descrip + '\'' +
+                "} " + super.toString();
     }
+
     public abstract String getTipoCarta();
 
     public ImageIcon getImage() {

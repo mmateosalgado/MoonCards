@@ -84,7 +84,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
             ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
-            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+            Carta carta1 = new Humano("Nilluz",false,5,3,3,false,icono1,"jajant",3);
             Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
 
             carta1.setImagen(icono1);
@@ -102,7 +102,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
             ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
-            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,false);
             Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
 
             carta1.setImagen(icono1);
