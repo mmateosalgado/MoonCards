@@ -16,8 +16,8 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     //Constructor--------------------------------------
 
-    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int infligeDanio, int cantCartasRobadas, boolean esGlobal) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal);
+    public Necrofago(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int cantCartasRobadas) {
+        super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
         this.cantDanioInflige = 5;
         this.cantCartasRobadas = cantCartasRobadas;
     }
@@ -67,5 +67,13 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
             infligeDanio(jugadorRival, id);
         }
             robarCarta(jugadorEjecutor);
+    }
+
+    @Override
+    public String toString() {
+        return "Necrofago{" +
+                "cantDanioInflige=" + cantDanioInflige +
+                ", cantCartasRobadas=" + cantCartasRobadas +
+                "} " + super.toString();
     }
 }

@@ -12,9 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.concurrent.RecursiveTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -181,10 +178,12 @@ public class ModificarCarta extends JFrame implements ActionListener {
                 if(inputsCompletos()){
                     if(validarInputs()){
                         //TODO Llamo a validar nombre
-                        JOptionPane.showMessageDialog(null,"Se a guardado con exito!");
-                        setVisible(false);
-                        //TODO admin guarda
-                        SeleccionAdmin vuelta=new SeleccionAdmin();
+                        if(validarNombre("")) {
+                            JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
+                            setVisible(false);
+                            //TODO admin guarda
+                            SeleccionAdmin vuelta = new SeleccionAdmin();
+                        }
                     }
                 }
             }catch (JtextFieldVacioException | InputInvalidoExcepcion | NumeroInvalidoExcepcion ex) {

@@ -32,7 +32,7 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         setVisible(true);
 
         nombreCheck=new JCheckBox("Nombre");
-        nombreCheck.setBounds(30,40,90,20);
+        nombreCheck.setBounds(30,40,95,20);
         nombreCheck.setFont(h1);
         nombreCheck.addActionListener(this);
         add(nombreCheck);
@@ -82,8 +82,10 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
 
        // if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||altaCheck.isSelected() ||danioCheck.isSelected()){
         if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
+            setVisible(false);
             aceptar.setEnabled(true);
         }else{
+            setVisible(false);
             aceptar.setEnabled(false);
         }
 

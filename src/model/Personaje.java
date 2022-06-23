@@ -126,7 +126,15 @@ public abstract class Personaje extends Carta {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "cantidadDeVida=" + cantidadDeVida +
+                ", estado=" + estado +
+                ", turnosCongelado=" + turnosCongelado +
+                ", rangoGlobal=" + rangoGlobal +
+                "} " + super.toString();
+    }
 }
 
 

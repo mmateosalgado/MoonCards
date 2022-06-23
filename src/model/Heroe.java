@@ -5,8 +5,9 @@ import InterfacesGraficas.pruebas.CartaGrafico;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Heroe extends DatoPrincipal{
+public class Heroe extends DatoPrincipal implements Serializable {
     private String nombre;
     private int cantVida;
     static int cantidad;

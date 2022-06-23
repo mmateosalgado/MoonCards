@@ -5,6 +5,8 @@ import InterfacesCartas.I_SumarVida;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
 
     private int danioAdicional;
@@ -12,8 +14,8 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
 
     //Constructor--------------------------------------
 
-    public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , int sumaVida, boolean esGlobal) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
+    public Humano(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int danioAdicional) {
+        super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
         this.danioAdicional = danioAdicional;
         this.sumarVida = 2;
     }
@@ -76,5 +78,13 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
         {
             aumentarAtaque(jugadorEjecutor,id);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Humano{" +
+                "danioAdicional=" + danioAdicional +
+                ", sumarVida=" + sumarVida +
+                "} " + super.toString();
     }
 }
