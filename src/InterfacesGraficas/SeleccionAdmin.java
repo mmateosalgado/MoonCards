@@ -1,5 +1,6 @@
 package InterfacesGraficas;
 
+import Administrador.Administrador;
 import Razas.Humano;
 import Razas.Orco;
 import model.Carta;
@@ -81,21 +82,13 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
         }else if(e.getSource()==a1) {//VER CARTAS
             //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
             setVisible(false);
-            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
-            Carta carta1 = new Humano("Nilluz",false,5,3,3,false,icono1,"jajant",3);
-            Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
+            Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
+             Administrador admin = new Administrador();
 
-            carta1.setImagen(icono1);
-            carta2.setImagen(icono2);
+            coleccionCartas2 = admin.cargarColeccionDeCartas();
 
-            Coleccion <Carta>lista=new Coleccion();
-
-            lista.agregar(carta1);
-            lista.agregar(carta2);
-
-            VerColeccion test=new VerColeccion(lista,false);
+            VerColeccion test=new VerColeccion(coleccionCartas2,false);
 
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             setVisible(false);
