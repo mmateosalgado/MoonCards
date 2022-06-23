@@ -16,11 +16,11 @@ import java.awt.event.*;
 
 public class TableroGrafico extends JFrame{
 
-    Font fontBelweH1 = new Font("Belwe", Font.BOLD, 30);
-    Font fontBelweH2 = new Font("Belwe", Font.BOLD, 25);
-    Font fontBelweH3 = new Font("Belwe", Font.BOLD, 20);
-    Font fontBelweTextNormal = new Font("Belwe", Font.PLAIN, 15);
-    Font fontBelweTextNormalNegrita = new Font("Belwe", Font.BOLD, 15);
+    public static Font fontBelweH1 = new Font("Belwe", Font.BOLD, 30);
+    public static Font fontBelweH2 = new Font("Belwe", Font.BOLD, 25);
+    public static Font fontBelweH3 = new Font("Belwe", Font.BOLD, 20);
+    public static Font fontBelweTextNormal = new Font("Belwe", Font.PLAIN, 15);
+    public static Font fontBelweTextNormalNegrita = new Font("Belwe", Font.BOLD, 15);
 
     private JPanel jPanelSouth, jPanelNorth, jPanelCenter, jPanelWest, jPanelEast;
     private JPanel jPanelCenterTurno, jPanelCenterEnemigo, jPanelWestSouth, jPanelWestCenter;
@@ -30,7 +30,7 @@ public class TableroGrafico extends JFrame{
     private CartaBoton[] jButtonPersonajes;
     private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
-    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida, jButtonInvocar, jButtonActivarEfecto;
+    private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida, jButtonInvocar;
     private JButton[] jButtonMana;
     private JLabel jLabelCartasMano;
     private CartaBoton[] jCartasMano;
@@ -109,17 +109,14 @@ public class TableroGrafico extends JFrame{
                      }
                  }
                  if(carta!=null){
-                    SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida.getJugadorEnemigo().getTablero(),carta);
+                    SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida,carta);
                  }
 
              }
          });
 
-        jButtonInvocar = new JButton("INVOCAR EFECTO");
+        jButtonInvocar = new JButton("INVOCAR CARTA");
         jButtonInvocar.setEnabled(false);
-
-        jButtonActivarEfecto = new JButton("ACTIVAR EFECTO");
-        jButtonActivarEfecto.setEnabled(false);
 
 
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
@@ -129,7 +126,8 @@ public class TableroGrafico extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida()>0 && partida.getJugadorTurno().getHeroeSeleccionado().getCantVida()>0){
                     JOptionPane.showMessageDialog(null,"Se va a pasar al siguiente jugador");
-                   new TableroGrafico(partida.pasarTurno());
+                    setVisible(false);
+                    new TableroGrafico(partida.pasarTurno());
                 }else{
                     System.out.println("Partida Finalizada");
                 }
@@ -143,7 +141,6 @@ public class TableroGrafico extends JFrame{
 
         jPanelSouth.add(jButtonAtacar);
         jPanelSouth.add(jButtonInvocar);
-        jPanelSouth.add(jButtonActivarEfecto);
         jPanelSouth.add(jButtonCambiarTurno);
         jPanelSouth.add(jButtonAbandonarPartida);
 

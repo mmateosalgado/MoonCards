@@ -1,0 +1,81 @@
+package InterfacesGraficas.pruebas;
+
+import Batalla.Partida;
+import InterfacesGraficas.TableroGrafico;
+import model.Carta;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ConfirmacionAccion extends JFrame{
+
+    private JLabel jlabelMensajeAccion,imagenCartaEnemiga, imagenCartaTurno, jlabelFlecha;
+    private JButton buttonAceptar, buttonCancelar;
+    private Carta cartaEnemigo, cartaTurno;
+    private Partida partida;
+
+    public ConfirmacionAccion(Partida partida, Carta cartaTurno, Carta cartaEnemigo,String mensaje){
+        setBounds(0, 0, 800, 500);
+        setTitle("Seleccionar Carta para atacar");
+        setLocationRelativeTo(null); // coloca al centro de la pantalla
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
+        setLayout(null);
+
+        this.partida = partida;
+        this.cartaTurno = cartaTurno;
+        this.cartaEnemigo = cartaEnemigo;
+
+        jlabelMensajeAccion = new JLabel(mensaje);
+        jlabelMensajeAccion.setFont(TableroGrafico.fontBelweH2);
+        jlabelMensajeAccion.setBounds(250,0,700,30);
+
+        add(jlabelMensajeAccion);
+
+        imagenCartaTurno = new JLabel(cartaTurno.getImagen());
+        imagenCartaTurno.setBounds(50,45,225,345);
+        add(imagenCartaTurno);
+
+        imagenCartaEnemiga = new JLabel(cartaEnemigo.getImagen());
+        imagenCartaEnemiga.setBounds(450,45,225,345);
+        add(imagenCartaEnemiga);
+
+        ImageIcon imageIcon = new ImageIcon("src\\imagenes\\flecha.png");
+
+        jlabelFlecha = new JLabel(imageIcon);
+        jlabelFlecha.setBounds(300,200,150,75);
+        jlabelFlecha.setPreferredSize(new Dimension(150,75));
+        add(jlabelFlecha);
+
+        buttonAceptar = new JButton("Atacar");
+        buttonAceptar.setBounds(100,400,150,50);
+        buttonAceptar.setFont(TableroGrafico.fontBelweTextNormal);
+        buttonAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Ataque realizado con éxito");
+                setVisible(false);
+            }
+        });
+        add(buttonAceptar);
+
+        buttonCancelar = new JButton("Cancelar Ataque");
+        buttonCancelar.setBounds(500,400,150,50);
+        buttonCancelar.setFont(TableroGrafico.fontBelweTextNormal);
+        buttonCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
+        add(buttonCancelar);
+
+        setVisible(true);
+
+    }
+
+
+
+}
