@@ -80,7 +80,6 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       // if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||altaCheck.isSelected() ||danioCheck.isSelected()){
         if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
             setVisible(false);
             aceptar.setEnabled(true);

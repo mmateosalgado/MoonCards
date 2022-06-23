@@ -1,5 +1,6 @@
 package InterfacesGraficas;
 
+import Administrador.Administrador;
 import Excepciones.InputInvalidoExcepcion;
 import Excepciones.JtextFieldVacioException;
 import Excepciones.NumeroInvalidoExcepcion;
@@ -163,33 +164,30 @@ public class ModificarCarta extends JFrame implements ActionListener {
         }
     }
 
-    public boolean validarNombre(String nombre){
-        //TODO Validar nombre
-        return true;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(salir)){
             setVisible(false);
             SeleccionMoficarCarta vuelta=new SeleccionMoficarCarta(aModificar);
         }else if(e.getSource().equals(aceptar)){
+            Administrador admin=new Administrador();
             try{
                 if(inputsCompletos()){
                     if(validarInputs()){
-                        //TODO Llamo a validar nombre
-                        if(validarNombre("")) {
+                        if(admin.validarNombreCarta(nombreEspacio.getText())) {
                             JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                             setVisible(false);
                             //TODO admin guarda
                             SeleccionAdmin vuelta = new SeleccionAdmin();
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");
                         }
                     }
                 }
             }catch (JtextFieldVacioException | InputInvalidoExcepcion | NumeroInvalidoExcepcion ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
             }catch (PasaNullExcepcion ex){
-                JOptionPane.showMessageDialog(null,ex.getMessage());
+                ex.printStackTrace();
                 System.exit(0);
             }
         }

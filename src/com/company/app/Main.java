@@ -1,20 +1,15 @@
 package com.company.app;
 
 import Administrador.Administrador;
-import Batalla.Partida;
-import Batalla.Tablero;
-import Excepciones.PasaNullExcepcion;
-import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.PantallaInicio;
-import InterfacesGraficas.SeleccionMoficarCarta;
-import InterfacesGraficas.TableroGrafico;
-import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import Json.JsonControladora;
 import Razas.Golem;
 import Razas.Humano;
 import Razas.Necrofago;
 import Razas.Orco;
-import model.*;
+import model.Carta;
+import model.Coleccion;
+import model.Heroe;
 import tiposHechizos.Curacion;
 import tiposHechizos.Danio;
 import tiposHechizos.Hielo;
@@ -27,33 +22,34 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+
 /*
-        ArrayList<Carta>listaCartas= new ArrayList<Carta> ();
-        listaCartas.add (new Orco ("Orco",true,10,10,10,10,true));
-        listaCartas.add (new Humano ("Humano",true,10,10,10,10,100,true));
-        listaCartas.add (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
-        listaCartas.add (new Golem ("Golem",true,10,10,10,10,10,true));
-        listaCartas.add (new Curacion ("HCuracion",true,10,10,10));
-        listaCartas.add (new Danio ("HDanio",true,10,10,10));
-        listaCartas.add (new Hielo ("HHielo",true,10,10,10));
-        listaCartas.add (new RobaCarta ("HRobarCarta",true,10,10,10));
+        ArrayList<Carta> listaCartas= new ArrayList<Carta> ();
+        listaCartas.add (new Orco("Orco",true,10,10,10,10,true));
+        listaCartas.add (new Humano("Humano",true,10,10,10,10,100,true));
+        listaCartas.add (new Necrofago("Necrofago",true,10,10,10,10,10,true));
+        listaCartas.add (new Golem("Golem",true,10,10,10,10,10,true));
+        listaCartas.add (new Curacion("HCuracion",true,10,10,10));
+        listaCartas.add (new Danio("HDanio",true,10,10,10));
+        listaCartas.add (new Hielo("HHielo",true,10,10,10));
+        listaCartas.add (new RobaCarta("HRobarCarta",true,10,10,10));
 
         JsonControladora jsonControladora = new JsonControladora ();
         jsonControladora.grabarEnJsonCartas (listaCartas);
         ArrayList<Heroe> listaHeroes = new ArrayList<Heroe> ();
-        listaHeroes.add (new Heroe ("Pepe",10,"GranSapoPepe"));
+        listaHeroes.add (new Heroe("Pepe",10,"GranSapoPepe"));
         listaHeroes.add (new Heroe ("Juan",20,"GranJuansettoo"));
         listaHeroes.add (new Heroe ("Cristian",15,"GranCristi"));
         listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
         jsonControladora.grabarEnJsonHeroes (listaHeroes);
 
-        */
+
         Administrador admin= new Administrador();
 
         //ESCRIBIMOS EN LOS ARCHIVOS ALGUNAS CARTAS
-       Coleccion<Carta>coleccionCartas= new Coleccion<> ();
+       Coleccion<Carta> coleccionCartas= new Coleccion<> ();
        Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
-       /*
+
         coleccionCartas.agregar (new Orco ("Orco",true,10,10,10,10,true));
         coleccionCartas.agregar(new Humano ("Humano",true,10,10,10,10,100,true));
         coleccionCartas.agregar (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
@@ -61,7 +57,14 @@ public class Main {
         coleccionCartas.agregar(new Curacion ("HCuracion",true,10,10,10));
         coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
         coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
-        coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));*/
+        coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
+
+
+        Administrador admin= new Administrador();
+
+        Coleccion<Carta> coleccionCartas= new Coleccion<> ();
+        Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
+
         ImageIcon iconoH1 = new ImageIcon("src\\imagenes\\Cartas\\H1.png");
         ImageIcon iconoH2 = new ImageIcon("src\\imagenes\\Cartas\\H2.png");
         ImageIcon iconoH3 = new ImageIcon("src\\imagenes\\Cartas\\H3.png");
@@ -129,15 +132,10 @@ public class Main {
         coleccionCartas.agregar (new RobaCarta ("Exceso de Abundancia",true,5,iconoR2,"Descripcion",3));
 
         admin.cargarArchivoCartas(coleccionCartas);
+        admin.cargarArchivoHeroes(coleccionHeroes);
 
         JsonControladora.grabarEnJsonCartas(coleccionCartas.getLista());
         JsonControladora.grabarEnJsonHeroes(coleccionHeroes.getLista());
-
-
-
-
-
-
 
         //LEEMOS DEL ARCHIVO
         Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
@@ -145,6 +143,8 @@ public class Main {
         coleccionCartas2 = admin.cargarColeccionDeCartas();
 
         System.out.println(coleccionCartas2);
+
+*/
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
@@ -160,9 +160,7 @@ public class Main {
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
 
-*/
-        //test();
-        //menu();
+
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 

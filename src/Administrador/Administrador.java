@@ -9,7 +9,7 @@ import java.io.*;
 public class Administrador {
 
 
-    public Coleccion<Carta> cargarColeccionDeCartas ()
+    public Coleccion<Carta> cargarColeccionDeCartas()
     {
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
         try {
@@ -17,7 +17,6 @@ public class Administrador {
             FileInputStream fileInputStream = new FileInputStream("cartas.bin");
 
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-
 
             int lectura = 1;
             while(lectura == 1) {
@@ -37,6 +36,18 @@ public class Administrador {
             e.printStackTrace();
         }
         return coleccionCartas;
+    }
+
+    public int agregarId()
+    { int id=0;
+
+        Coleccion <Carta> coleccionId = new Coleccion<> ();
+        coleccionId = cargarColeccionDeCartas ();
+        for (Carta carta:coleccionId.getLista ()) {
+            id=carta.getId ();
+        }
+
+        return id+1;
     }
 
     public void cargarArchivoCartas (Coleccion<Carta> coleccion)
@@ -85,9 +96,9 @@ public class Administrador {
         }
     }
 
-    public Coleccion<Heroe> cargarColeccionDeHeroes ()
+    public Coleccion<Heroe> cargarColeccionDeHeroes()
     {
-        Coleccion<Heroe> coleccionHeroes= new Coleccion<Heroe> ();
+        Coleccion<Heroe> coleccionHeroes= new Coleccion<> ();
         try {
             //Creamos el file input stream que transforma los bytes
             FileInputStream fileInputStream = new FileInputStream("heroes.bin");
@@ -113,6 +124,33 @@ public class Administrador {
             e.printStackTrace();
         }
         return coleccionHeroes;
+    }
+
+    public boolean validarNombreCarta(String nuevo)
+    {
+        boolean control=true;
+        Coleccion<Carta> coleccion=cargarColeccionDeCartas();
+
+        for (Carta carta: coleccion.getLista ()) {
+            if (carta.getNombre ().contains (nuevo))
+            {
+                control=false;
+            }
+        }
+        return control;
+    }
+
+    public boolean validarNombreHeroes(String nuevo)
+    {
+        boolean control=true;
+        Coleccion<Heroe> coleccion=cargarColeccionDeHeroes();
+        for (Heroe heroe: coleccion.getLista ()) {
+            if (heroe.getNombre ().contains (nuevo))
+            {
+                control=false;
+            }
+        }
+        return control;
     }
 
 
