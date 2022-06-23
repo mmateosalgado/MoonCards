@@ -1,20 +1,16 @@
 package com.company.app;
 
 import Administrador.Administrador;
-import Batalla.Partida;
-import Batalla.Tablero;
-import Excepciones.PasaNullExcepcion;
-import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.PantallaInicio;
-import InterfacesGraficas.SeleccionMoficarCarta;
-import InterfacesGraficas.TableroGrafico;
-import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import Json.JsonControladora;
 import Razas.Golem;
 import Razas.Humano;
 import Razas.Necrofago;
 import Razas.Orco;
-import model.*;
+import model.Carta;
+import model.Coleccion;
+import model.Heroe;
+import model.Jugador;
 import tiposHechizos.Curacion;
 import tiposHechizos.Danio;
 import tiposHechizos.Hielo;
@@ -27,21 +23,22 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+
 /*
-        ArrayList<Carta>listaCartas= new ArrayList<Carta> ();
-        listaCartas.add (new Orco ("Orco",true,10,10,10,10,true));
-        listaCartas.add (new Humano ("Humano",true,10,10,10,10,100,true));
-        listaCartas.add (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
-        listaCartas.add (new Golem ("Golem",true,10,10,10,10,10,true));
-        listaCartas.add (new Curacion ("HCuracion",true,10,10,10));
-        listaCartas.add (new Danio ("HDanio",true,10,10,10));
-        listaCartas.add (new Hielo ("HHielo",true,10,10,10));
-        listaCartas.add (new RobaCarta ("HRobarCarta",true,10,10,10));
+        ArrayList<Carta> listaCartas= new ArrayList<Carta> ();
+        listaCartas.add (new Orco("Orco",true,10,10,10,10,true));
+        listaCartas.add (new Humano("Humano",true,10,10,10,10,100,true));
+        listaCartas.add (new Necrofago("Necrofago",true,10,10,10,10,10,true));
+        listaCartas.add (new Golem("Golem",true,10,10,10,10,10,true));
+        listaCartas.add (new Curacion("HCuracion",true,10,10,10));
+        listaCartas.add (new Danio("HDanio",true,10,10,10));
+        listaCartas.add (new Hielo("HHielo",true,10,10,10));
+        listaCartas.add (new RobaCarta("HRobarCarta",true,10,10,10));
 
         JsonControladora jsonControladora = new JsonControladora ();
         jsonControladora.grabarEnJsonCartas (listaCartas);
         ArrayList<Heroe> listaHeroes = new ArrayList<Heroe> ();
-        listaHeroes.add (new Heroe ("Pepe",10,"GranSapoPepe"));
+        listaHeroes.add (new Heroe("Pepe",10,"GranSapoPepe"));
         listaHeroes.add (new Heroe ("Juan",20,"GranJuansettoo"));
         listaHeroes.add (new Heroe ("Cristian",15,"GranCristi"));
         listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
@@ -51,7 +48,7 @@ public class Main {
         Administrador admin= new Administrador();
 
         //ESCRIBIMOS EN LOS ARCHIVOS ALGUNAS CARTAS
-       Coleccion<Carta>coleccionCartas= new Coleccion<> ();
+       Coleccion<Carta> coleccionCartas= new Coleccion<> ();
        Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
 
         coleccionCartas.agregar (new Orco ("Orco",true,10,10,10,10,true));
@@ -62,6 +59,13 @@ public class Main {
         coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
         coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
         coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
+*/
+/*
+        Administrador admin= new Administrador();
+
+        Coleccion<Carta> coleccionCartas= new Coleccion<> ();
+        Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
+
         ImageIcon iconoH1 = new ImageIcon("src\\imagenes\\Cartas\\H1.png");
         ImageIcon iconoH2 = new ImageIcon("src\\imagenes\\Cartas\\H2.png");
         ImageIcon iconoH3 = new ImageIcon("src\\imagenes\\Cartas\\H3.png");
@@ -129,15 +133,10 @@ public class Main {
         coleccionCartas.agregar (new RobaCarta ("Exceso de Abundancia",true,5,iconoR2,"Descripcion",3));
 
         admin.cargarArchivoCartas(coleccionCartas);
+        admin.cargarArchivoHeroes(coleccionHeroes);
 
         JsonControladora.grabarEnJsonCartas(coleccionCartas.getLista());
         JsonControladora.grabarEnJsonHeroes(coleccionHeroes.getLista());
-
-
-
-
-
-
 
         //LEEMOS DEL ARCHIVO
         Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
@@ -145,7 +144,12 @@ public class Main {
         coleccionCartas2 = admin.cargarColeccionDeCartas();
 
         System.out.println(coleccionCartas2);
-         */
+*/
+
+        ImageIcon iconoHero45 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
+        Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero45,"Descripcion");
+        Jugador jugador = new Jugador(heroe,"Ferra",1);
+        //System.out.println(jugador);
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
@@ -161,25 +165,23 @@ public class Main {
 
         SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
 
-*/
-        //test();
-        //menu();
+
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
-
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\Cartas\\C1.png");
-        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, true);
+/*
+        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
+        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta.setImagen(icono1);
 
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0,true);
+        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta2.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta2.setImagen(icono2);
 
         ImageIcon icono3 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0,true);
+        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
         carta3.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta3.setImagen(icono3);
 
@@ -215,8 +217,8 @@ public class Main {
         try {
             batalla.agregarPersonaje((Personaje) carta);
             batalla.agregarPersonaje((Personaje) carta2);
-           // batalla.agregarPersonaje((Personaje) carta3);
-            batalla.setValidos(2);
+            batalla.agregarPersonaje((Personaje) carta3);
+            batalla.setValidos(3);
 
             jugador1.setTablero(batalla);
             jugador2.setTablero(batalla);
@@ -234,7 +236,7 @@ public class Main {
         } catch (TableroLlenoExcepcion e) {
             e.printStackTrace();
         }
-
+*/
 
 
     }

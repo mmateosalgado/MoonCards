@@ -36,6 +36,7 @@ public class Mano implements I_RobarCarta {
                 }
             }catch (MazoVacioExcepcion e){
                 JOptionPane.showMessageDialog(null,e.getMessage());
+                jugador.getHeroeSeleccionado().setCantVida(0);
             }
         }
         else
@@ -55,5 +56,13 @@ public class Mano implements I_RobarCarta {
 
     public void setValidos(int validos) {
         this.validos = validos;
+    }
+
+    @Override
+    public String toString() {
+        return "\nMano{" +
+                "mano=" + mano +
+                ", validos=" + validos +
+                '}';
     }
 }

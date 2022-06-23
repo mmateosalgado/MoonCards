@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import Administrador.Administrador;
+import Json.JsonControladora;
 import Razas.Humano;
 import Razas.Orco;
 import model.Carta;
@@ -53,7 +54,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
         add(b1);
         b1.addActionListener(this);
 
-        b2=new JButton("Modificar Mazos");
+        b2=new JButton("Generar JSON");
         b2.setBounds(380,170,300,100);
         b2.setFont(fuente);
         add(b2);
@@ -66,7 +67,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
         b3.addActionListener(this);
 
         salir=new JButton("Salir");
-        salir.setBounds(380,500,300,100);
+        salir.setBounds(380,550,300,100);
         salir.setFont(fuente);
         add(salir);
         salir.addActionListener(this);
@@ -80,52 +81,32 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             setVisible(false);
             PantallaInicio inicio=new PantallaInicio();
         }else if(e.getSource()==a1) {//VER CARTAS
-            //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
             setVisible(false);
-
-            Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
-             Administrador admin = new Administrador();
-
-            coleccionCartas2 = admin.cargarColeccionDeCartas();
-
-            VerColeccion test=new VerColeccion(coleccionCartas2,false);
-
+            Administrador admin = new Administrador();
+            Coleccion<Carta>coleccionCartas= admin.cargarColeccionDeCartas();
+            VerColeccion test=new VerColeccion(coleccionCartas,false);
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             setVisible(false);
-            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-
-            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,false);
-            Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
-
-            carta1.setImagen(icono1);
-            carta2.setImagen(icono2);
-
-            Coleccion <Carta>lista=new Coleccion();
-
-            lista.agregar(carta1);
-            lista.agregar(carta2);
-
-            VerColeccion test=new VerColeccion(lista,true);
+            Administrador admin = new Administrador();
+            Coleccion<Carta>coleccionCartas= admin.cargarColeccionDeCartas();
+            VerColeccion test=new VerColeccion(coleccionCartas,true);
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
-            //LANZA AGREGAR CARTAS
+            setVisible(false);
+            SeleccionCartaACrear ida=new SeleccionCartaACrear();
         }else if(e.getSource()==b1) {//VER HEROES
             setVisible(false);
-            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-
-            Heroe heroeTest = new Heroe("Ekcros",100,icono1,"Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
-            Heroe heroeTest2 = new Heroe("Kratos",50,icono2,"Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
-
-            Coleccion <Heroe> coleccion = new Coleccion();
-            coleccion.agregar(heroeTest);
-            coleccion.agregar(heroeTest2);
-
-            VerColeccion test=new VerColeccion(coleccion,false);
-        }else if(e.getSource()==b2) {//MODIFICAR CARTAS
-            //LANZA MODIFICAR CARTAS
+            Administrador admin=new Administrador();
+            Coleccion <Heroe> coleccionDeHeroes =admin.cargarColeccionDeHeroes();
+            VerColeccion test=new VerColeccion(coleccionDeHeroes,false);
+        }else if(e.getSource()==b2) {//GENERA JSON
+            //TODO generar json
+            Administrador admin=new Administrador();
+            JsonControladora.grabarEnJsonCartas(admin.cargarColeccionDeCartas().getLista());
+            JsonControladora.grabarEnJsonHeroes(admin.cargarColeccionDeHeroes().getLista());
+            JOptionPane.showMessageDialog(null,"Se a actualizado los archivos JSON del proyecto!");
         }else if(e.getSource()==b3) {//AGREGAR HEROES
-            //LANZA AGREGAR HEROES
+            setVisible(false);
+            CrearHeroe ida=new CrearHeroe();
         }
     }
 }

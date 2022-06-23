@@ -1,6 +1,19 @@
 package InterfacesGraficas;
 
+import Administrador.Administrador;
 import Excepciones.*;
+import Razas.Golem;
+import Razas.Humano;
+import Razas.Necrofago;
+import Razas.Orco;
+import model.Carta;
+import model.Coleccion;
+import model.Hechizo;
+import model.Personaje;
+import tiposHechizos.Curacion;
+import tiposHechizos.Danio;
+import tiposHechizos.Hielo;
+import tiposHechizos.RobaCarta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +34,8 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
 
     public CargaNuevaCarta(boolean isPersonaje) throws HeadlessException {
         this.isPersonaje=isPersonaje;
-        Font fuente=new Font("Belwe", Font.PLAIN,25);
 
+        Font fuente=new Font("Belwe", Font.PLAIN,25);
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
@@ -257,9 +270,75 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
         }
     }
 
-    public boolean validarNombre(String nombre){
-        //TODO Validar nombre
-        return true;
+    public Personaje crearPersonaje(boolean humano,boolean orco,boolean necrofago,boolean golem)
+    {
+        ///Scanner Visuales que tendrían que estar.
+        String nombre=nombreEspacio.getText();
+        boolean rara=isRara.isSelected();
+        int costoEnergia= Integer.parseInt(costoEnergiaEspacio.getText());
+        int danoInflige= Integer.parseInt(danioInflijeEspacio.getText());
+        int cantidadDeVida= Integer.parseInt(vidaEspacio.getText());
+        int valorEfecto= Integer.parseInt(valorEfectoEspacio.getText());
+
+        ImageIcon imagenGenerica=new ImageIcon("src/imagenes/Cartas/PersonajeGenerico.png");
+
+        Personaje personaje=null;
+        if(humano)
+        {
+            personaje=new Humano(nombre,rara,costoEnergia,danoInflige,cantidadDeVida,false,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+        else if(orco)
+        {
+            personaje=new Orco(nombre,rara,costoEnergia,danoInflige,cantidadDeVida,true,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+
+        }
+        else if(necrofago)
+        {
+            personaje=new Necrofago(nombre,rara,costoEnergia,danoInflige,cantidadDeVida,true,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+        else if(golem)
+        {
+            personaje=new Golem(nombre,rara,costoEnergia,danoInflige,cantidadDeVida,false,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+
+        Administrador admin=new Administrador();
+        personaje.setId(admin.agregarId());
+
+        return personaje;
+    }
+
+    public Hechizo crearHechizo(boolean curacion,boolean danio,boolean hielo,boolean robaCarta)
+    {
+        ///Scanner Visuales que tendrían que estar.
+        String nombre=nombreEspacio.getText();
+        boolean rara=isRara.isSelected();
+        int costoEnergia= Integer.parseInt(costoEnergiaEspacio.getText());
+        int valorEfecto= Integer.parseInt(valorEfectoEspacio.getText());
+
+        ImageIcon imagenGenerica=new ImageIcon("src/imagenes/Cartas/HechizoGenerico.png");
+
+        Hechizo hechizo=null;
+        if(curacion)
+        {
+            hechizo=new Curacion(nombre,rara,costoEnergia,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+        else if(danio)
+        {
+            hechizo=new Danio(nombre,rara,costoEnergia,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+        else if(hielo)
+        {
+            hechizo=new Hielo(nombre,rara,costoEnergia,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+        else if(robaCarta)
+        {
+            hechizo=new RobaCarta(nombre,rara,costoEnergia,imagenGenerica,descripcionEspacio.getText(),valorEfecto);
+        }
+
+        Administrador admin=new Administrador();
+        hechizo.setId(admin.agregarId());
+
+        return hechizo;
     }
 
     @Override
@@ -274,22 +353,32 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
                     if(validarInputs()) {
                         if (isPersonaje) {
                             if (checkBoxValidas(orcoCheck, necrofagoCheck, golemCheck, humanoCheck)) {
-                                //TODO Llamo a validar nombre
-                                if(validarNombre(nombreEspacio.getText())) {
+                                Administrador admin=new Administrador();
+                                if(admin.validarNombreCarta(nombreEspacio.getText())) {
                                     JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                                     setVisible(false);
-                                    //TODO admin guarda
+                                    Personaje aGuardar=crearPersonaje(humanoCheck.isSelected(),orcoCheck.isSelected(),necrofagoCheck.isSelected(),golemCheck.isSelected());
+                                    Coleccion<Carta> coleccionCartas = admin.cargarColeccionDeCartas();
+                                    coleccionCartas.agregar(aGuardar);
+                                    admin.cargarArchivoCartas(coleccionCartas);
                                     SeleccionAdmin vuelta = new SeleccionAdmin();
+                                }else{
+                                    JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");
                                 }
                             }
                         } else {
                             if (checkBoxValidas(robarCartaCheck, curacionCheck, danioCheck, hieloCheck)) {
-                                //TODO Llamo a validar nombre
-                                if(validarNombre(nombreEspacio.getText())) {
+                                Administrador admin=new Administrador();
+                                if(admin.validarNombreCarta(nombreEspacio.getText())) {
                                     JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                                     setVisible(false);
-                                    //TODO admin guarda
+                                    Hechizo aGuardar=crearHechizo(curacionCheck.isSelected(),danioCheck.isSelected(),hieloCheck.isSelected(),robarCartaCheck.isSelected());
+                                    Coleccion<Carta> coleccionCartas = admin.cargarColeccionDeCartas();
+                                    coleccionCartas.agregar(aGuardar);
+                                    admin.cargarArchivoCartas(coleccionCartas);
                                     SeleccionAdmin vuelta = new SeleccionAdmin();
+                                }else{
+                                    JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");
                                 }
                             }
                         }

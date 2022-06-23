@@ -71,7 +71,7 @@ public class JsonControladora {
                 }
                 if(carta instanceof Danio)
                 {
-                    jsonCarta.put ("CantDanioInflige",((Danio) carta).getCantDañoInflige ());
+                    jsonCarta.put ("CantDanioInflige",((Danio) carta).getCantDanioInflige ());
                 }
                 if(carta instanceof Hielo)
                 {

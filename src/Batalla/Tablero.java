@@ -6,6 +6,8 @@ import Excepciones.TableroLlenoExcepcion;
 import model.Heroe;
 import model.Personaje;
 
+import java.util.Arrays;
+
 public class Tablero {
 
     private Personaje[] posiciones;
@@ -108,5 +110,14 @@ public class Tablero {
 
     public void setPosHeroe(Heroe posHeroe) {
         this.posHeroe = posHeroe;
+    }
+
+    @Override
+    public String toString() {
+        return "Tablero{" +
+                "posiciones=" + Arrays.toString(posiciones) +
+                ", validos=" + validos +
+                ", posHeroe=" + posHeroe +
+                '}';
     }
 }

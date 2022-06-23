@@ -1,29 +1,42 @@
 package InterfacesGraficas;
 
+import Administrador.Administrador;
 import Excepciones.InputInvalidoExcepcion;
 import Excepciones.JtextFieldVacioException;
 import Excepciones.NumeroInvalidoExcepcion;
 import Excepciones.PasaNullExcepcion;
-import model.Carta;
-import model.DatoPrincipal;
-import model.Personaje;
+import Razas.Golem;
+import Razas.Humano;
+import Razas.Necrofago;
+import Razas.Orco;
+import model.*;
+import tiposHechizos.Curacion;
+import tiposHechizos.Danio;
+import tiposHechizos.Hielo;
+import tiposHechizos.RobaCarta;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ModificarCarta extends JFrame implements ActionListener {
-    private JLabel nombreTexto,vidaTexto,energiTexto,AltaTexto,DanioTexto;
-    private JTextField nombreEspacio,vidaEspacio,EnergiaEspacio,DanioEspacio;
+    private JLabel nombreTexto,vidaTexto,energiTexto,DanioTexto;
+    private JTextField nombreEspacio,vidaEspacio,energiaEspacio,danioEspacio;
     private JButton aceptar,salir;
     private Carta aModificar;
+    private boolean nombre,vida,energia,danio;
 
     //public ModificarCarta(boolean nombre,boolean vida,boolean energia,boolean alta,boolean danio,Carta entrada){
     public ModificarCarta(boolean nombre,boolean vida,boolean energia,boolean danio,Carta entrada){
         aModificar=entrada;
+        this.nombre=nombre;
+        this.vida=vida;
+        this.energia=energia;
+        this.danio=danio;
 
         Font h1=new Font("Belwe", Font.PLAIN,17);
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
@@ -68,9 +81,9 @@ public class ModificarCarta extends JFrame implements ActionListener {
             energiTexto.setBounds(20,80,90,30);
             add(energiTexto);
 
-            EnergiaEspacio=new JTextField();
-            EnergiaEspacio.setBounds(180,80,150,30);
-            add(EnergiaEspacio);
+            energiaEspacio=new JTextField();
+            energiaEspacio.setBounds(180,80,150,30);
+            add(energiaEspacio);
         }
 
         if(danio){
@@ -79,29 +92,10 @@ public class ModificarCarta extends JFrame implements ActionListener {
             DanioTexto.setBounds(20,110,90,30);
             add(DanioTexto);
 
-            DanioEspacio=new JTextField();
-            DanioEspacio.setBounds(180,110,150,30);
-            add(DanioEspacio);
+            danioEspacio=new JTextField();
+            danioEspacio.setBounds(180,110,150,30);
+            add(danioEspacio);
         }
-
-        /*
-        if(alta){
-            String aux;
-            if(aModificar.isAlta()){
-                aux="true";
-                aModificar.setAlta(false);
-            }else{
-                 aux="false";
-                aModificar.setAlta(true);
-            }
-            AltaTexto=new JLabel("Alta ("+aux+") ------> ahora ("+aModificar.isAlta()+")");
-            AltaTexto.setFont(h1);
-            AltaTexto.setBounds(20,110,300,30);
-            add(AltaTexto);
-        }
-
-         */
-
 
         salir=new JButton("Salir");
         salir.setFont(h1);
@@ -117,16 +111,33 @@ public class ModificarCarta extends JFrame implements ActionListener {
 
     }
 
-    public boolean inputsCompletos() throws JtextFieldVacioException {//valida que los inputs tengan datos
+    public boolean inputCompleto(JTextField aTestear) throws JtextFieldVacioException {//valida que los inputs tengan datos
         boolean respuesta=false;
 
-        if(!nombreEspacio.getText().isEmpty() && !DanioEspacio.getText().isEmpty() && !EnergiaEspacio.getText().isEmpty() && !vidaEspacio.getText().isEmpty()){
+        if(!aTestear.getText().isEmpty()){
             respuesta=true;
         }else{
             throw new JtextFieldVacioException("Cargue los datos!");
         }
 
         return respuesta;
+    }
+
+    public boolean inputsCompletos() throws JtextFieldVacioException {
+        boolean rta=false;
+        if(nombre){
+            rta=inputCompleto(nombreEspacio);
+        }
+        if(vida){
+            rta=inputCompleto(vidaEspacio);
+        }
+        if(energia){
+            rta=inputCompleto(energiaEspacio);
+        }
+        if(danio){
+            rta=inputCompleto(danioEspacio);
+        }
+        return rta;
     }
 
     public boolean validarInput(String aValidar) throws PasaNullExcepcion, NumeroInvalidoExcepcion {//valida que los datos en los inputs sean validos
@@ -150,22 +161,60 @@ public class ModificarCarta extends JFrame implements ActionListener {
     }
 
     public boolean validarInputs() throws PasaNullExcepcion, InputInvalidoExcepcion, NumeroInvalidoExcepcion {
-        boolean respuesta1,respuesta2,respuesta3;
+        boolean respuesta1=true;
 
-        respuesta1=validarInput(vidaEspacio.getText());
-        respuesta2=validarInput(DanioEspacio.getText());
-        respuesta3=validarInput(EnergiaEspacio.getText());
+        if(vida) {
+            respuesta1 = validarInput(vidaEspacio.getText());
+        }
+        if(danio) {
+            respuesta1 = validarInput(danioEspacio.getText());
+        }
+        if(energia) {
+            respuesta1 = validarInput(energiaEspacio.getText());
+        }
 
-        if(respuesta1 && respuesta2 && respuesta3){
+        if(respuesta1){
             return true;
         }else{
             throw new InputInvalidoExcepcion("Ingrese solo numeros!");
         }
     }
 
-    public boolean validarNombre(String nombre){
-        //TODO Validar nombre
-        return true;
+    public Personaje crearPersonaje()
+    {
+        Personaje rta= (Personaje) aModificar;
+
+        if(nombre){
+            rta.setNombre(nombreEspacio.getText());
+        }
+        if(vida){
+            rta.setCantidadDeVida(Integer.parseInt(vidaEspacio.getText()));
+        }
+        if(energia){
+            rta.setCostoEnergia(Integer.parseInt(energiaEspacio.getText()));
+        }
+        if(danio){
+            rta.setDanoInflige(Integer.parseInt(danioEspacio.getText()));
+        }
+
+        return rta;
+    }
+
+    public Hechizo crearHechizo()
+    {
+        Hechizo rta= (Hechizo) aModificar;
+
+        if(nombre){
+            rta.setNombre(nombreEspacio.getText());
+        }
+        if(energia){
+            rta.setCostoEnergia(Integer.parseInt(energiaEspacio.getText()));
+        }
+        if(danio){
+            rta.setDanoInflige(Integer.parseInt(danioEspacio.getText()));
+        }
+
+        return rta;
     }
 
     @Override
@@ -174,22 +223,32 @@ public class ModificarCarta extends JFrame implements ActionListener {
             setVisible(false);
             SeleccionMoficarCarta vuelta=new SeleccionMoficarCarta(aModificar);
         }else if(e.getSource().equals(aceptar)){
+            Administrador admin=new Administrador();
             try{
                 if(inputsCompletos()){
                     if(validarInputs()){
-                        //TODO Llamo a validar nombre
-                        if(validarNombre("")) {
+                        if(admin.validarNombreCarta(nombreEspacio.getText())) {
+                            Coleccion<Carta> coleccion=admin.cargarColeccionDeCartas();
+                            if(aModificar instanceof Hechizo){
+                                Carta hechizo=crearHechizo();
+                                coleccion.getLista().set(aModificar.getId()-1,hechizo);
+                            }else if(aModificar instanceof Personaje){
+                                Personaje personaje=crearPersonaje();
+                                coleccion.getLista().set(aModificar.getId()-1,personaje);
+                            }
+                            admin.cargarArchivoCartas(coleccion);
                             JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                             setVisible(false);
-                            //TODO admin guarda
                             SeleccionAdmin vuelta = new SeleccionAdmin();
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");
                         }
                     }
                 }
             }catch (JtextFieldVacioException | InputInvalidoExcepcion | NumeroInvalidoExcepcion ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
             }catch (PasaNullExcepcion ex){
-                JOptionPane.showMessageDialog(null,ex.getMessage());
+                ex.printStackTrace();
                 System.exit(0);
             }
         }

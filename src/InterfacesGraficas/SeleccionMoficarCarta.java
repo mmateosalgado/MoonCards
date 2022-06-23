@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import model.Carta;
+import model.Hechizo;
 import model.Personaje;
 
 import javax.swing.*;
@@ -37,11 +38,14 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         nombreCheck.addActionListener(this);
         add(nombreCheck);
 
-        if(aModificar instanceof Personaje){
-            vidaCheck=new JCheckBox("Vida");
-            vidaCheck.setBounds(30,70,90,20);
-            vidaCheck.setFont(h1);
-            add(vidaCheck);
+        vidaCheck=new JCheckBox("Vida");
+        vidaCheck.setBounds(30,70,90,20);
+        vidaCheck.setFont(h1);
+        vidaCheck.addActionListener(this);
+        add(vidaCheck);
+
+        if(aModificar instanceof Hechizo){
+            vidaCheck.setVisible(false);
         }
 
         danioCheck=new JCheckBox("Daño");
@@ -55,13 +59,6 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         energiaCheck.setFont(h1);
         energiaCheck.addActionListener(this);
         add(energiaCheck);
-
-        /*
-        altaCheck=new JCheckBox("Alta");
-        altaCheck.setBounds(30,160,90,20);
-        altaCheck.setFont(h1);
-        altaCheck.addActionListener(this);
-        add(altaCheck);*/
 
         aceptar=new JButton("Aceptar");
         aceptar.setBounds(230,30,150,50);
@@ -80,12 +77,9 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       // if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||altaCheck.isSelected() ||danioCheck.isSelected()){
         if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
-            setVisible(false);
             aceptar.setEnabled(true);
         }else{
-            setVisible(false);
             aceptar.setEnabled(false);
         }
 

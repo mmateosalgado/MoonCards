@@ -11,22 +11,24 @@ public class Orco extends Personaje implements I_AumentarAtaque {
 
     private int danioAdicional;///Si es especial roba Vida
 
-    //Constructor--------------------------------------
-
-    public Orco (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional, boolean esGlobal) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
-        this.danioAdicional = danioAdicional;
-    }
+    //--------------------------------------Constructor--------------------------------------
 
     public Orco(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int danioAdicional) {
         super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
         this.danioAdicional = danioAdicional;
     }
 
+
+    //--------------------------------------GETTERS--------------------------------------
+
     public int getDanioAdicional () {
         return danioAdicional;
     }
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
 
+    ///--------------------------------------Interfaces que implementa-------------------------------------
     @Override
     public void aumentarAtaque(Jugador objetivo , int id) {
 
@@ -39,9 +41,6 @@ public class Orco extends Personaje implements I_AumentarAtaque {
             }
 
     }
-    public String getTipoCarta() {
-        return getClass().getName();
-    }
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
@@ -49,6 +48,7 @@ public class Orco extends Personaje implements I_AumentarAtaque {
 
     }
 
+    ///--------------------------------------To String-------------------------------------
     @Override
     public String toString() {
         return "Orco{" +
