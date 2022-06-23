@@ -10,9 +10,19 @@ public class Mazo {
     private int validos;
 
     //Constructor -------------------------------
-    public Mazo(){
+   /* public Mazo(){
         mazoCartas = new ArrayList<Carta>();
         validos = 0;
+    }*/
+
+    public Mazo(Coleccion<Carta> cartas)
+    {
+        mazoCartas = new ArrayList<Carta>();
+        validos = 0;
+        for (int i = 0; i < cartas.getLista().size(); i++) {
+            mazoCartas.add(cartas.getLista().get(i));
+            validos++;
+        }
     }
 
     //Getters setters
@@ -45,5 +55,13 @@ public class Mazo {
     //teste
     public String mostrarMazo(){
         return mazoCartas.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "\n\nMazo{" +
+                "mazoCartas=" + mazoCartas +
+                ", validos=" + validos +
+                '}';
     }
 }

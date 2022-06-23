@@ -9,7 +9,7 @@ import java.io.*;
 public class Administrador {
 
 
-    public Coleccion<Carta> cargarColeccionDeCartas()
+    public static Coleccion<Carta> cargarColeccionDeCartas()
     {
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
         try {

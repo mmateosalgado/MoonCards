@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Serializable {
 
@@ -165,5 +166,13 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
 
     public ImageIcon getImage() {
         return imagen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carta carta = (Carta) o;
+        return id == carta.id && isRara == carta.isRara && alta == carta.alta && costoEnergia == carta.costoEnergia && danoInflige == carta.danoInflige && Objects.equals(nombre, carta.nombre) && Objects.equals(imagen, carta.imagen) && Objects.equals(descrip, carta.descrip);
     }
 }
