@@ -1,5 +1,6 @@
 package InterfacesGraficas;
 
+import Administrador.Administrador;
 import Razas.Humano;
 import Razas.Orco;
 import model.Carta;
@@ -82,28 +83,19 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             //TODO BORRAR TODO ESTO CUANDO HAGAMOS ADMIN, ES PARA TESTEAR
             setVisible(false);
 
-            ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-            ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
+            Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
+             Administrador admin = new Administrador();
 
-            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
-            Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
+            coleccionCartas2 = admin.cargarColeccionDeCartas();
 
-            carta1.setImagen(icono1);
-            carta2.setImagen(icono2);
-
-            Coleccion <Carta>lista=new Coleccion();
-
-            lista.agregar(carta1);
-            lista.agregar(carta2);
-
-            VerColeccion ida=new VerColeccion(lista,false);
+            VerColeccion test=new VerColeccion(coleccionCartas2,false);
 
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             setVisible(false);
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
             ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
 
-            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,5,false);
+            Carta carta1 = new Humano("Nilluz",false,5,5,5,5,false);
             Carta carta2 = new Orco("Bob",false,7,4,3,4,false);
 
             carta1.setImagen(icono1);
@@ -114,10 +106,9 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
             lista.agregar(carta1);
             lista.agregar(carta2);
 
-            VerColeccion ida=new VerColeccion(lista,true);
+            VerColeccion test=new VerColeccion(lista,true);
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
-            setVisible(false);
-            SeleccionCartaACrear ida=new SeleccionCartaACrear();
+            //LANZA AGREGAR CARTAS
         }else if(e.getSource()==b1) {//VER HEROES
             setVisible(false);
             ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");

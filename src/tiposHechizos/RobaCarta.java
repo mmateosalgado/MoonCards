@@ -6,6 +6,8 @@ import InterfacesCartas.I_RobarCarta;
 import model.Hechizo;
 import model.Jugador;
 
+import javax.swing.*;
+
 public class RobaCarta extends Hechizo implements I_RobarCarta {
 private int cantCartasRobadas;
 
@@ -13,6 +15,11 @@ private int cantCartasRobadas;
 
     public RobaCarta (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantCartasRobadas) {
         super ( nombre , isRara , costoEnergia , 0 );
+        this.cantCartasRobadas = cantCartasRobadas;
+    }
+
+    public RobaCarta(String nombre, boolean isRara, int costoEnergia, ImageIcon imagem, String descrip, int cantCartasRobadas) {
+        super(nombre, isRara, costoEnergia, 0, imagem, descrip);
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
@@ -45,5 +52,12 @@ private int cantCartasRobadas;
 
         robarCarta(jugadorEjecutor);
 
+    }
+
+    @Override
+    public String toString() {
+        return "RobaCarta{" +
+                "cantCartasRobadas=" + cantCartasRobadas +
+                "} " + super.toString();
     }
 }

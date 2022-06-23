@@ -4,6 +4,8 @@ import InterfacesCartas.I_HacerDanio;
 import model.Hechizo;
 import model.Jugador;
 
+import javax.swing.*;
+
 public class Danio extends Hechizo implements I_HacerDanio {
 
     private int cantDañoInflige;
@@ -13,6 +15,11 @@ public class Danio extends Hechizo implements I_HacerDanio {
     public Danio (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantDañoInflige) {
         super ( nombre , isRara , costoEnergia , 0 );
         cantDañoInflige = cantDañoInflige;
+    }
+
+    public Danio(String nombre, boolean isRara, int costoEnergia, ImageIcon imagem, String descrip, int cantDañoInflige) {
+        super(nombre, isRara, costoEnergia, 0, imagem, descrip);
+        this.cantDañoInflige = cantDañoInflige;
     }
 
     @Override
@@ -50,5 +57,12 @@ public class Danio extends Hechizo implements I_HacerDanio {
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
        infligeDanio (jugadorRival,id);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Danio{" +
+                "cantDañoInflige=" + cantDañoInflige +
+                "} " + super.toString();
     }
 }

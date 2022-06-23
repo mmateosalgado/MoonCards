@@ -5,6 +5,8 @@ import model.Hechizo;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Curacion extends Hechizo implements I_SumarVida {
     private int sumarVida;
 
@@ -13,6 +15,11 @@ public class Curacion extends Hechizo implements I_SumarVida {
     public Curacion(String nombre, boolean isRara, int costoEnergia, int danoInflige, int sumaVida) {
         super(nombre, isRara, costoEnergia, 0);
         this.sumarVida = sumaVida;
+    }
+
+    public Curacion(String nombre, boolean isRara, int costoEnergia,ImageIcon imagem, String descrip, int sumarVida) {
+        super(nombre, isRara, costoEnergia, 0, imagem, descrip);
+        this.sumarVida = sumarVida;
     }
 
     public int getSumarVida () {
@@ -44,6 +51,13 @@ public class Curacion extends Hechizo implements I_SumarVida {
     }
     public String getTipoCarta() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    public String toString() {
+        return "Curacion{" +
+                "sumarVida=" + sumarVida +
+                "} " + super.toString();
     }
 
     @Override

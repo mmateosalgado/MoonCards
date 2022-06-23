@@ -44,7 +44,11 @@ import java.util.ArrayList;
         }
     }
 
-    public T buscarRetornar(String name){
+        public ArrayList<T> getLista() {
+            return lista;
+        }
+
+        public T buscarRetornar(String name){
 
         T t = null;
         for(int i = 0;i< lista.size();i++){
@@ -83,6 +87,23 @@ import java.util.ArrayList;
     public int cantHeroes(){
         return lista.size();
     }
-}
+
+        @Override
+        public String toString() {
+            return "Coleccion{" +
+                    "lista=" + lista +
+                    '}';
+        }
+        /*
+        public ArrayList<Carta> transformarEnArraylist()
+        {
+            ArrayList<Carta> array = new ArrayList<Carta>();
+            for (Carta cartita:
+                 ) {
+
+            }
+        }
+        */
+    }
 
 
