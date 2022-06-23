@@ -10,22 +10,24 @@ import javax.swing.*;
 public class Curacion extends Hechizo implements I_SumarVida {
     private int sumarVida;
 
-    //Constructor--------------------------------------
-
-    public Curacion(String nombre, boolean isRara, int costoEnergia, int danoInflige, int sumaVida) {
-        super(nombre, isRara, costoEnergia, 0);
-        this.sumarVida = sumaVida;
-    }
+    //--------------------------------------Constructor Para guardar en el archivo--------------------------------------
 
     public Curacion(String nombre, boolean isRara, int costoEnergia,ImageIcon imagem, String descrip, int sumarVida) {
         super(nombre, isRara, costoEnergia, 0, imagem, descrip);
         this.sumarVida = sumarVida;
     }
 
+
+    //--------------------------------------GETTERS--------------------------------------
     public int getSumarVida () {
         return sumarVida;
     }
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
 
+
+    ///--------------------------------------Interfaces que implementa--------------------------------------
     @Override
     public void sumarVida(Jugador caster, int id) {
         if (isRara()) {
@@ -49,9 +51,13 @@ public class Curacion extends Hechizo implements I_SumarVida {
             }
         }
     }
-    public String getTipoCarta() {
-        return getClass().getSimpleName();
+
+    @Override
+    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
+        sumarVida(jugadorEjecutor,id);
     }
+
+    ///--------------------------------------To String-------------------------------------
 
     @Override
     public String toString() {
@@ -60,8 +66,4 @@ public class Curacion extends Hechizo implements I_SumarVida {
                 "} " + super.toString();
     }
 
-    @Override
-    public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
-           sumarVida(jugadorEjecutor,id);
-    }
 }

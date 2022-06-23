@@ -14,15 +14,7 @@ public abstract class Personaje extends Carta {
     private int turnosCongelado;//0 --> no esta congelado
     private boolean rangoGlobal; //true -> global ... false -> individual
 
-    //Constructor--------------------------------------
-
-    public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal) {
-        super(nombre, isRara, costoEnergia, danoInflige);
-        this.cantidadDeVida = cantidadDeVida;
-        this.estado = false;
-        this.turnosCongelado = 1; //Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
-        this.rangoGlobal = rangoGlobal;
-    }
+    //--------------------------------------Constructor para guardar en el Archivo--------------------------------------
     public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal,ImageIcon imagen, String descripcion) {
         super(nombre, isRara, costoEnergia, danoInflige,imagen,descripcion);
         this.cantidadDeVida = cantidadDeVida;
@@ -34,11 +26,7 @@ public abstract class Personaje extends Carta {
     }
 
 
-
-    //Metodos
-
-
-    //Getters--------------------
+    ///------------------------------------------------------GETTERS---------------------------------------------------------
 
     public int getCantidadDeVida() {
         return cantidadDeVida;
@@ -56,15 +44,14 @@ public abstract class Personaje extends Carta {
         return rangoGlobal;
     }
 
+    @Override
+    public ImageIcon getImagen(){
+        return super.getImagen();
+    }
+    ///------------------------------------------------------SETTERS---------------------------------------------------------
     public void setRangoGlobal(boolean rangoGlobal) {
         this.rangoGlobal = rangoGlobal;
     }
-
-    @Override
-    public ImageIcon getImagen(){
-       return super.getImagen();
-    }
-    //Setters---------------------
 
     public void setTurnosCongelado(int turnosCongelado) {
         if (turnosCongelado < 0) {
@@ -84,12 +71,11 @@ public abstract class Personaje extends Carta {
 
     }
 
-
-
     public void setCantidadDeVida(int cantidadDeVida) {
         this.cantidadDeVida = cantidadDeVida;
     }
 
+    ///------------------------------------------------------Actualiza Imagen en el Tablero Gráfico---------------------------------------------------------
     @Override
     public void actualizarValoresCarta() {
         Image imagePrincipal;
@@ -126,6 +112,7 @@ public abstract class Personaje extends Carta {
 
     }
 
+    ///------------------------------------------------------To String---------------------------------------------------------
     @Override
     public String toString() {
         return "Personaje{" +

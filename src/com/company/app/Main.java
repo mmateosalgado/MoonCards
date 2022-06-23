@@ -59,8 +59,8 @@ public class Main {
         coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
         coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
         coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
-
-
+*/
+/*
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -144,12 +144,12 @@ public class Main {
         coleccionCartas2 = admin.cargarColeccionDeCartas();
 
         System.out.println(coleccionCartas2);
-
 */
-        ImageIcon iconoHero4 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
-        Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero4,"Descripcion");
-        Jugador jugador = new Jugador(heroe,"ferra",2);
-        System.out.println(jugador);
+
+        ImageIcon iconoHero45 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
+        Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero45,"Descripcion");
+        Jugador jugador = new Jugador(heroe,"Ferra",1);
+        //System.out.println(jugador);
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
