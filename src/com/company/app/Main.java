@@ -10,6 +10,7 @@ import Razas.Orco;
 import model.Carta;
 import model.Coleccion;
 import model.Heroe;
+import model.Jugador;
 import tiposHechizos.Curacion;
 import tiposHechizos.Danio;
 import tiposHechizos.Hielo;
@@ -145,6 +146,10 @@ public class Main {
         System.out.println(coleccionCartas2);
 
 */
+        ImageIcon iconoHero4 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
+        Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero4,"Descripcion");
+        Jugador jugador = new Jugador(heroe,"ferra",2);
+        System.out.println(jugador);
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
