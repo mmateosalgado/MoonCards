@@ -47,13 +47,13 @@ public class Main {
         listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
         jsonControladora.grabarEnJsonHeroes (listaHeroes);
 
-        */
+
         Administrador admin= new Administrador();
 
         //ESCRIBIMOS EN LOS ARCHIVOS ALGUNAS CARTAS
        Coleccion<Carta>coleccionCartas= new Coleccion<> ();
        Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
-       /*
+
         coleccionCartas.agregar (new Orco ("Orco",true,10,10,10,10,true));
         coleccionCartas.agregar(new Humano ("Humano",true,10,10,10,10,100,true));
         coleccionCartas.agregar (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
@@ -61,7 +61,7 @@ public class Main {
         coleccionCartas.agregar(new Curacion ("HCuracion",true,10,10,10));
         coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
         coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
-        coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));*/
+        coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
         ImageIcon iconoH1 = new ImageIcon("src\\imagenes\\Cartas\\H1.png");
         ImageIcon iconoH2 = new ImageIcon("src\\imagenes\\Cartas\\H2.png");
         ImageIcon iconoH3 = new ImageIcon("src\\imagenes\\Cartas\\H3.png");
@@ -145,6 +145,7 @@ public class Main {
         coleccionCartas2 = admin.cargarColeccionDeCartas();
 
         System.out.println(coleccionCartas2);
+         */
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
@@ -166,19 +167,19 @@ public class Main {
 
         //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
 
-/*
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+
+        ImageIcon icono1 = new ImageIcon("src\\imagenes\\Cartas\\C1.png");
+        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, true);
         carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta.setImagen(icono1);
 
         ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0,true);
         carta2.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta2.setImagen(icono2);
 
         ImageIcon icono3 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
+        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0,true);
         carta3.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
         carta3.setImagen(icono3);
 
@@ -214,8 +215,8 @@ public class Main {
         try {
             batalla.agregarPersonaje((Personaje) carta);
             batalla.agregarPersonaje((Personaje) carta2);
-            batalla.agregarPersonaje((Personaje) carta3);
-            batalla.setValidos(3);
+           // batalla.agregarPersonaje((Personaje) carta3);
+            batalla.setValidos(2);
 
             jugador1.setTablero(batalla);
             jugador2.setTablero(batalla);
@@ -233,7 +234,7 @@ public class Main {
         } catch (TableroLlenoExcepcion e) {
             e.printStackTrace();
         }
-*/
+
 
 
     }
