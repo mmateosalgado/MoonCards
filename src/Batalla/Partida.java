@@ -2,7 +2,9 @@ package Batalla;
 
 import Excepciones.*;
 import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.pruebas.InvocarPersonajeInterfaz;
 import Razas.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import model.*;
 import tiposHechizos.Danio;
 
@@ -42,6 +44,11 @@ public class Partida {
             cantMana = (turno+1)/2;
         }
         this.getJugadorTurno().setManaActual(cantMana);
+        try {
+            this.getJugadorTurno().getManoActual().robarCarta(this.getJugadorTurno());
+        } catch (ManoLlenaExcepcion e) {
+            e.printStackTrace();
+        }
 
         actualizarValoresPersonajes(this.getJugadorTurno());
 
@@ -250,8 +257,11 @@ public class Partida {
         if(!personaje.isGlobal()) // si no es global
         {
             //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
-            int id = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
-            personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
+            new InvocarPersonajeInterfaz(this,personaje,jugadorEjecutor,jugadorRival);
+           // int id = invocar.getIdSeleccionada(); //esto esta hardcodeado, aca iria la id que recibe del usuario
+            //System.out.println("ESTA ES LA ID: "+id);
+
+            //personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
         }
         else{
             //TODO hacer la ventana emergente que no pide una id, solo explica el efecto
@@ -333,11 +343,20 @@ public class Partida {
 
     public Jugador getJugadorEnemigo(){
         Jugador jugador = null;
-        if (turno%2==1){
+        if (turno%2==0){
             jugador = jugador2;
         }else{
             jugador = jugador1;
         }
         return jugador;
+    }
+
+    public void actualizarValores(){
+        for (int i = 0; i<this.getJugadorTurno().getTablero().getValidos();i++){
+            getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+        }
+        for (int i = 0; i<this.getJugadorEnemigo().getTablero().getValidos();i++){
+            getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+        }
     }
 }

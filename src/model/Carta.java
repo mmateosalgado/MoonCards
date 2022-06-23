@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Serializable {
 
@@ -41,12 +42,33 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         return descrip;
     }
 
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
+
     public static int getTotalCartas() {
         return totalCartas;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+
+    public boolean isRara() {
+        return isRara;
+    }
+
+    public boolean isAlta() {
+        return alta;
     }
 
     public int getCostoEnergia() {
@@ -96,6 +118,10 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         this.alta = alta;
     }
 
+    public ImageIcon getImagen() {
+        return imagen;
+    }
+
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
     }
@@ -136,7 +162,7 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         imagen = new ImageIcon(combinedImage);
     }
 
-    //-------------------------------------------------To String-------------------------------------------------
+
     @Override
     public String toString() {
         return "\nCarta{" +
@@ -151,4 +177,17 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
                 "} " + super.toString();
     }
 
+    public abstract String getTipoCarta();
+
+    public ImageIcon getImage() {
+        return imagen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carta carta = (Carta) o;
+        return id == carta.id && isRara == carta.isRara && alta == carta.alta && costoEnergia == carta.costoEnergia && danoInflige == carta.danoInflige && Objects.equals(nombre, carta.nombre) && Objects.equals(imagen, carta.imagen) && Objects.equals(descrip, carta.descrip);
+    }
 }

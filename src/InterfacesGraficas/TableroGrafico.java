@@ -1,12 +1,17 @@
 package InterfacesGraficas;
 
 import Batalla.Partida;
+import Excepciones.DatoNoEcontradoExcepcion;
+import Excepciones.ManaInsuficienteExcepcion;
 import Excepciones.PasaNullExcepcion;
+import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.pruebas.CartaBoton;
 import InterfacesGraficas.pruebas.HeroeBoton;
 import InterfacesGraficas.pruebas.SeleccionCartaAtaque;
 import model.Carta;
+import model.Hechizo;
 import model.Jugador;
+import model.Personaje;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -28,6 +33,7 @@ public class TableroGrafico extends JFrame{
     private CartaBoton[] jButtonPersonajesEnemigos;
     private JButton jButtonHeroe;
     private CartaBoton[] jButtonPersonajes;
+    private int jButtonPersonajeValidos;
     private JLabel jTextNorth, jTextEspecifaciones, jTextNombre, jTextDescripcion, jTextTipo, jTextObservaciones, jlabelImagenSelec;
     private JLabel jLabelTableroEnemigo, jLabelTableroTurno;
     private JButton jButtonAtacar, jButtonCambiarTurno, jButtonAbandonarPartida, jButtonInvocar;
@@ -117,7 +123,36 @@ public class TableroGrafico extends JFrame{
 
         jButtonInvocar = new JButton("INVOCAR CARTA");
         jButtonInvocar.setEnabled(false);
+        jButtonInvocar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Carta carta = null;
+                    for (int i = 0; i < jCartasMano.length; i++) {
+                        if (jCartasMano[i].isEstado()) {
+                            carta = jCartasMano[i].getCarta();
+                        }
+                    }
+                        if (carta != null && carta instanceof Personaje) {
+                            try {
+                                partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
+                                partida.actualizarValores();
+                                setVisible(false);
+                            } catch (PasaNullExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (TableroLlenoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (DatoNoEcontradoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (ManaInsuficienteExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            }
 
+                    }else if(carta instanceof Hechizo){
+
+
+                    }
+            }
+        });
 
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
         jButtonCambiarTurno.setEnabled(true);
@@ -125,9 +160,13 @@ public class TableroGrafico extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida()>0 && partida.getJugadorTurno().getHeroeSeleccionado().getCantVida()>0){
-                    JOptionPane.showMessageDialog(null,"Se va a pasar al siguiente jugador");
-                    setVisible(false);
-                    new TableroGrafico(partida.pasarTurno());
+                    int i = JOptionPane.showConfirmDialog(null,"Se va a pasar al siguiente jugador, ¿Desea confirmar?","Elija una opción",JOptionPane.YES_NO_OPTION);
+                    if(i==0){
+                        partida.pasarTurno();
+                        new TableroGrafico(partida);
+                        setVisible(false);
+                    }
+
                 }else{
                     System.out.println("Partida Finalizada");
                 }
@@ -188,10 +227,10 @@ public class TableroGrafico extends JFrame{
             jCartasMano[i] = new CartaBoton(partida.getJugadorTurno().getManoActual().getMano().get(i));
             jCartasMano[i].setText(partida.getJugadorTurno().getManoActual().getMano().get(i).getNombre() + " ("+ partida.getJugadorTurno().getManoActual().getMano().get(i).getCostoEnergia()+ ")");
             jCartasMano[i].setFont(fontBelweTextNormal);
-
             jCartasMano[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    jButtonInvocar.setEnabled(true);
                     CartaBoton carta = (CartaBoton) e.getSource();
                     carta.setEstado(true);
                     jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
@@ -214,14 +253,12 @@ public class TableroGrafico extends JFrame{
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
         jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.Y_AXIS));
-        //jPanelCenter.setPreferredSize(new Dimension(250, 600));
         jPanelCenter.add(jLabelTableroEnemigo);
 
 
         jButtonHeroe = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
         jPanelCenterEnemigo = new JPanel();
         jPanelCenterEnemigo.setLayout(new BoxLayout(jPanelCenterEnemigo, BoxLayout.X_AXIS));
-        //jPanelCenterEnemigo.setPreferredSize(jPanelCenter.getSize());
 
         jButtonHeroeEnemigo = new HeroeBoton(partida.getJugadorEnemigo().getTablero().getPosHeroe());
         jButtonHeroeEnemigo.setIcon(partida.getJugadorEnemigo().getTablero().getPosHeroe().getImage());
@@ -270,12 +307,15 @@ public class TableroGrafico extends JFrame{
                 jTextNombre.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getNombre() + "" + "</p></html>");
                 jTextTipo.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getClass().toString() + "" + "</p></html>");
                 jTextDescripcion.setText("<html><p style=\"width:100px\">" + heroe.getHeroe().getDescripcion() + "" + "</p></html>");
+                jButtonAtacar.setEnabled(false);
+
             }
         });
 
         jPanelCenterTurno.add(jButtonHeroe);
 
         jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
+        jButtonPersonajeValidos =partida.getJugadorTurno().getTablero().getValidos();
         for (int i = 0; i < partida.getJugadorTurno().getTablero().getValidos(); i++) {
             jButtonPersonajes[i] = new CartaBoton(partida.getJugadorTurno().getTablero().getPersonajeEnPosicion(i));
             jButtonPersonajes[i].setIcon(jButtonPersonajes[i].getCarta().getImagen());
@@ -284,7 +324,16 @@ public class TableroGrafico extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     CartaBoton carta = (CartaBoton) e.getSource();
-                    carta.setEstado(true);
+                    System.out.println(carta.getCarta().toString());
+                    for(int z = 0; z<jButtonPersonajeValidos; z++){
+                        if(jButtonPersonajes[z].getCarta().equals(carta.getCarta())){
+                            carta.setEstado(true);
+                            System.out.println(carta.isEstado());
+                        }else{
+                           jButtonPersonajes[z].setEstado(false);
+                            System.out.println(jButtonPersonajes[z].isEstado());
+                        }
+                    }
                     jButtonAtacar.setEnabled(true);
                     jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
                     jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
@@ -301,6 +350,11 @@ public class TableroGrafico extends JFrame{
 
         jPanelCenter.add(jPanelCenterTurno);
 
+    }
+
+    public void actualizarTableroGrafico(){
+        new TableroGrafico(partida);
+        this.setVisible(false);
     }
 
 }
