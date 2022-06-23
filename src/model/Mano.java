@@ -11,16 +11,34 @@ public class Mano implements I_RobarCarta {
     private ArrayList <Carta> mano;
     private int validos;
 
+    //------------------------------------Contructor------------------------------------
     public Mano() {
         this.mano = new ArrayList<>();
         this.validos = 0;
     }
 
+
+
+    //------------------------------------Getters------------------------------------
+    public ArrayList<Carta> getMano() {
+        return mano;
+    }
+
+    public int getValidos() {
+        return validos;
+    }
+
+    //------------------------------------Setters------------------------------------
+    public void setValidos(int validos) {
+        this.validos = validos;
+    }
+
+
+    //------------------------------------Metodos------------------------------------
     public void agregarMano(Carta carta){
         mano.add(carta);
         validos++;
     }
-
     @Override
     public void robarCarta (Jugador jugador) throws ManoLlenaExcepcion {
         if(validos<10)
@@ -45,18 +63,7 @@ public class Mano implements I_RobarCarta {
         }
     }
 
-    public ArrayList<Carta> getMano() {
-        return mano;
-    }
-
-
-    public int getValidos() {
-        return validos;
-    }
-
-    public void setValidos(int validos) {
-        this.validos = validos;
-    }
+    //------------------------------------To String------------------------------------
 
     @Override
     public String toString() {

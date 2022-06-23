@@ -8,7 +8,7 @@ import java.io.*;
 
 public class Administrador {
 
-
+    ///-------------------------------------------------Cargar Coleccion de Cartas desde el Archivo de Cartas------------------------------------------------
     public static Coleccion<Carta> cargarColeccionDeCartas()
     {
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -37,7 +37,7 @@ public class Administrador {
         }
         return coleccionCartas;
     }
-
+    ///-------------------------------------------------Asigna ID automaticamente------------------------------------------------
     public int agregarId()
     { int id=0;
 
@@ -49,7 +49,7 @@ public class Administrador {
 
         return id+1;
     }
-
+    ///-------------------------------------------------Cargar Archivo Cartas desde la Coleccion de Cartas------------------------------------------------
     public void cargarArchivoCartas (Coleccion<Carta> coleccion)
     {
         try {
@@ -72,7 +72,7 @@ public class Administrador {
             e.printStackTrace();
         }
     }
-
+    ///-------------------------------------------------Cargar Archivo Heroes desde la Coleccion de Heroes------------------------------------------------
     public void cargarArchivoHeroes (Coleccion<Heroe> coleccion)
     {
         try {
@@ -96,6 +96,7 @@ public class Administrador {
         }
     }
 
+    ///-------------------------------------------------Cargar Coleccion Heroes desde el Archivo de Heroes------------------------------------------------
     public Coleccion<Heroe> cargarColeccionDeHeroes()
     {
         Coleccion<Heroe> coleccionHeroes= new Coleccion<> ();
@@ -125,7 +126,7 @@ public class Administrador {
         }
         return coleccionHeroes;
     }
-
+    ///-------------------------------------------------Valida los nombres al crear o modificar una Carta------------------------------------------------
     public boolean validarNombreCarta(String nuevo)
     {
         boolean control=true;
@@ -139,7 +140,7 @@ public class Administrador {
         }
         return control;
     }
-
+    ///-------------------------------------------------Valida los nombres al crear o modificar un Heroe------------------------------------------------
     public boolean validarNombreHeroes(String nuevo)
     {
         boolean control=true;
