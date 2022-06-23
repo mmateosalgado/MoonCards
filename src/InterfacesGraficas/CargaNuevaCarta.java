@@ -280,7 +280,6 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
         int cantidadDeVida= Integer.parseInt(vidaEspacio.getText());
         int valorEfecto= Integer.parseInt(valorEfectoEspacio.getText());
 
-        //TODO CAMBIAR CARTA GENERICA
         ImageIcon imagenGenerica=new ImageIcon("src/imagenes/Cartas/PersonajeGenerico.png");
 
         Personaje personaje=null;
