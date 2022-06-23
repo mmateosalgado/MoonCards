@@ -16,9 +16,15 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     //Constructor--------------------------------------
 
-    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int infligeDanio, int cantCartasRobadas, boolean esGlobal) {
+    public Necrofago(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int cantCartasRobadas) {
+        super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
+        this.cantDanioInflige = 5;
+        this.cantCartasRobadas = cantCartasRobadas;
+    }
+
+    public Necrofago (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int cantCartasRobadas, boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal);
-        this.cantDanioInflige = infligeDanio;
+        this.cantDanioInflige = 5;
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
@@ -47,18 +53,27 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
 
     @Override
     public void infligeDanio (Jugador objetivo , int id) {
-        if(isRara ())// id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
-        {
+        // id-1 es la posicion en el arreglo (por ej si un personaje tiene id =2, su pos en el arreglo es 1)
             objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setCantidadDeVida (objetivo.getTablero ().getPersonajeEnPosicion ( id-1).getCantidadDeVida () - cantDanioInflige);
-        }
+    }
+    public String getTipoCarta() {
+        return getClass().getName();
     }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
-        if(isRara()) {
+        if(isRara() && jugadorRival.getTablero().getPosiciones()[id-1] != null) { //aca controlamos que si el necrofago va a devolver el ataque al atacante, este siga vivo (no vamos a atacar a alguien que ya sacamos del tablero)
             infligeDanio(jugadorRival, id);
         }
             robarCarta(jugadorEjecutor);
+    }
+
+    @Override
+    public String toString() {
+        return "Necrofago{" +
+                "cantDanioInflige=" + cantDanioInflige +
+                ", cantCartasRobadas=" + cantCartasRobadas +
+                "} " + super.toString();
     }
 }

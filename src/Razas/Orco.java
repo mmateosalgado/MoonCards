@@ -5,6 +5,8 @@ import InterfacesCartas.I_SumarVida;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Orco extends Personaje implements I_AumentarAtaque {
 
     private int danioAdicional;///Si es especial roba Vida
@@ -14,6 +16,15 @@ public class Orco extends Personaje implements I_AumentarAtaque {
     public Orco (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional, boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.danioAdicional = danioAdicional;
+    }
+
+    public Orco(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int danioAdicional) {
+        super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
+        this.danioAdicional = danioAdicional;
+    }
+
+    public int getDanioAdicional () {
+        return danioAdicional;
     }
 
     @Override
@@ -28,11 +39,20 @@ public class Orco extends Personaje implements I_AumentarAtaque {
             }
 
     }
-
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
             aumentarAtaque(jugadorEjecutor,0);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Orco{" +
+                "danioAdicional=" + danioAdicional +
+                "} " + super.toString();
     }
 }

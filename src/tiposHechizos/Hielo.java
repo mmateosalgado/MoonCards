@@ -5,6 +5,8 @@ import model.Hechizo;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Hielo extends Hechizo implements I_Congelar {
 
     private int cantTurnosCongela;
@@ -12,8 +14,13 @@ public class Hielo extends Hechizo implements I_Congelar {
     //Constructor--------------------------------------
 
     public Hielo (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantTurnosCongela) {
-        super ( nombre , isRara , costoEnergia , danoInflige );
+        super ( nombre , isRara , costoEnergia , 0 );
         cantTurnosCongela = cantTurnosCongela;
+    }
+
+    public Hielo(String nombre, boolean isRara, int costoEnergia, ImageIcon imagem, String descrip, int cantTurnosCongela) {
+        super(nombre, isRara, costoEnergia, 0, imagem, descrip);
+        this.cantTurnosCongela = cantTurnosCongela;
     }
 
     @Override
@@ -34,8 +41,25 @@ public class Hielo extends Hechizo implements I_Congelar {
             }
         }
 
+    public int getCantTurnosCongela () {
+        return cantTurnosCongela;
+    }
+
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
+
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
 
+        congelar(jugadorRival,id);
+
+    }
+
+    @Override
+    public String toString() {
+        return "Hielo{" +
+                "cantTurnosCongela=" + cantTurnosCongela +
+                "} " + super.toString();
     }
 }

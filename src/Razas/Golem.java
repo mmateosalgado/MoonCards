@@ -5,6 +5,8 @@ import InterfacesCartas.I_SumarVida;
 import model.Jugador;
 import model.Personaje;
 
+import javax.swing.*;
+
 public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     private int sumarVida;
@@ -12,10 +14,24 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     //Constructor--------------------------------------
 
-    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , int cantTurnosCongela, boolean esGlobal) {
+    public Golem(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int sumarVida) {
+        super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
+        this.sumarVida = sumarVida;
+        this.cantTurnosCongela = 4;
+    }
+
+    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , boolean esGlobal) {
         super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
         this.sumarVida         = sumarVida;
-        this.cantTurnosCongela = cantTurnosCongela;
+        this.cantTurnosCongela = 4;
+    }
+
+    public int getSumarVida () {
+        return sumarVida;
+    }
+
+    public int getCantTurnosCongela () {
+        return cantTurnosCongela;
     }
 
     @Override
@@ -61,5 +77,18 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
             sumarVida(jugadorEjecutor,id);
         }
 
+    }
+
+    @Override
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
+
+    @Override
+    public String toString() {
+        return "Golem{" +
+                "sumarVida=" + sumarVida +
+                ", cantTurnosCongela=" + cantTurnosCongela +
+                "} " + super.toString();
     }
 }
