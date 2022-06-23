@@ -1,7 +1,10 @@
 package com.company.app;
 
 import Administrador.Administrador;
+import Batalla.Partida;
+import Excepciones.PasaNullExcepcion;
 import InterfacesGraficas.PantallaInicio;
+import InterfacesGraficas.TableroGrafico;
 import Json.JsonControladora;
 import Razas.Golem;
 import Razas.Humano;
@@ -59,8 +62,9 @@ public class Main {
         coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
         coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
         coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
-*/
 /*
+
+ */
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -103,9 +107,9 @@ public class Main {
 
 
         coleccionCartas.agregar (new Humano ("Galahad",false,1,1,2,false,iconoH1,"Descripcion",1));
-        coleccionCartas.agregar (new Humano ("Zeldan´t",false,3,2,2,false,iconoH2,"Descripcion",2));
-        coleccionCartas.agregar (new Humano ("Olaf",false,4,3,3,false,iconoH3,"Descripcion",3));
-        coleccionCartas.agregar (new Humano ("Merlin",true,7,4,5,true,iconoH4,"Descripcion",2));
+        coleccionCartas.agregar (new Humano ("Zeldan´t",false,3,2,2,false,iconoH4,"Descripcion",2));
+        coleccionCartas.agregar (new Humano ("Olaf",false,4,3,3,false,iconoH2,"Descripcion",3));
+        coleccionCartas.agregar (new Humano ("Merlin",true,7,4,5,true,iconoH3,"Descripcion",2));
 
         coleccionCartas.agregar (new Orco ("Bob el Orco",false,1,2,1,true,iconoO1,"Descripcion",1));
         coleccionCartas.agregar (new Orco ("Bers-Erker Jr",false,4,3,2,true,iconoO2,"Descripcion",2));
@@ -144,11 +148,23 @@ public class Main {
         coleccionCartas2 = admin.cargarColeccionDeCartas();
 
         System.out.println(coleccionCartas2);
-*/
+
 
         ImageIcon iconoHero45 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
         Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero45,"Descripcion");
         Jugador jugador = new Jugador(heroe,"Ferra",1);
+
+        ImageIcon iconoHero40 = new ImageIcon("src\\imagenes\\Heroes\\Elemental_Rochet.png");
+        Heroe heroe1= new Heroe ("Elemental Rochet",20,iconoHero40,"El mas mejor");
+        Jugador jugador2 = new Jugador(heroe1,"Gonza",2);
+
+        try {
+            Partida partida = new Partida(jugador,jugador2);
+            new TableroGrafico(partida);
+
+        } catch (PasaNullExcepcion e) {
+            e.printStackTrace();
+        }
         //System.out.println(jugador);
 
         UISistema(); // Esto define el diseño UI DEL SISTEMA

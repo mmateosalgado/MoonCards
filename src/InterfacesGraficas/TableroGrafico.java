@@ -1,6 +1,8 @@
 package InterfacesGraficas;
 
 import Batalla.Partida;
+import Excepciones.DatoNoEcontradoExcepcion;
+import Excepciones.ManaInsuficienteExcepcion;
 import Excepciones.PasaNullExcepcion;
 import Excepciones.TableroLlenoExcepcion;
 import InterfacesGraficas.pruebas.CartaBoton;
@@ -130,19 +132,21 @@ public class TableroGrafico extends JFrame{
                             carta = jCartasMano[i].getCarta();
                         }
                     }
-                    if (carta != null && carta instanceof Personaje) {
-                        try {
-                            System.out.println("Cantidad de personajes en tablero turno"+ partida.getJugadorTurno().getTablero().getValidos());
-                            System.out.println("Cantidad de personajes en tablero enemigo" + partida.getJugadorEnemigo().getTablero().getValidos());
-                            partida.getJugadorTurno().getTablero().agregarPersonaje((Personaje) carta);
-                            System.out.println("Cantidad de personajes en tablero turno"+ partida.getJugadorTurno().getTablero().getValidos());
-                            System.out.println("Cantidad de personajes en tablero enemigo" + partida.getJugadorEnemigo().getTablero().getValidos());
-                            //actualizarTableroGrafico();
-                        } catch (PasaNullExcepcion ex) {
-                            JOptionPane.showMessageDialog(null, ex.getMessage());
-                        } catch (TableroLlenoExcepcion ex) {
-                            JOptionPane.showMessageDialog(null, ex.getMessage());
-                        }
+                        if (carta != null && carta instanceof Personaje) {
+                            try {
+                                partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
+                                partida.actualizarValores();
+                                setVisible(false);
+                            } catch (PasaNullExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (TableroLlenoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (DatoNoEcontradoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (ManaInsuficienteExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            }
+
                     }else if(carta instanceof Hechizo){
 
 
@@ -150,16 +154,19 @@ public class TableroGrafico extends JFrame{
             }
         });
 
-
         jButtonCambiarTurno = new JButton("PASAR DE RONDA");
         jButtonCambiarTurno.setEnabled(true);
         jButtonCambiarTurno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida()>0 && partida.getJugadorTurno().getHeroeSeleccionado().getCantVida()>0){
-                    JOptionPane.showMessageDialog(null,"Se va a pasar al siguiente jugador");
-                    setVisible(false);
-                    new TableroGrafico(partida.pasarTurno());
+                    int i = JOptionPane.showConfirmDialog(null,"Se va a pasar al siguiente jugador, ¿Desea confirmar?","Elija una opción",JOptionPane.YES_NO_OPTION);
+                    if(i==0){
+                        partida.pasarTurno();
+                        new TableroGrafico(partida);
+                        setVisible(false);
+                    }
+
                 }else{
                     System.out.println("Partida Finalizada");
                 }
