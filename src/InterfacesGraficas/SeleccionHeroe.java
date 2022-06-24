@@ -1,10 +1,11 @@
-/*package InterfacesGraficas;
+package InterfacesGraficas;
 
 
 import Administrador.Administrador;
 import Batalla.Partida;
 import model.Coleccion;
 import model.Heroe;
+import model.Jugador;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,19 +17,28 @@ import java.awt.event.ActionListener;
 public class SeleccionHeroe extends JFrame implements ListSelectionListener, ActionListener {
 
     private JPanel jPanelCentral, jPanelSouth, jPanelNorth;
-    private JPanel jpanelCentralLeft,getJpanelCentralRight;
-
-    private JLabel jLabelNombreJugador;
+    private JPanel jpanelCentralLeft,jpanelCentralRight;
+    private JLabel jLabelNombreJugador,jLabelNombreJugador2;
     private JButton jButtonaceptar;
     private JSplitPane jsNombreImagenHeroe;
     private JLabel jlImagenHeroe;
-    private JList<Heroe> jsListHeroe;
+    private JList<Heroe> jsListHeroe,jsListHeroe2;;
     private JSplitPane jsDescripcionHeroe;
     private JTextArea jtDescripcionHeroe;
     private static int value = 0;
     private static int cant;
+
     private Heroe heroeFinal;
-    private Partida partidaBase;
+    private Heroe heroeFinal2;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private JLabel jlImagenHeroe2;
+    private JSplitPane jsNombreImagenHeroe2;
+    private JTextArea jtDescripcionHeroe2;
+    private JSplitPane jsDescripcionHeroe2;
+
+    static boolean flag1 = false;
+    static boolean flag2 = false;
 
     public SeleccionHeroe(String nombrejugador1, String nombreJugador2){
         setBounds(0,0,1280,720);
@@ -41,7 +51,7 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener, Act
         value = value + cant;
         cant++;
 
-        //constructorNorth(nombreJugador);
+        constructorNorth(nombrejugador1,nombreJugador2);
         crearGuiCentral();
         constructorSouth();
 
@@ -52,20 +62,42 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener, Act
         setVisible(true);
     }
 
-    public void constructorNorth(String nombreJugador){
+    public void constructorNorth(String nombreJugador, String nombreJugador2){
         jPanelNorth = new JPanel();
         jPanelNorth.setPreferredSize(new Dimension(1280,100));
+        jPanelNorth.setLayout(new BoxLayout(jPanelNorth,BoxLayout.X_AXIS));
+
         jLabelNombreJugador = new JLabel("Jugador "+value);
         if(!nombreJugador.isEmpty()){
-            jLabelNombreJugador.setText(nombreJugador);
+            jLabelNombreJugador.setText(nombreJugador + "                                                                      ");
         }
         jLabelNombreJugador.setFont(TableroGrafico.fontBelweH2);
         jPanelNorth.add(jLabelNombreJugador);
-    }
 
+
+        jLabelNombreJugador2= new JLabel("Jugador "+value);
+        if(!nombreJugador2.isEmpty()){
+            jLabelNombreJugador2.setText(" "+nombreJugador2);
+        }
+        jLabelNombreJugador2.setFont(TableroGrafico.fontBelweH2);
+        jPanelNorth.add(jLabelNombreJugador2);
+
+    }
     public void crearGuiCentral(){
         jPanelCentral = new JPanel();
-        jPanelCentral.setLayout(new BoxLayout(jPanelCentral,BoxLayout.Y_AXIS));
+        jPanelCentral.setLayout(new BoxLayout(jPanelCentral,BoxLayout.X_AXIS));
+        crearGuiCentralLeft();
+        jPanelCentral.add(jpanelCentralLeft);
+
+        crearGuiCentralRight();
+        jPanelCentral.add(jpanelCentralRight);
+    }
+
+    public void crearGuiCentralLeft(){
+
+        jpanelCentralLeft = new JPanel();
+        jpanelCentralLeft.setLayout(new BoxLayout(jpanelCentralLeft,BoxLayout.Y_AXIS));
+
         jsListHeroe = new JList<>(Administrador.cargarColeccionDeHeroes().devolverArregloHeroe());
         JScrollPane jsList = new JScrollPane(jsListHeroe);
 
@@ -83,7 +115,32 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener, Act
         jsDescripcionHeroe.setOneTouchExpandable(true);
         jsDescripcionHeroe.setDividerLocation(200);
 
-        jPanelCentral.add(jsDescripcionHeroe);
+        jpanelCentralLeft.add(jsDescripcionHeroe);
+
+    }
+    public void crearGuiCentralRight(){
+        jpanelCentralRight = new JPanel();
+        jpanelCentralRight.setLayout(new BoxLayout(jpanelCentralRight,BoxLayout.Y_AXIS));
+
+        jsListHeroe2 = new JList<>(Administrador.cargarColeccionDeHeroes().devolverArregloHeroe());
+        JScrollPane jsList2 = new JScrollPane(jsListHeroe2);
+
+        jsListHeroe2.addListSelectionListener(this::valueChanged);
+
+        jlImagenHeroe2 = new JLabel();
+        JScrollPane jsImage2 = new JScrollPane(jlImagenHeroe2);
+
+        jsNombreImagenHeroe2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,jsList2,jsImage2);
+
+        jtDescripcionHeroe2 = new JTextArea();
+        JScrollPane jsTextArea2 = new JScrollPane(jtDescripcionHeroe2);
+
+        jsDescripcionHeroe2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,jsNombreImagenHeroe2,jsTextArea2);
+        jsDescripcionHeroe2.setOneTouchExpandable(true);
+        jsDescripcionHeroe2.setDividerLocation(200);
+
+        jpanelCentralRight.add(jsDescripcionHeroe2);
+
     }
 
     public void constructorSouth(){
@@ -96,31 +153,44 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener, Act
         jPanelSouth.add(jButtonaceptar);
     }
 
-    public Heroe getHeroeFinal() {
-        return heroeFinal;
-    }
-
-    public String getjLabelNombreJugador() {
-        return jLabelNombreJugador.toString();
-    }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        Heroe itemSeleccionado = jsListHeroe.getSelectedValue();
-        jtDescripcionHeroe.setText(itemSeleccionado.getDescripcion());
-        jlImagenHeroe.setIcon(itemSeleccionado.getImage());
-        jtDescripcionHeroe.setCaretPosition(0);
-        heroeFinal = itemSeleccionado;
-        jButtonaceptar.setEnabled(true);
+        if(e.getSource().equals(jsListHeroe)){
+            flag1 = true;
+            Heroe itemSeleccionado = jsListHeroe.getSelectedValue();
+            jtDescripcionHeroe.setText(itemSeleccionado.getDescripcion());
+            jlImagenHeroe.setIcon(itemSeleccionado.getImage());
+            jtDescripcionHeroe.setCaretPosition(0);
+            heroeFinal = itemSeleccionado;
+        }
+
+
+
+        if(e.getSource().equals(jsListHeroe2)){
+            flag2 = true;
+            Heroe itemSeleccionado2 = jsListHeroe2.getSelectedValue();
+            jtDescripcionHeroe2.setText(itemSeleccionado2.getDescripcion());
+            jlImagenHeroe2.setIcon(itemSeleccionado2.getImage());
+            jtDescripcionHeroe2.setCaretPosition(0);
+            heroeFinal2 = itemSeleccionado2;
+
+        }
+
+        if(flag1 && flag2) {
+            jButtonaceptar.setEnabled(true);
+        }
 
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==jButtonaceptar){
-            partidaBase= new Partida();
+            jugador1 = new Jugador(heroeFinal,jLabelNombreJugador.getText(),0);
+            jugador2 = new Jugador(heroeFinal2,jLabelNombreJugador2.getText(),1);
+            new TableroGrafico(new Partida(jugador1,jugador2));
+            this.setVisible(false);
         }
     }
 }
-*/
+
 

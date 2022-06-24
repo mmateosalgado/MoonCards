@@ -17,7 +17,7 @@ public class ReglasJuego extends JFrame implements ActionListener {
     public ReglasJuego(){
         Font fuente=new Font("Belwe", Font.PLAIN,25);
 
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
         setBounds(0,0,1280,720);
@@ -27,10 +27,7 @@ public class ReglasJuego extends JFrame implements ActionListener {
         setResizable(false);
         getContentPane().setBackground(Color.LIGHT_GRAY);
 
-        ImageIcon imagen=new ImageIcon("src\\imagenes\\reglas.png");
-        reglas=new JLabel(imagen);
-        reglas.setBounds(0,0,1280,720);
-        add(reglas);
+
 
         aceptar=new JButton("Aceptar");
         aceptar.setBounds(900,550,140,50);
@@ -44,6 +41,11 @@ public class ReglasJuego extends JFrame implements ActionListener {
         add(salir);
         salir.addActionListener(this);
 
+        ImageIcon imagen=new ImageIcon("src\\imagenes\\reglas.png");
+        reglas=new JLabel(imagen);
+        reglas.setBounds(0,0,1280,720);
+        add(reglas);
+
 
         setVisible(true);
     }
@@ -52,10 +54,11 @@ public class ReglasJuego extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(aceptar)){
             setVisible(false);
-            String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
-            String nombreJugador2 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
-           // SeleccionHeroe seleccionHeroe1 = new SeleccionHeroe(nombreJugador1,nombreJugador2);
-
+            final ImageIcon icon = new ImageIcon("src\\imagenes\\logo.png");
+            Image image2 = icon.getImage().getScaledInstance(200,200,0);
+            String nombreJugador1 = JOptionPane.showInputDialog(null,"Ingrese el nombre del Jugador 1 ","MoonCards Jugar",JOptionPane.PLAIN_MESSAGE, new ImageIcon(image2),null," ").toString();
+            String nombreJugador2 = JOptionPane.showInputDialog(null,"Ingrese el nombre del Jugador 2 ","MoonCards Jugar",JOptionPane.PLAIN_MESSAGE, new ImageIcon(image2),null," ").toString();
+            SeleccionHeroe seleccionHeroe1 = new SeleccionHeroe(nombreJugador1,nombreJugador2);
 
             setVisible(false);
 
@@ -63,6 +66,9 @@ public class ReglasJuego extends JFrame implements ActionListener {
             setVisible(false);
             new PantallaInicio();
 
+        }else{
+            setVisible(false);
+            new PantallaInicio();
         }
     }
 }

@@ -27,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-      // menu();
+       menu();
 
 /*
         ArrayList<Carta> listaCartas= new ArrayList<Carta> ();
@@ -68,7 +68,7 @@ public class Main {
 
 
  */
-
+/*
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -285,8 +285,5 @@ public class Main {
             PantallaInicio inicio = new PantallaInicio();
         }
 
-        public static void test() {
-            JOptionPane.showMessageDialog(null, "error : dato no encontrado");
-        }
     }
 

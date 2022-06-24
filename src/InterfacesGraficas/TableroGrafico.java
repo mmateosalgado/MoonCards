@@ -46,10 +46,12 @@ public class TableroGrafico extends JFrame{
 
     public TableroGrafico(Partida partida) {
         setBounds(0, 0, 1500, 900);
-        setTitle("");
+        setTitle("Tablero General");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
+        setIconImage(icono.getImage());
 
         setLayout(new BorderLayout());
 
@@ -152,11 +154,21 @@ public class TableroGrafico extends JFrame{
                               //  actualizarTableroGrafico();
                             }
                     }else if(carta instanceof Hechizo){
-                            boolean flag = partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
-                            setVisible(false);
-                            if(!flag){
-                                new TableroGrafico(partida);
+                            try{
+                                boolean flag = partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
+                                if(!flag){
+                                    new TableroGrafico(partida);
+                                }
+                            }catch (PasaNullExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (TableroLlenoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (DatoNoEcontradoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (ManaInsuficienteExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
                             }
+
 
 
                     }
@@ -185,7 +197,14 @@ public class TableroGrafico extends JFrame{
         // jButtonCambiarTurno.addActionListener(this);
 
         jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
-        //jButtonAbandonarPartida.addActionListener(this);
+        jButtonAbandonarPartida.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"El jugador " +partida.getJugadorTurno().getNombre() +" ha abandonado la partida","Has defraudado a tus antespasados",JOptionPane.PLAIN_MESSAGE,new ImageIcon("src\\imagenes\\logo.png"));
+                setVisible(false);
+                new PantallaInicio();
+            }
+        });
 
         jPanelSouth.add(jButtonAtacar);
         jPanelSouth.add(jButtonInvocar);
@@ -224,7 +243,7 @@ public class TableroGrafico extends JFrame{
         jPanelEast = new JPanel();
         jPanelEast.setPreferredSize(new Dimension(200, 600));
         jPanelEast.setLayout(new BoxLayout(jPanelEast, BoxLayout.Y_AXIS));
-        jPanelEast.setBorder(new LineBorder(Color.black));
+        //jPanelEast.setBorder(new LineBorder(Color.black));
 
         jLabelCartasMano = new JLabel("CARTAS EN MANO");
         jLabelCartasMano.setFont(fontBelweH3);
@@ -257,7 +276,7 @@ public class TableroGrafico extends JFrame{
 
     public void constructorCenter(Partida partida) {
         jPanelCenter = new JPanel();
-        jPanelCenter.setBorder(new LineBorder(Color.black));
+        //jPanelCenter.setBorder(new LineBorder(Color.black));
 
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
