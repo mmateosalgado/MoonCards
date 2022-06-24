@@ -227,6 +227,9 @@ public class Partida {
                 {
                     invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival);
                     //No activa su efecto porque éste se activa al morir
+                }else
+                {
+                    jugadorEjecutor.getTablero().agregarPersonaje((Personaje)cartaUsada);
                 }
             }
 

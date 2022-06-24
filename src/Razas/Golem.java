@@ -38,9 +38,11 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     @Override
     public void congelar (Jugador objetivo , int id)  {
         ///Id - 1  porque es una posicion menos en el arreglo
-        objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
+        if(!objetivo.getTablero ().isVacio ())
+        {
+            objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
+        }
     }
-
     @Override
     public void sumarVida(Jugador caster, int id) {
         ///Si es rara Cura a todos
