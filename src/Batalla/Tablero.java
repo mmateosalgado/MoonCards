@@ -47,7 +47,7 @@ public class Tablero {
             }
     }
     
-    public void eliminarPersonaje(Personaje eliminado)throws PasaNullExcepcion, DatoNoEcontradoExcepcion {//TODO aplicar try -catch donde corresponda
+    public void eliminarPersonaje(Personaje eliminado)throws PasaNullExcepcion, DatoNoEcontradoExcepcion {
             if(eliminado==null){
                 throw new PasaNullExcepcion("ERROR:PASA NULL COMO PERSONAJE A ELIMINAR DEL TABLERO");
             }else {

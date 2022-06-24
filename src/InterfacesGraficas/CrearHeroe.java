@@ -19,7 +19,7 @@ public class CrearHeroe extends JFrame implements ActionListener {
 
     public CrearHeroe(){
         Font fuente=new Font("Belwe", Font.PLAIN,25);
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
         setBounds(0,0,500,400);

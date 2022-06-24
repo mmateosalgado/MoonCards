@@ -49,7 +49,6 @@ public class Necrofago extends Personaje implements I_RobarCarta, I_HacerDanio {
                 i=20;
             }
         }
-        //todo te saca en caso de no tener mas cartas en el mazo
     }
 
     @Override

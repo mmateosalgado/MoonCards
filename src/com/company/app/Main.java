@@ -29,46 +29,14 @@ public class Main {
 
        menu();
 
-/*
-        ArrayList<Carta> listaCartas= new ArrayList<Carta> ();
-        listaCartas.add (new Orco("Orco",true,10,10,10,10,true));
-        listaCartas.add (new Humano("Humano",true,10,10,10,10,100,true));
-        listaCartas.add (new Necrofago("Necrofago",true,10,10,10,10,10,true));
-        listaCartas.add (new Golem("Golem",true,10,10,10,10,10,true));
-        listaCartas.add (new Curacion("HCuracion",true,10,10,10));
-        listaCartas.add (new Danio("HDanio",true,10,10,10));
-        listaCartas.add (new Hielo("HHielo",true,10,10,10));
-        listaCartas.add (new RobaCarta("HRobarCarta",true,10,10,10));
 
-        JsonControladora jsonControladora = new JsonControladora ();
-        jsonControladora.grabarEnJsonCartas (listaCartas);
-        ArrayList<Heroe> listaHeroes = new ArrayList<Heroe> ();
-        listaHeroes.add (new Heroe("Pepe",10,"GranSapoPepe"));
-        listaHeroes.add (new Heroe ("Juan",20,"GranJuansettoo"));
-        listaHeroes.add (new Heroe ("Cristian",15,"GranCristi"));
-        listaHeroes.add (new Heroe ("Esteban",12,"Estebianaajaa"));
-        jsonControladora.grabarEnJsonHeroes (listaHeroes);
+       /*
+       // Profe!
+      //  Dejamos comentado este codigo pues si bien son TEST tambien esta el codigo de cargar las Cartas
+       // y los Heroes basicos a mano , por si se llegan a borrar los archivos
 
+        //ESCRIBIMOS EN LOS ARCHIVOS LAS CARTAS Y LOS HEROES
 
-        Administrador admin= new Administrador();
-
-        //ESCRIBIMOS EN LOS ARCHIVOS ALGUNAS CARTAS
-       Coleccion<Carta> coleccionCartas= new Coleccion<> ();
-       Coleccion<Heroe>coleccionHeroes= new Coleccion<>();
-
-        coleccionCartas.agregar (new Orco ("Orco",true,10,10,10,10,true));
-        coleccionCartas.agregar(new Humano ("Humano",true,10,10,10,10,100,true));
-        coleccionCartas.agregar (new Necrofago ("Necrofago",true,10,10,10,10,10,true));
-        coleccionCartas.agregar(new Golem ("Golem",true,10,10,10,10,10,true));
-        coleccionCartas.agregar(new Curacion ("HCuracion",true,10,10,10));
-        coleccionCartas.agregar(new Danio ("HDanio",true,10,10,10));
-        coleccionCartas.agregar(new Hielo ("HHielo",true,10,10,10));
-        coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
-/*
-
-
- */
-/*
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -109,7 +77,6 @@ public class Main {
         coleccionHeroes.agregar (new Heroe ("Elemental  Rochet",20,iconoHero1,"Descripcion"));
 
 
-
         coleccionCartas.agregar (new Humano ("Galahad",false,1,1,2,false,iconoH1,"Descripcion",1));
         coleccionCartas.agregar (new Humano ("Zeldan´t",false,3,2,2,false,iconoH4,"Descripcion",2));
         coleccionCartas.agregar (new Humano ("Olaf",false,4,3,3,false,iconoH2,"Descripcion",3));
@@ -124,9 +91,9 @@ public class Main {
         coleccionCartas.agregar (new Golem ("Gullveig",false,5,4,5,false,iconoG2,"Descripcion",3));
         coleccionCartas.agregar (new Golem ("Guadian de Notenhaim",true,8,5,7,false,iconoG3,"Descripcion",2));
 
-        coleccionCartas.agregar (new Necrofago ("Larry",false,3,1,1,false,iconoN1,"Descripcion",1));
-        coleccionCartas.agregar (new Necrofago ("Viajero de Hel",false,5,4,2,false,iconoN2,"Descripcion",2));
-        coleccionCartas.agregar (new Necrofago ("LuhK-az",true,8,4,3,false,iconoN3,"Descripcion",2));
+        coleccionCartas.agregar (new Necrofago ("Larry",false,10,1,1,false,iconoN1,"Descripcion",1));
+        coleccionCartas.agregar (new Necrofago ("Viajero de Hel",false,10,4,2,false,iconoN2,"Descripcion",2));
+        coleccionCartas.agregar (new Necrofago ("LuhK-az",true,10,4,3,false,iconoN3,"Descripcion",2));
 
         coleccionCartas.agregar (new Danio ("Deformacion",false,2,iconoD1,"Descripcion",2));
         coleccionCartas.agregar (new Danio ("Ignicion",true,4,iconoD2,"Descripcion",2));
@@ -145,141 +112,9 @@ public class Main {
 
         JsonControladora.grabarEnJsonCartas(coleccionCartas.getLista());
         JsonControladora.grabarEnJsonHeroes(coleccionHeroes.getLista());
-
-        //LEEMOS DEL ARCHIVO
-        Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
-
-        coleccionCartas2 = admin.cargarColeccionDeCartas();
-
-        System.out.println(coleccionCartas2);
-
-
-        ImageIcon iconoHero45 = new ImageIcon("src\\imagenes\\Heroes\\Rey_Nilluz.png");
-        Heroe heroe= new Heroe ("Rey Nilluz",20,iconoHero45,"Descripcion");
-        Jugador jugador = new Jugador(heroe,"Ferra",1);
-
-        ImageIcon iconoHero40 = new ImageIcon("src\\imagenes\\Heroes\\Elemental_Rochet.png");
-        Heroe heroe1= new Heroe ("Elemental Rochet",20,iconoHero40,"El mas mejor");
-        Jugador jugador2 = new Jugador(heroe1,"Gonza",2);
-
-        try {
-            Partida partida = new Partida(jugador,jugador2);
-            new TableroGrafico(partida);
-
-        } catch (PasaNullExcepcion e) {
-            e.printStackTrace();
-        }
-
-
-
-        //System.out.println(jugador);
-        UISistema(); // Esto define el diseño UI DEL SISTEMA
-        menu();
-
-       // ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        //ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-
-
-        /*
-        ColeccionHeroe coleccion = new ColeccionHeroe();
-        coleccion.agregarHeroe(heroeTest);
-        coleccion.agregarHeroe(heroeTest2);
-
-        SeleccionHeroe seleccionHeroe = new SeleccionHeroe(coleccion);
-
-
-
-        //SeleccionMoficarCarta test=new SeleccionMoficarCarta();
-
-/*
-        ImageIcon icono1 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
-        carta.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
-        carta.setImagen(icono1);
-
-        ImageIcon icono2 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta2 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
-        carta2.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
-        carta2.setImagen(icono2);
-
-        ImageIcon icono3 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        Carta carta3 = new Humano("Gonzalo", false, 4, 7, 5, 0, 0,true);
-        carta3.setDescrip("Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS");
-        carta3.setImagen(icono3);
-
-        Carta arrayCarta[] = new Carta[3];
-        arrayCarta[0] = carta;
-        arrayCarta[1] = carta;
-        arrayCarta[2] = carta;
-
-        ImageIcon icono4 = new ImageIcon("src\\imagenes\\testHeroe1.png");
-        ImageIcon icono5 = new ImageIcon("src\\imagenes\\testHeroe2.png");
-        Heroe heroeTest = new Heroe("Ekcros", 100, icono4, "Este es un heroe muy poderoso y legendario. Con 100 de vida. Casi imposible de aniquilar.");
-        Heroe heroeTest2 = new Heroe("Kratos", 50, icono5, "Este es un heroe poderoso y casi legendario. Con 50 de vida. Dificil de aniquilar.");
-
-        Jugador jugador1 = new Jugador(heroeTest,null,null,"Gonzalo",1,100);
-        Jugador jugador2 = new Jugador(heroeTest2,null,null,"Salga",2,50);
-
-        Mazo mazo1 = new Mazo();
-        mazo1.agregarCarta(carta);
-        mazo1.agregarCarta(carta2);
-        mazo1.agregarCarta(carta3);
-
-        Mano mano = new Mano();
-        mano.agregarMano(carta);
-        mano.agregarMano(carta2);
-        mano.agregarMano(carta3);
-
-        jugador1.setManoActual(mano);
-        jugador2.setManoActual(mano);
-
-        Tablero batalla = new Tablero(heroeTest);
-
-
-        try {
-            batalla.agregarPersonaje((Personaje) carta);
-            batalla.agregarPersonaje((Personaje) carta2);
-            batalla.agregarPersonaje((Personaje) carta3);
-            batalla.setValidos(3);
-
-            jugador1.setTablero(batalla);
-            jugador2.setTablero(batalla);
-
-            Partida partida = new Partida(jugador1,jugador2);
-
-            TableroGrafico tablero = new TableroGrafico(partida);
-
-
-
-
-
-        } catch (PasaNullExcepcion e) {
-            e.printStackTrace();
-        } catch (TableroLlenoExcepcion e) {
-            e.printStackTrace();
-        }
-*/
-
+      */
 
     }
-
-        public static void UISistema () {
-            UIManager.LookAndFeelInfo info[] = UIManager.getInstalledLookAndFeels();
-            for (UIManager.LookAndFeelInfo look : info)
-                // System.out.println(look.getClassName());
-                try {
-                    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();
-                }
-
-        }
 
         public static void menu() {
             PantallaInicio inicio = new PantallaInicio();

@@ -16,8 +16,8 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
 
     public SeleccionMoficarCarta(Carta entrada){
         Font h1=new Font("Belwe", Font.PLAIN,17);
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setTitle("MoonCards Admin - Modificar Cartas");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
 
         aModificar=entrada;

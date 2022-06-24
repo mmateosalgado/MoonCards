@@ -273,7 +273,6 @@ public class Partida {
 
         if(!personaje.isGlobal()) // si no es global
         {
-            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
             new InvocarPersonajeInterfaz(this,personaje,jugadorEjecutor,jugadorRival);
            // int id = invocar.getIdSeleccionada(); //esto esta hardcodeado, aca iria la id que recibe del usuario
             //System.out.println("ESTA ES LA ID: "+id);
@@ -281,7 +280,6 @@ public class Partida {
             //personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
         }
         else{
-            //TODO hacer la ventana emergente que no pide una id, solo explica el efecto
             personaje.activarEfecto(jugadorEjecutor,jugadorRival,0);
         }
         //se asigna una id al personaje segun el lugar en el tablero
@@ -329,7 +327,6 @@ public class Partida {
 
         }
         else{
-            //TODO hacer la ventana emergente que no pide una id, solo explica el hechizo
             hechizo.activarEfecto(jugadorEjecutor,jugadorRival,0);
             if(hechizo instanceof Danio)
             {

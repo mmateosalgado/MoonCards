@@ -43,6 +43,8 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener, Act
     public SeleccionHeroe(String nombrejugador1, String nombreJugador2){
         setBounds(0,0,1280,720);
         setTitle("Seleccionar Heroe y Mazo");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
+        setIconImage(icono.getImage());
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.

@@ -22,7 +22,7 @@ public class VerColeccion extends JFrame implements ListSelectionListener, Actio
     private JButton modificarBoton;
 
     public VerColeccion(Coleccion lista, boolean modificar){
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
 

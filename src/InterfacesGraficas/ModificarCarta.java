@@ -27,8 +27,8 @@ public class ModificarCarta extends JFrame implements ActionListener {
         this.danio=danio;
 
         Font h1=new Font("Belwe", Font.PLAIN,17);
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
-        setTitle("MoonCards Admin - Modificar Cartas");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
+        setIconImage(icono.getImage());
         setIconImage(icono.getImage());
 
         setBounds(0,0,400,300);

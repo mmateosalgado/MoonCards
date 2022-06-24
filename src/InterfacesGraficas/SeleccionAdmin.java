@@ -26,7 +26,7 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
     public SeleccionAdmin(){
         Font fuente=new Font("Belwe", Font.PLAIN,25);
 
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
         setTitle("MoonCards Admin");
         setBounds(0,0,1075,720);
