@@ -84,7 +84,7 @@ public class VerColeccion extends JFrame implements ListSelectionListener, Actio
     public void valueChanged(ListSelectionEvent e) {
         if(jsListT.getSelectedValue() instanceof Carta){
             Carta itemSeleccionado = (Carta) jsListT.getSelectedValue();
-            jlImagenT.setIcon(itemSeleccionado.getImage());
+            jlImagenT.setIcon(itemSeleccionado.getImagen());
         }else if((jsListT.getSelectedValue() instanceof Heroe)){
             Heroe itemSeleccionado = (Heroe) jsListT.getSelectedValue();
             jlImagenT.setIcon(itemSeleccionado.getImage());

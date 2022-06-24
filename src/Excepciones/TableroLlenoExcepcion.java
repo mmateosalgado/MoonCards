@@ -1,6 +1,6 @@
 package Excepciones;
 
-public class TableroLlenoExcepcion extends Exception{
+public class TableroLlenoExcepcion extends ArrayIndexOutOfBoundsException{
     public TableroLlenoExcepcion(String message) {
         super(message);
     }

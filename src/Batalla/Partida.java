@@ -22,7 +22,6 @@ public class Partida {
     // El constructor correspondiente
 
     public Partida(Jugador jugador1, Jugador jugador2) throws PasaNullExcepcion {
-        //TODO donde se aplique poner try - catch
             this.turno = 1;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
@@ -132,7 +131,7 @@ public class Partida {
     //Metodos de muerte--------------
 
     public boolean controlarMuertes(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)///Retorna true si el heroe sigue vivo, sino retorna false y finaliza la partida
-    { //TODO verificar reduccion de validos al morir
+    {
         if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0 && jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] != null)
         {//Si el que ataco murio en el ataque lo quitamos y primero verificamos si es un necrofago para activar su efecto:
             eliminarAtacante(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
@@ -212,7 +211,7 @@ public class Partida {
         }
         else if((jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia()) < 0)
         {
-            throw new ManaInsuficienteExcepcion("ERROR: MANA/ENERGIA INSUFICIENTE"); //TODO hacer try catchs
+            throw new ManaInsuficienteExcepcion("ERROR: MANA/ENERGIA INSUFICIENTE");
         }
         else{
             ///Empezamos a ver si la carta es un hechizo o personaje
@@ -226,8 +225,11 @@ public class Partida {
             {
                 if(!(cartaUsada instanceof Necrofago))
                 {
-                    invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+                    invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival);
                     //No activa su efecto porque éste se activa al morir
+                }else
+                {
+                    jugadorEjecutor.getTablero().agregarPersonaje((Personaje)cartaUsada);
                 }
             }
 

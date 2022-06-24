@@ -62,7 +62,7 @@ public class CrearHeroe extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public boolean inputsCompletos() throws JtextFieldVacioException {//valida que los inputs tengan datos
+    public boolean inputsIncompletos() throws JtextFieldVacioException {//valida que los inputs tengan datos
         boolean respuesta=false;
 
         if(!nombreEspacio.getText().isEmpty() && !descripcionEspacio.getText().isEmpty()){
@@ -81,7 +81,7 @@ public class CrearHeroe extends JFrame implements ActionListener {
             SeleccionAdmin volver=new SeleccionAdmin();
         }else if(e.getSource().equals(aceptar)){
             try {
-                if(inputsCompletos()){
+                if(inputsIncompletos()){
                     Administrador admin=new Administrador();
                     if(admin.validarNombreHeroes(nombreEspacio.getText())) {
                         Heroe aGuardar=new Heroe(nombreEspacio.getText(),20,new ImageIcon("src/imagenes/Heroes/heroeGenerico.png"),descripcionEspacio.getText());

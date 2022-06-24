@@ -1,14 +1,18 @@
 package Administrador;
 
+import Excepciones.NumeroInvalidoExcepcion;
+import Excepciones.PasaNullExcepcion;
 import model.Carta;
 import model.Coleccion;
 import model.Heroe;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Administrador {
 
-
+    ///-------------------------------------------------Cargar Coleccion de Cartas desde el Archivo de Cartas------------------------------------------------
     public static Coleccion<Carta> cargarColeccionDeCartas()
     {
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -37,7 +41,7 @@ public class Administrador {
         }
         return coleccionCartas;
     }
-
+    ///-------------------------------------------------Asigna ID automaticamente------------------------------------------------
     public int agregarId()
     { int id=0;
 
@@ -49,8 +53,8 @@ public class Administrador {
 
         return id+1;
     }
-
-    public void cargarArchivoCartas (Coleccion<Carta> coleccion)
+    ///-------------------------------------------------Cargar Archivo Cartas desde la Coleccion de Cartas------------------------------------------------
+    public static void cargarArchivoCartas(Coleccion<Carta> coleccion)
     {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("cartas.bin");
@@ -72,7 +76,7 @@ public class Administrador {
             e.printStackTrace();
         }
     }
-
+    ///-------------------------------------------------Cargar Archivo Heroes desde la Coleccion de Heroes------------------------------------------------
     public void cargarArchivoHeroes (Coleccion<Heroe> coleccion)
     {
         try {
@@ -96,6 +100,7 @@ public class Administrador {
         }
     }
 
+    ///-------------------------------------------------Cargar Coleccion Heroes desde el Archivo de Heroes------------------------------------------------
     public Coleccion<Heroe> cargarColeccionDeHeroes()
     {
         Coleccion<Heroe> coleccionHeroes= new Coleccion<> ();
@@ -125,21 +130,23 @@ public class Administrador {
         }
         return coleccionHeroes;
     }
-
-    public boolean validarNombreCarta(String nuevo)
+    ///-------------------------------------------------Valida los nombres al crear o modificar una Carta------------------------------------------------
+    public boolean validarNombreCarta(boolean nombre,String nuevo)
     {
         boolean control=true;
-        Coleccion<Carta> coleccion=cargarColeccionDeCartas();
 
-        for (Carta carta: coleccion.getLista ()) {
-            if (carta.getNombre ().contains (nuevo))
-            {
-                control=false;
+        if(nombre) {
+            Coleccion<Carta> coleccion = cargarColeccionDeCartas();
+
+            for (Carta carta : coleccion.getLista()) {
+                if (carta.getNombre().contains(nuevo)) {
+                    control = false;
+                }
             }
         }
         return control;
     }
-
+    ///-------------------------------------------------Valida los nombres al crear o modificar un Heroe------------------------------------------------
     public boolean validarNombreHeroes(String nuevo)
     {
         boolean control=true;
@@ -153,5 +160,34 @@ public class Administrador {
         return control;
     }
 
+    ///-------------------------------------------------Valida lo ingresado en los textfields------------------------------------------------
+    public static boolean validarInput(String aValidar) throws PasaNullExcepcion, NumeroInvalidoExcepcion {//valida que los datos en los inputs sean validos
+        String regex="[0-9]+";
+        Pattern p=Pattern.compile(regex);
+        boolean aux=false;
 
+        if(aValidar==null){
+            throw new PasaNullExcepcion("ERROR FATAL: SE PASA NULL!");
+        }else{
+            Matcher m =p.matcher(aValidar);
+            aux= m.matches();
+            if(aux){
+                if(!(Integer.parseInt(aValidar)>0 && Integer.parseInt(aValidar)<=10)){
+                    throw new NumeroInvalidoExcepcion("Los numeros deben estar entre el 1 y el 10");
+                }
+            }
+        }
+
+        return aux;
+    }
+
+    ///-------------------------------------------------Recibe una carta y la guarda------------------------------------------------
+
+    //principalmente cree el metodo para simplificar el metodo de CargarNuevaCarta, ademas ,
+    //se repetia tanto para crear Personaje como para crear Hechizo :D
+    public static void guardarCarta(Carta aGuardar) {
+        Coleccion<Carta> coleccionCartas = cargarColeccionDeCartas();
+        coleccionCartas.agregar(aGuardar);
+        cargarArchivoCartas(coleccionCartas);
+    }
 }

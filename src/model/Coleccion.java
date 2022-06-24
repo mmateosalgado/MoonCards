@@ -9,47 +9,33 @@ import java.util.ArrayList;
     public class Coleccion <T extends DatoPrincipal>{
     private ArrayList <T> lista;
 
-    public Coleccion(){
-        lista = new ArrayList<T>();
+        //-------------------------------------------------Contructor-------------------------------------------------
+     public Coleccion(){
+         lista = new ArrayList<T>();
     }
 
-    public boolean agregar(T t){
-        return lista.add(t);
-    }
 
-    public boolean buscar(String nombre) throws PasaNullExcepcion, DatoNoEcontradoExcepcion{ //TODO aplicar try - catch
 
-        if(nombre==null){
-            throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
-        }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
+        //-------------------------------------------------Getters-------------------------------------------------
 
-        boolean flag = false;
-        for(int i = 0; i< lista.size();i++) {
-            if(nombre.equals(lista.get(i).getNombre())){
-                flag = true;
+        public T getTipo(){
+            if(lista.size()!=0) {
+                return lista.get(0);
+            }else{
+                return null;
             }
         }
-
-        if(flag==false){
-            throw new DatoNoEcontradoExcepcion("ERROR:HEROE NO EXISTE EN COLECCION DE HEROES");
-        }
-        return flag;
-    }
-
-    public T getTipo(){
-        if(lista.size()!=0) {
-            return lista.get(0);
-        }else{
-            return null;
-        }
-    }
 
         public ArrayList<T> getLista() {
             return lista;
         }
 
-        public T buscarRetornar(String name){
+        //-------------------------------------------------Metodos Lista Generica-------------------------------------------------
+        public boolean agregar(T t){
+            return lista.add(t);
+        }
 
+        public T buscarRetornar(String name){
         T t = null;
         for(int i = 0;i< lista.size();i++){
             if(name.equals(lista.get(i).getNombre())){
@@ -88,22 +74,16 @@ import java.util.ArrayList;
         return lista.size();
     }
 
+
+        //-------------------------------------------------To String-------------------------------------------------
+
         @Override
         public String toString() {
             return "Coleccion{" +
                     "lista=" + lista +
                     '}';
         }
-        /*
-        public ArrayList<Carta> transformarEnArraylist()
-        {
-            ArrayList<Carta> array = new ArrayList<Carta>();
-            for (Carta cartita:
-                 ) {
 
-            }
-        }
-        */
     }
 
 

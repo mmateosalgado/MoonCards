@@ -41,8 +41,7 @@ private int cantCartasRobadas;
             try {
                 objetivo.getManoActual ().robarCarta (objetivo);
             } catch (ManoLlenaExcepcion e) {
-                e.printStackTrace();
-                ///TODO ARROJAR IMAGEN
+                JOptionPane.showMessageDialog(null,"Tu mano esta llena, NO PUEDES AGARRAR MAS CARTAS!");
             }
         }
     }

@@ -20,13 +20,15 @@ import java.util.ArrayList;
 
 public class JsonControladora {
 
+
+    ///-------------------------------------------------Para grabar las Cartas-------------------------------------------------
     public static void grabarEnJsonCartas(ArrayList<Carta> listaCartas)
     {
         JSONArray jsonMoonCards = new JSONArray ();
         try {
         for (Carta carta:listaCartas) {
             JSONObject jsonCarta = new JSONObject ();
-
+    ///-------------------------------------------------Le agrega los valores Principales de Carta-------------------------------------------------
             jsonCarta.put ( "Nombre" , carta.getNombre () );
             jsonCarta.put ( "id" , carta.getId () );
             jsonCarta.put ( "TipoCarta" , carta.getTipoCarta () );
@@ -36,6 +38,9 @@ public class JsonControladora {
             jsonCarta.put ( "isRara" , carta.isRara () );
             jsonCarta.put ( "isAlta" , carta.isAlta () );
             jsonCarta.put ( "Descripcion" , carta.getDescrip () );
+
+     ///-------------------------------------------------Si es Personaje, le agrega los valores principales de éste-------------------------------------------------
+     ///-------------------------------------------------Asigna Valores dependiendo el tipo de Personaje(Raza) que sea-------------------------------------------------
 
             if (carta instanceof Personaje )
             {
@@ -63,6 +68,9 @@ public class JsonControladora {
                     jsonCarta.put ("CantidadDanioInflige",((Necrofago) carta).getcantDañoInflige ());
                 }
             }
+            ///-------------------------------------------------Si es Hechizo, le agrega los valores principales de éste-------------------------------------------------
+            ///-------------------------------------------------Asigna Valores dependiendo el tipo de Hechizo que sea-------------------------------------------------
+
             else if(carta instanceof Hechizo )
             {
                 if(carta instanceof Curacion)
@@ -91,6 +99,7 @@ public class JsonControladora {
         JsonUtiles.grabarCartas (jsonMoonCards);
     }
 
+    ///-------------------------------------------------Le agrega los valores Principales de Heroe-------------------------------------------------
     public static void grabarEnJsonHeroes(ArrayList<Heroe> listaHeroes)
     {
         JSONArray jsonMoonHeroes = new JSONArray ();
@@ -108,7 +117,6 @@ public class JsonControladora {
         {
             e.printStackTrace ();
         }
-
 
         JsonUtiles.grabarHeroes (jsonMoonHeroes);
     }

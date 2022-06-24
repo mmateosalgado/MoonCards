@@ -21,41 +21,25 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
     private ImageIcon imagen;
     private String descrip;
 
-    //CONSTRUCTOR
-    public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige) {
-        this.id=totalCartas + 1;
-        totalCartas++;
-        this.nombre = nombre;
-        this.isRara = isRara;
-        this.alta = false; // aca no convendria crearla directamente dandola de alta? asi no tenemos que andar dando a todas de alta dsp xd
-        this.costoEnergia = costoEnergia;
-        this.danoInflige = danoInflige;
-        //actualizarValoresCarta();
-    }
+    //-------------------------------------------------CONSTRUCTOR-------------------------------------------------
 
-    public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige,ImageIcon imagem, String descrip) {
+    public Carta(String nombre, boolean isRara, int costoEnergia, int danoInflige,ImageIcon imagen, String descrip) {
         this.id=totalCartas + 1;
         totalCartas++;
         this.nombre = nombre;
         this.isRara = isRara;
-        this.alta = false; // aca no convendria crearla directamente dandola de alta? asi no tenemos que andar dando a todas de alta dsp xd
+        this.alta = true;
         this.costoEnergia = costoEnergia;
         this.danoInflige = danoInflige;
-        this.imagen = imagem;
+        this.imagen = imagen;
         this.descrip = descrip;
        actualizarValoresCarta();
     }
 
-    //METODOS
-
-    //GETTERS
+    //-------------------------------------------------GETTERS-------------------------------------------------
 
     public String getDescrip() {
         return descrip;
-    }
-
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
     }
 
     public static int getTotalCartas() {
@@ -64,15 +48,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getNombre() {
-        return nombre;
     }
 
     public boolean isRara() {
@@ -91,7 +66,25 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         return danoInflige;
     }
 
-    //SETTERS
+
+    public ImageIcon getImagen() {
+        return imagen;
+    }
+
+    public abstract String getTipoCarta();
+
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+    //-------------------------------------------------SETTERS-------------------------------------------------
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -105,10 +98,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         this.alta = alta;
     }
 
-    public ImageIcon getImagen() {
-        return imagen;
-    }
-
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
     }
@@ -118,9 +107,11 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
     }
 
     public void setDanoInflige(int danoInflige) {
-        this.danoInflige += danoInflige;
+        this.danoInflige = danoInflige;
     }
 
+    //-------------------------------------------------Metodos-------------------------------------------------
+    //-------------------------------------------------Actualizar Valores Carta-------------------------------------------------
     public void actualizarValoresCarta(){
         Image imagePrincipal;
         imagePrincipal = imagen.getImage();
@@ -162,7 +153,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
                 "} " + super.toString();
     }
 
-    public abstract String getTipoCarta();
 
     public ImageIcon getImage() {
         return imagen;
