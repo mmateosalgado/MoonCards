@@ -64,12 +64,8 @@ public class PantallaInicio extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
 
         if(e.getSource().equals(botonJugar)){
-            String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
-            String nombreJugador2 = JOptionPane.showInputDialog("Ingrese le nombre del jugador 2");
-
-            //setVisible(false);
-            //TODO Lanzar juego
-
+            ReglasJuego reglitas = new ReglasJuego();
+            this.setVisible(false);
         }else if(e.getSource().equals(botonAdmin)){
             String a= String.valueOf(campoContrasena.getPassword());
             if(a.equals("messi")) {//clave

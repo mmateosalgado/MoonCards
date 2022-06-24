@@ -27,6 +27,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+      // menu();
+
 /*
         ArrayList<Carta> listaCartas= new ArrayList<Carta> ();
         listaCartas.add (new Orco("Orco",true,10,10,10,10,true));

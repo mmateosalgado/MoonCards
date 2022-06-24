@@ -151,8 +151,12 @@ public class TableroGrafico extends JFrame{
                             finally {
                               //  actualizarTableroGrafico();
                             }
-
                     }else if(carta instanceof Hechizo){
+                            boolean flag = partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
+                            setVisible(false);
+                            if(!flag){
+                                new TableroGrafico(partida);
+                            }
 
 
                     }

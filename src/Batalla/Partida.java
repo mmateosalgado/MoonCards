@@ -2,14 +2,13 @@ package Batalla;
 
 import Excepciones.*;
 import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.pruebas.InvocarHechizoInterfaz;
 import InterfacesGraficas.pruebas.InvocarPersonajeInterfaz;
 import Razas.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import model.*;
 import tiposHechizos.Danio;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Partida {
 
@@ -305,13 +304,13 @@ public class Partida {
 
         if(!hechizo.isRara ()) // si no es rara, osea que no tiene efecto en area
         {
-            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
-            int idObjetivo = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
-            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,idObjetivo);
-            if(hechizo instanceof Danio)
+            new InvocarHechizoInterfaz(this,hechizo,this.getJugadorTurno(),this.getJugadorEnemigo());
+
+            /*if(hechizo instanceof Danio)
             {
                 partidaEnCurso= controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,idObjetivo);//Verificamos si muere al que fue afectado con bola de fuego
-            }
+            }*/
+
         }
         else{
             //TODO hacer la ventana emergente que no pide una id, solo explica el hechizo
@@ -322,12 +321,15 @@ public class Partida {
                 for (int i = 0; i < 3; i++) {
                     if(jugadorRival.getTablero().getPersonajeEnPosicion(i) != null)
                     {
-                        controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,jugadorRival.getTablero ().getPersonajeEnPosicion (i).getId ());
+                        controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,jugadorRival.getTablero ().getPersonajeEnPosicion (i).getId());
                     }
                 }
                 ///Controla que no haya muerto el heroe
-                partidaEnCurso=partidaEnCurso= controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,0);
+                partidaEnCurso = controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,0);
             }
+
+            new TableroGrafico(this);
+
         }
         return partidaEnCurso;
     }
@@ -356,11 +358,11 @@ public class Partida {
     public void actualizarValores(){
         getJugadorTurno().getHeroeSeleccionado().actualizarValoresCarta();
         for (int i = 0; i<this.getJugadorTurno().getTablero().getValidos();i++){
-         //   getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+          getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
         }
         getJugadorEnemigo().getHeroeSeleccionado().actualizarValoresCarta();
         for (int i = 0; i<this.getJugadorEnemigo().getTablero().getValidos();i++){
-          ///  getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+            getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
         }
     }
 }
