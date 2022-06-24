@@ -59,10 +59,14 @@ public class ConfirmacionAccion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    System.out.println("CANT DEL tablero antes:"+ partida.getJugadorEnemigo().getTablero().getValidos());
                     partida.ataqueConPersonaje(partida.getJugadorTurno(),partida.getJugadorEnemigo(),cartaTurno.getId(),cartaEnemigo.getId());
+                    System.out.println("CANT DEL tablero DESPUÉS:"+ partida.getJugadorEnemigo().getTablero().getValidos());
                     //TODO aca hay que hacer la actualizacion grafica de las cartas
                     JOptionPane.showMessageDialog(null,"Ataque realizado con éxito");
                     setVisible(false);
+                    //partida.actualizarValores();
+                    new TableroGrafico(partida);
                 } catch (PasaNullExcepcion ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 } catch (PersonajeCongeladoAccionaExcepcion ex) {

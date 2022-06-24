@@ -74,6 +74,8 @@ public class SeleccionCartaAtaque extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(partida.getJugadorEnemigo().getTablero().isVacio()){
                     jButtonHeroe.setEnabled(true);
+                    setVisible(false);
+                    ConfirmacionAccionHeroe confirmacionAccionHeroe = new ConfirmacionAccionHeroe(partida, carta, partida.getJugadorEnemigo().getHeroeSeleccionado(), "¿Desea atacar esta carta?");
                 }else{
                     jButtonHeroe.setEnabled(false);
                     JOptionPane.showMessageDialog(null,"Primero debe atacar las cartas del tablero antes de atacar al Heroe");
@@ -99,28 +101,29 @@ public class SeleccionCartaAtaque extends JFrame {
 
     public void constructorCenter(Personaje arrayPersonaje[]) {
         jPanelCenter = new JPanel();
+        jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.X_AXIS));
         arrayboton = new JButton[3];
-        for (int i = 0; i < arrayboton.length; i++) {
-            arrayboton[i] = new JButton(arrayPersonaje[i].getImagen());
-            arrayboton[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    for(int i = 0;i<arrayboton.length;i++){
-                        if(arrayboton[i] ==(JButton) e.getSource()){
-                            setVisible(false);
-                            ConfirmacionAccion confirmacionAccion = new ConfirmacionAccion(partida,carta,partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i),"¿Desea atacar esta carta?");
+        if(!partida.getJugadorEnemigo().getTablero().isVacio()) {
+            for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
+                arrayboton[i] = new JButton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).getImagen());
+                arrayboton[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (int i = 0; i < arrayboton.length; i++) {
+                            if (arrayboton[i] ==  e.getSource()) {
+                                setVisible(false);
+                                ConfirmacionAccion confirmacionAccion = new ConfirmacionAccion(partida, carta, partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i), "¿Desea atacar esta carta?");
+                            }
                         }
                     }
-
-
-
-                }
-            });
+                });
+                jPanelCenter.add(arrayboton[i]);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Tablero Enemigo vacio. Solo puede atacar al Heroe.");
         }
-        jPanelCenter.setLayout(new BoxLayout(jPanelCenter, BoxLayout.X_AXIS));
-        for (int i = 0; i < arrayboton.length; i++) {
-            jPanelCenter.add(arrayboton[i]);
-        }
+
+
     }
 
     public void constructorSur(){

@@ -37,6 +37,7 @@ public class Orco extends Personaje implements I_AumentarAtaque {
                 if(objetivo.getTablero ().getPersonajeEnPosicion (i)!=null)
                 {
                     objetivo.getTablero ().getPersonajeEnPosicion (i).setDanoInflige ( objetivo.getTablero ().getPersonajeEnPosicion ( i ).getDanoInflige () + danioAdicional);
+                    objetivo.getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
                 }
             }
 

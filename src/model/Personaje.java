@@ -22,7 +22,7 @@ public abstract class Personaje extends Carta {
         this.turnosCongelado = 1; //Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
         this.rangoGlobal = rangoGlobal;
 
-        actualizarValoresCarta();
+       // actualizarValoresCarta();
     }
 
 
@@ -92,23 +92,24 @@ public abstract class Personaje extends Carta {
         imageCostoAtaque = valorAtaque.getImage();
         BufferedImage imagenValorAtaque = CartaGrafico.toBufferedImage(imageCostoAtaque);
 
+        if(cantidadDeVida>0) {
+            Image imageCantVida;
+            ImageIcon valorVida = CartaGrafico.devolverValorEnArreglo(cantidadDeVida);
+            imageCantVida = valorVida.getImage();
+            BufferedImage imagenValorCantVida = CartaGrafico.toBufferedImage(imageCantVida);
 
-        Image imageCantVida;
-        ImageIcon valorVida = CartaGrafico.devolverValorEnArreglo(cantidadDeVida);
-        imageCantVida = valorVida.getImage();
-        BufferedImage imagenValorCantVida = CartaGrafico.toBufferedImage(imageCantVida);
+            BufferedImage combinedImage = new BufferedImage(super.getImagen().getIconWidth(), super.getImagen().getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = combinedImage.createGraphics();
 
-        BufferedImage combinedImage = new BufferedImage(super.getImagen().getIconWidth(),super.getImagen().getIconHeight(),BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = combinedImage.createGraphics();
+            g.drawImage(imagenCarta, 0, 0, null);
+            g.drawImage(imagenValorCostoEnergia, 0, 15, null);
+            g.drawImage(imagenValorAtaque, 5, 255, null);
+            g.drawImage(imagenValorCantVida, 160, 255, null);
 
-        g.drawImage(imagePrincipal,0,0,null);
-        g.drawImage(imageCostoEnergia,0,25,null);
-        g.drawImage(imagenValorAtaque,5,255,null);
-        g.drawImage(imagenValorCantVida,160,255,null);
+            g.dispose();
 
-        g.dispose();
-
-        super.setImagen(new ImageIcon(combinedImage));
+            super.setImagen(new ImageIcon(combinedImage));
+        }
 
     }
 

@@ -109,16 +109,16 @@ public class Main {
         coleccionCartas.agregar (new Humano ("Galahad",false,1,1,2,false,iconoH1,"Descripcion",1));
         coleccionCartas.agregar (new Humano ("Zeldan´t",false,3,2,2,false,iconoH4,"Descripcion",2));
         coleccionCartas.agregar (new Humano ("Olaf",false,4,3,3,false,iconoH2,"Descripcion",3));
-        coleccionCartas.agregar (new Humano ("Merlin",true,7,4,5,true,iconoH3,"Descripcion",2));
+        coleccionCartas.agregar (new Humano ("Merlin",true,7,4,5,false,iconoH3,"Descripcion",2));
 
-        coleccionCartas.agregar (new Orco ("Bob el Orco",false,1,2,1,true,iconoO1,"Descripcion",1));
-        coleccionCartas.agregar (new Orco ("Bers-Erker Jr",false,4,3,2,true,iconoO2,"Descripcion",2));
-        coleccionCartas.agregar (new Orco ("Chaman",true,7,4,2,true,iconoO3,"Descripcion",2));
+        coleccionCartas.agregar (new Orco ("Bob el Orco",false,1,2,1,false,iconoO1,"Descripcion",1));
+        coleccionCartas.agregar (new Orco ("Bers-Erker Jr",false,4,3,2,false,iconoO2,"Descripcion",2));
+        coleccionCartas.agregar (new Orco ("Chaman",true,7,4,2,false,iconoO3,"Descripcion",2));
 
 
         coleccionCartas.agregar (new Golem ("La Roca",false,3,3,3,false,iconoG1,"Descripcion",2));
         coleccionCartas.agregar (new Golem ("Gullveig",false,5,4,5,false,iconoG2,"Descripcion",3));
-        coleccionCartas.agregar (new Golem ("Guadian de Notenhaim",true,8,5,7,true,iconoG3,"Descripcion",2));
+        coleccionCartas.agregar (new Golem ("Guadian de Notenhaim",true,8,5,7,false,iconoG3,"Descripcion",2));
 
         coleccionCartas.agregar (new Necrofago ("Larry",false,3,1,1,false,iconoN1,"Descripcion",1));
         coleccionCartas.agregar (new Necrofago ("Viajero de Hel",false,5,4,2,false,iconoN2,"Descripcion",2));

@@ -42,11 +42,13 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
                 if(objetivo.getTablero().getPersonajeEnPosicion(i) != null)
                 {
                     objetivo.getTablero().getPersonajeEnPosicion(i).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(i).getDanoInflige() + danioAdicional);
+
                 }
             }
         }else{
+            System.out.println("VALOR DE ID: "+ id);
             objetivo.getTablero().getPersonajeEnPosicion(id - 1).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(id - 1).getDanoInflige() + danioAdicional);
-
+          //  objetivo.getTablero().getPersonajeEnPosicion(id-1).actualizarValoresCarta();
         }
         }
 

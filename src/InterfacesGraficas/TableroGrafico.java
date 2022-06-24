@@ -55,6 +55,7 @@ public class TableroGrafico extends JFrame{
 
 
         this.partida = partida;
+        partida.actualizarValores();
 
         constructorNorth(partida.getJugadorTurno());
         constructorCenter(partida);
@@ -65,11 +66,11 @@ public class TableroGrafico extends JFrame{
         ///jPanelEast.setPreferredSize(new Dimension(120,));
 
         add(jPanelNorth, BorderLayout.NORTH);
-
-        add(jPanelCenter, BorderLayout.CENTER);
-        add(jPanelSouth, BorderLayout.SOUTH);
-        add(jPanelWest, BorderLayout.WEST);
         add(jPanelEast, BorderLayout.EAST);
+        add(jPanelSouth, BorderLayout.SOUTH);
+        add(jPanelCenter, BorderLayout.CENTER);
+        add(jPanelWest, BorderLayout.WEST);
+
 
 
 
@@ -115,7 +116,9 @@ public class TableroGrafico extends JFrame{
                      }
                  }
                  if(carta!=null){
+                     setVisible(false);
                     SeleccionCartaAtaque seleccionCartaAtaque = new SeleccionCartaAtaque(partida,carta);
+
                  }
 
              }
@@ -135,7 +138,6 @@ public class TableroGrafico extends JFrame{
                         if (carta != null && carta instanceof Personaje) {
                             try {
                                 partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
-                                partida.actualizarValores();
                                 setVisible(false);
                             } catch (PasaNullExcepcion ex) {
                                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -145,6 +147,9 @@ public class TableroGrafico extends JFrame{
                                 JOptionPane.showMessageDialog(null, ex.getMessage());
                             } catch (ManaInsuficienteExcepcion ex) {
                                 JOptionPane.showMessageDialog(null, ex.getMessage());
+                            }
+                            finally {
+                              //  actualizarTableroGrafico();
                             }
 
                     }else if(carta instanceof Hechizo){

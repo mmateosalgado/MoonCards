@@ -352,11 +352,13 @@ public class Partida {
     }
 
     public void actualizarValores(){
+        getJugadorTurno().getHeroeSeleccionado().actualizarValoresCarta();
         for (int i = 0; i<this.getJugadorTurno().getTablero().getValidos();i++){
-            getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+         //   getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
         }
+        getJugadorEnemigo().getHeroeSeleccionado().actualizarValoresCarta();
         for (int i = 0; i<this.getJugadorEnemigo().getTablero().getValidos();i++){
-            getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+          ///  getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
         }
     }
 }

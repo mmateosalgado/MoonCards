@@ -43,7 +43,7 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         this.danoInflige = danoInflige;
         this.imagen = imagem;
         this.descrip = descrip;
-        actualizarValoresCarta();
+       actualizarValoresCarta();
     }
 
     //METODOS
@@ -140,11 +140,11 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         Graphics2D g = combinedImage.createGraphics();
 
         g.drawImage(imagenCarta,0,0,null);
-        g.drawImage(imageCostoEnergia,0,25,null);
+        g.drawImage(imagenValorCostoEnergia,0,20,null);
         g.drawImage(imagenValorAtaque,5,255,null);
         g.dispose();
 
-        imagen = new ImageIcon(combinedImage);
+       setImagen(new ImageIcon(combinedImage));
     }
 
 
