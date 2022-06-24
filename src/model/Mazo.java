@@ -9,12 +9,12 @@ public class Mazo {
     private ArrayList<Carta> mazoCartas;
     private int validos;
 
-    //Constructor -------------------------------
+
    /* public Mazo(){
         mazoCartas = new ArrayList<Carta>();
         validos = 0;
     }*/
-
+//-------------------------------Constructor -------------------------------
     public Mazo(Coleccion<Carta> cartas)
     {
         mazoCartas = new ArrayList<Carta>();
@@ -25,9 +25,13 @@ public class Mazo {
         }
     }
 
-    //Getters setters
+    //------------------------------------Getters ------------------------------------
+    public int getValidos() {
+        return validos;
+    }
 
-    //Metodos------------------------------------
+
+    //------------------------------------Metodos------------------------------------
     public void agregarCarta(Carta nueva){
        mazoCartas.add(nueva);
        validos++;
@@ -48,15 +52,13 @@ public class Mazo {
         return sacada;
     }
 
-    public int getValidos() {
-        return validos;
-    }
 
-    //teste
+    //------------------------------------teste------------------------------------
     public String mostrarMazo(){
         return mazoCartas.toString();
     }
 
+    //------------------------------------To String ------------------------------------
     @Override
     public String toString() {
         return "\n\nMazo{" +
