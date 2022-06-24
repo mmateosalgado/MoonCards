@@ -27,16 +27,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-       menu();
+       //menu();
 
 
-       /*
+
        // Profe!
       //  Dejamos comentado este codigo pues si bien son TEST tambien esta el codigo de cargar las Cartas
        // y los Heroes basicos a mano , por si se llegan a borrar los archivos
 
         //ESCRIBIMOS EN LOS ARCHIVOS LAS CARTAS Y LOS HEROES
 
+        /*
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
