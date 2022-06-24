@@ -276,19 +276,22 @@ public class TableroGrafico extends JFrame{
         });
 
         jPanelCenterEnemigo.add(jButtonHeroeEnemigo);
-        jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo().getTablero().getValidos()];
-        for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
-            jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
-            jButtonPersonajesEnemigos[i].getCarta().actualizarValoresCarta();
-            jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
-            jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
-                    jButtonAtacar.setEnabled(false);
-                }
-            });
-            jPanelCenterEnemigo.add(jButtonPersonajesEnemigos[i]);
+        if(!partida.getJugadorEnemigo ().getTablero ().isVacio ())
+        {
+            jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo ().getTablero ().getValidos ()];
+            for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
+                jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
+                jButtonPersonajesEnemigos[i].getCarta().actualizarValoresCarta();
+                jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
+                jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
+                        jButtonAtacar.setEnabled(false);
+                    }
+                });
+                jPanelCenterEnemigo.add(jButtonPersonajesEnemigos[i]);
+            }
         }
 
         jPanelCenter.add(jPanelCenterEnemigo);
@@ -319,37 +322,41 @@ public class TableroGrafico extends JFrame{
 
         jPanelCenterTurno.add(jButtonHeroe);
 
-        jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
-        jButtonPersonajeValidos =partida.getJugadorTurno().getTablero().getValidos();
+
+        if(!partida.getJugadorTurno ().getTablero ().isVacio ()) {
+            jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
+            jButtonPersonajeValidos = partida.getJugadorTurno ().getTablero ().getValidos ();
+
         for (int i = 0; i < partida.getJugadorTurno().getTablero().getValidos(); i++) {
-            jButtonPersonajes[i] = new CartaBoton(partida.getJugadorTurno().getTablero().getPersonajeEnPosicion(i));
-            jButtonPersonajes[i].setIcon(jButtonPersonajes[i].getCarta().getImagen());
-            jButtonPersonajes[i].getCarta().actualizarValoresCarta();
-            jButtonPersonajes[i].addActionListener(new ActionListener() {
+            jButtonPersonajes[i] = new CartaBoton ( partida.getJugadorTurno ().getTablero ().getPersonajeEnPosicion ( i ) );
+            jButtonPersonajes[i].setIcon ( jButtonPersonajes[i].getCarta ().getImagen () );
+            jButtonPersonajes[i].getCarta ().actualizarValoresCarta ();
+            jButtonPersonajes[i].addActionListener ( new ActionListener () {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    CartaBoton carta = (CartaBoton) e.getSource();
-                    System.out.println(carta.getCarta().toString());
-                    for(int z = 0; z<jButtonPersonajeValidos; z++){
-                        if(jButtonPersonajes[z].getCarta().equals(carta.getCarta())){
-                            carta.setEstado(true);
-                            System.out.println(carta.isEstado());
-                        }else{
-                           jButtonPersonajes[z].setEstado(false);
-                            System.out.println(jButtonPersonajes[z].isEstado());
+                public void actionPerformed (ActionEvent e) {
+                    CartaBoton carta = (CartaBoton) e.getSource ();
+                    System.out.println ( carta.getCarta ().toString () );
+                    for (int z = 0; z < jButtonPersonajeValidos; z++) {
+                        if ( jButtonPersonajes[z].getCarta ().equals ( carta.getCarta () ) ) {
+                            carta.setEstado ( true );
+                            System.out.println ( carta.isEstado () );
+                        } else {
+                            jButtonPersonajes[z].setEstado ( false );
+                            System.out.println ( jButtonPersonajes[z].isEstado () );
                         }
                     }
-                    jButtonAtacar.setEnabled(true);
-                    jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
-                    jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
-                    jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
-                    jTextDescripcion.setText("<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>");
+                    jButtonAtacar.setEnabled ( true );
+                    jlabelImagenSelec.setIcon ( carta.getCarta ().getImagen () );
+                    jTextNombre.setText ( "<html><p style=\"width:100px\">" + carta.getCarta ().getNombre () + "" + "</p></html>" );
+                    jTextTipo.setText ( "<html><p style=\"width:100px\">" + carta.getCarta ().getTipoCarta () + "" + "</p></html>" );
+                    jTextDescripcion.setText ( "<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>" );
                     //for(int i = 0; i<jButtonPersonajesEnemigos.length;i++){
                     // if(jButtonPersonajesEnemigos[i].getCarta().)
                     //}
                 }
-            });
+            } );
             jPanelCenterTurno.add(jButtonPersonajes[i]);
+        }
         }
 
 

@@ -85,7 +85,10 @@ public class ConfirmacionAccion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                partida.actualizarValores ();
+                new TableroGrafico(partida);
             }
+
         });
         add(buttonCancelar);
 
