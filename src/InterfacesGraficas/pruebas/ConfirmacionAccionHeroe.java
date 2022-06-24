@@ -61,14 +61,20 @@ public class ConfirmacionAccionHeroe extends JFrame {
             buttonAceptar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("VIDA DEL HEROE antes:"+ partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida());
-                    partida.ataqueAlHeroe((Personaje) cartaTurno,heroeEnemigo);
-                    System.out.println("VIDA DEL HEROE después:"+ partida.getJugadorEnemigo().getHeroeSeleccionado().getCantVida());
-                    //TODO aca hay que hacer la actualizacion grafica de las cartas
-                    JOptionPane.showMessageDialog(null,"Ataque realizado con éxito");
-                    setVisible(false);
-                    partida.actualizarValores();
-                    new TableroGrafico(partida);
+
+                    try {
+                        partida.ataqueAlHeroe((Personaje) cartaTurno,heroeEnemigo);
+                    }
+                    catch (PersonajeCongeladoAccionaExcepcion f)
+                    {
+                        JOptionPane.showMessageDialog (null,f.getMessage ());
+                    }
+                    finally {
+                        JOptionPane.showMessageDialog(null,"Ataque realizado con éxito");
+                        setVisible(false);
+                        partida.actualizarValores();
+                        new TableroGrafico(partida);
+                    }
 
                 }
             });
@@ -81,6 +87,8 @@ public class ConfirmacionAccionHeroe extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     setVisible(false);
+                    partida.actualizarValores ();
+                    new TableroGrafico(partida);
                 }
             });
             add(buttonCancelar);

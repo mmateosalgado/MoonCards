@@ -54,17 +54,24 @@ public class Tablero {
                 int flag=0;
 
                 for (int i = 0; i < posiciones.length && flag==0; i++) {
-                    if (posiciones[i] == eliminado) {
+                    if(posiciones[i] != null)
+                    {
+                    if (posiciones[i].equals (eliminado)) {
                         flag=i;
+                        System.out.println ("I POS:"+i);
                     }
+                    }
+
                 }
 
-                if(flag!=0){
+               // if(flag!=0){
                     posiciones[flag]=null;
-                    validos--;
-                }else {
-                    throw new DatoNoEcontradoExcepcion("ERROR: PERSONAJE A ELIMINAR NO ESTA EN EL TABLERO");
-                }
+                    System.out.println ("HOLAAAAAA");
+                   //validos--;
+
+                //else {
+                   // throw new DatoNoEcontradoExcepcion("ERROR: PERSONAJE A ELIMINAR NO ESTA EN EL TABLERO");
+
             }
     }
 
