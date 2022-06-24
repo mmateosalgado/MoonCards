@@ -66,7 +66,7 @@ public class Main {
 
 
  */
-/*
+
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -144,7 +144,6 @@ public class Main {
         JsonControladora.grabarEnJsonCartas(coleccionCartas.getLista());
         JsonControladora.grabarEnJsonHeroes(coleccionHeroes.getLista());
 
-        */   /*
         //LEEMOS DEL ARCHIVO
         Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
 
@@ -167,7 +166,7 @@ public class Main {
 
         } catch (PasaNullExcepcion e) {
             e.printStackTrace();
-        } */
+        }
 
 
 
