@@ -1,6 +1,8 @@
 package Excepciones;
 
-public class DatoNoEcontradoExcepcion extends Exception{
+import java.util.NoSuchElementException;
+
+public class DatoNoEcontradoExcepcion extends NoSuchElementException {
     public DatoNoEcontradoExcepcion(String message) {
         super(message);
     }

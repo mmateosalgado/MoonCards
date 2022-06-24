@@ -12,17 +12,14 @@ public class Jugador {
     private String nombre;
     private Tablero tablero;
     private int id;
-    private int numeroVictorias;
     private boolean congelado;
 
     //------------------------------------Contructor------------------------------------
     public Jugador(Heroe heroeSeleccionado, String nombre, int id) {
-        //TODO posible error a futuro, a medida que continua el juego se le pasa el mazo vacio
         this.heroeSeleccionado = heroeSeleccionado;
         this.mazoJugador = new Mazo(Administrador.cargarColeccionDeCartas()); // agarra las primeras 20 cartas del archivo------------------------------------
         this.nombre = nombre;
         this.id = id;
-        //this.numeroVictorias = numeroVictorias;
         tablero = new Tablero(heroeSeleccionado);
         congelado=false;
         manaActual = 0;
@@ -51,10 +48,6 @@ public class Jugador {
         return id;
     }
 
-    public int getNumeroVictorias() {
-        return numeroVictorias;
-    }
-
     public Mano getManoActual() {
         return manoActual;
     }
@@ -77,10 +70,6 @@ public class Jugador {
 
 
     //------------------------------------------SETTERS---------------------------------------------
-
-    public void setNumeroVictorias(int numeroVictorias) {
-        this.numeroVictorias = numeroVictorias;
-    }
 
     public void setManoActual(Mano manoActual) {
         this.manoActual = manoActual;
@@ -131,7 +120,6 @@ public class Jugador {
                 ", nombre='" + nombre + '\'' +
                 ", tablero=" + tablero +
                 ", id=" + id +
-                ", numeroVictorias=" + numeroVictorias +
                 ", congelado=" + congelado +
                 '}';
     }

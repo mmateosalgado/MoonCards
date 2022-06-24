@@ -203,36 +203,16 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
         return respuesta;
     }
 
-    public boolean validarInput(String aValidar) throws PasaNullExcepcion, NumeroInvalidoExcepcion {//valida que los datos en los inputs sean validos
-        String regex="[0-9]+";
-        Pattern p=Pattern.compile(regex);
-        boolean aux=false;
-
-        if(aValidar==null){
-            throw new PasaNullExcepcion("ERROR FATAL: SE PASA NULL!");
-        }else{
-            Matcher m =p.matcher(aValidar);
-            aux= m.matches();
-            if(aux){
-                if(!(Integer.parseInt(aValidar)>0 && Integer.parseInt(aValidar)<=10)){
-                    throw new NumeroInvalidoExcepcion("Los numeros deben estar entre el 1 y el 10");
-                }
-            }
-        }
-
-        return aux;
-    }
-
     public boolean validarInputs() throws PasaNullExcepcion, InputInvalidoExcepcion, NumeroInvalidoExcepcion {
         boolean respuesta1,respuesta2;
         boolean respuesta3=true;
         boolean respuesta4=true;
 
-        respuesta1=validarInput(costoEnergiaEspacio.getText());
-        respuesta2=validarInput(valorEfectoEspacio.getText());
+        respuesta1=Administrador.validarInput(costoEnergiaEspacio.getText());
+        respuesta2=Administrador.validarInput(valorEfectoEspacio.getText());
         if(isPersonaje) {
-            respuesta3 = validarInput(danioInflijeEspacio.getText());
-            respuesta4 = validarInput(vidaEspacio.getText());
+            respuesta3 = Administrador.validarInput(danioInflijeEspacio.getText());
+            respuesta4 = Administrador.validarInput(vidaEspacio.getText());
         }
 
         if(respuesta1 && respuesta2 && respuesta3 && respuesta4){
@@ -351,16 +331,14 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
             try {
                 if(inputsCompletos()){
                     if(validarInputs()) {
+                        Administrador admin=new Administrador();
                         if (isPersonaje) {
                             if (checkBoxValidas(orcoCheck, necrofagoCheck, golemCheck, humanoCheck)) {
-                                Administrador admin=new Administrador();
-                                if(admin.validarNombreCarta(nombreEspacio.getText())) {
+                                if(admin.validarNombreCarta(true,nombreEspacio.getText())) {
                                     JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                                     setVisible(false);
                                     Personaje aGuardar=crearPersonaje(humanoCheck.isSelected(),orcoCheck.isSelected(),necrofagoCheck.isSelected(),golemCheck.isSelected());
-                                    Coleccion<Carta> coleccionCartas = admin.cargarColeccionDeCartas();
-                                    coleccionCartas.agregar(aGuardar);
-                                    admin.cargarArchivoCartas(coleccionCartas);
+                                    Administrador.guardarCarta(aGuardar);
                                     SeleccionAdmin vuelta = new SeleccionAdmin();
                                 }else{
                                     JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");
@@ -368,14 +346,11 @@ public class CargaNuevaCarta extends JFrame implements ActionListener {
                             }
                         } else {
                             if (checkBoxValidas(robarCartaCheck, curacionCheck, danioCheck, hieloCheck)) {
-                                Administrador admin=new Administrador();
-                                if(admin.validarNombreCarta(nombreEspacio.getText())) {
+                                if(admin.validarNombreCarta(true,nombreEspacio.getText())) {
                                     JOptionPane.showMessageDialog(null, "Se a guardado con exito!");
                                     setVisible(false);
                                     Hechizo aGuardar=crearHechizo(curacionCheck.isSelected(),danioCheck.isSelected(),hieloCheck.isSelected(),robarCartaCheck.isSelected());
-                                    Coleccion<Carta> coleccionCartas = admin.cargarColeccionDeCartas();
-                                    coleccionCartas.agregar(aGuardar);
-                                    admin.cargarArchivoCartas(coleccionCartas);
+                                    Administrador.guardarCarta(aGuardar);
                                     SeleccionAdmin vuelta = new SeleccionAdmin();
                                 }else{
                                     JOptionPane.showMessageDialog(null,"Ese nombre ya existe! Ingrese uno nuevo");

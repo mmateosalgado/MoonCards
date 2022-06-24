@@ -1,7 +1,5 @@
 package InterfacesGraficas;
 
-import Control.Inicio;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +14,7 @@ public class PantallaInicio extends JFrame implements ActionListener {
     private JCheckBox mostrarContrasena;
 
     public PantallaInicio(){
-        Font h1=new Font("Belwe", Font.PLAIN,25);
+        Font fuente=new Font("Belwe", Font.PLAIN,25);
 
         ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setIconImage(icono.getImage());
@@ -30,18 +28,19 @@ public class PantallaInicio extends JFrame implements ActionListener {
 
         botonJugar=new JButton("Jugar");
         botonJugar.setBounds(100,50,300,100);
-        botonJugar.setFont(h1);
+        botonJugar.setFont(fuente);
         add(botonJugar);
         botonJugar.addActionListener( this);
 
         botonAdmin=new JButton("Aceptar");
         botonAdmin.setBounds(125,290,200,40);
-        botonAdmin.setFont(h1);
+        botonAdmin.setFont(fuente);
         add(botonAdmin);
         botonAdmin.addActionListener( this);
 
         textAdmin=new JLabel("- Ingrese como administrador -");
-        textAdmin.setBounds(30,220,300,20);
+        textAdmin.setBounds(30,200,400,40);
+        textAdmin.setFont(fuente);
         add(textAdmin);
 
         ingreseContrasena=new JLabel("Contraseña");
@@ -68,13 +67,12 @@ public class PantallaInicio extends JFrame implements ActionListener {
             String nombreJugador1 = JOptionPane.showInputDialog("Ingrese el nombre del Jugador 1");
             String nombreJugador2 = JOptionPane.showInputDialog("Ingrese le nombre del jugador 2");
 
-            Inicio inicio = new Inicio(nombreJugador1,nombreJugador2); // en el constructor de la clase seleccion mazo debe
-            // recibir un objeto de tipo Inicio.
             //setVisible(false);
+            //TODO Lanzar juego
 
         }else if(e.getSource().equals(botonAdmin)){
             String a= String.valueOf(campoContrasena.getPassword());
-            if(a.equals("messi")) {
+            if(a.equals("messi")) {//clave
                 setVisible(false);
                 SeleccionAdmin test = new SeleccionAdmin();
             }else{

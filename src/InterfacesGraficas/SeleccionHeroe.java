@@ -7,7 +7,6 @@ import model.Heroe;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import Control.*;
 
 public class SeleccionHeroe extends JFrame implements ListSelectionListener {
 
@@ -19,7 +18,7 @@ public class SeleccionHeroe extends JFrame implements ListSelectionListener {
     private JTextArea jtDescripcionHeroe;
 
 
-    public SeleccionHeroe(Inicio inicio,Coleccion<Heroe>listaHeroes){
+    public SeleccionHeroe(Coleccion<Heroe>listaHeroes){
 
         setBounds(0,0,1280,720);
         setTitle("Seleccionar Heroe y Mazo");

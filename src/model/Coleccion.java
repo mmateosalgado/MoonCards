@@ -34,23 +34,6 @@ import java.util.ArrayList;
         public boolean agregar(T t){
             return lista.add(t);
         }
-        public boolean buscar(String nombre) throws PasaNullExcepcion, DatoNoEcontradoExcepcion{ //TODO aplicar try - catch
-
-        if(nombre==null){
-            throw new PasaNullExcepcion("ERROR:SE PASA null COMO NOMBRE DEL HEROE A BUSCAR");//
-        }//AGREGAR EXCEPCION DE NO ENCONTRADO CAMBIAR METODO?
-
-        boolean flag = false;
-        for(int i = 0; i< lista.size();i++) {
-            if(nombre.equals(lista.get(i).getNombre())){
-                flag = true;
-            }
-        }
-        if(flag==false){
-            throw new DatoNoEcontradoExcepcion("ERROR:HEROE NO EXISTE EN COLECCION DE HEROES");
-        }
-        return flag;
-                }
 
         public T buscarRetornar(String name){
         T t = null;

@@ -5,23 +5,12 @@ import Excepciones.InputInvalidoExcepcion;
 import Excepciones.JtextFieldVacioException;
 import Excepciones.NumeroInvalidoExcepcion;
 import Excepciones.PasaNullExcepcion;
-import Razas.Golem;
-import Razas.Humano;
-import Razas.Necrofago;
-import Razas.Orco;
 import model.*;
-import tiposHechizos.Curacion;
-import tiposHechizos.Danio;
-import tiposHechizos.Hielo;
-import tiposHechizos.RobaCarta;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ModificarCarta extends JFrame implements ActionListener {
     private JLabel nombreTexto,vidaTexto,energiTexto,DanioTexto;
@@ -30,7 +19,6 @@ public class ModificarCarta extends JFrame implements ActionListener {
     private Carta aModificar;
     private boolean nombre,vida,energia,danio;
 
-    //public ModificarCarta(boolean nombre,boolean vida,boolean energia,boolean alta,boolean danio,Carta entrada){
     public ModificarCarta(boolean nombre,boolean vida,boolean energia,boolean danio,Carta entrada){
         aModificar=entrada;
         this.nombre=nombre;
@@ -112,7 +100,7 @@ public class ModificarCarta extends JFrame implements ActionListener {
     }
 
     public boolean inputCompleto(JTextField aTestear) throws JtextFieldVacioException {//valida que los inputs tengan datos
-        boolean respuesta=false;
+        boolean respuesta;
 
         if(!aTestear.getText().isEmpty()){
             respuesta=true;
@@ -140,37 +128,17 @@ public class ModificarCarta extends JFrame implements ActionListener {
         return rta;
     }
 
-    public boolean validarInput(String aValidar) throws PasaNullExcepcion, NumeroInvalidoExcepcion {//valida que los datos en los inputs sean validos
-        String regex="[0-9]+";
-        Pattern p=Pattern.compile(regex);
-        boolean aux=false;
-
-        if(aValidar==null){
-            throw new PasaNullExcepcion("ERROR FATAL: SE PASA NULL!");
-        }else{
-            Matcher m =p.matcher(aValidar);
-            aux= m.matches();
-            if(aux){
-                if(!(Integer.parseInt(aValidar)>0 && Integer.parseInt(aValidar)<=10)){
-                    throw new NumeroInvalidoExcepcion("Los numeros deben estar entre el 1 y el 10");
-                }
-            }
-        }
-
-        return aux;
-    }
-
     public boolean validarInputs() throws PasaNullExcepcion, InputInvalidoExcepcion, NumeroInvalidoExcepcion {
         boolean respuesta1=true;
 
         if(vida) {
-            respuesta1 = validarInput(vidaEspacio.getText());
+            respuesta1 = Administrador.validarInput(vidaEspacio.getText());
         }
         if(danio) {
-            respuesta1 = validarInput(danioEspacio.getText());
+            respuesta1 = Administrador.validarInput(danioEspacio.getText());
         }
         if(energia) {
-            respuesta1 = validarInput(energiaEspacio.getText());
+            respuesta1 = Administrador.validarInput(energiaEspacio.getText());
         }
 
         if(respuesta1){
@@ -200,6 +168,9 @@ public class ModificarCarta extends JFrame implements ActionListener {
         return rta;
     }
 
+    //PARECIERA QUE SE PUEDE CREAR UN METODO SOLO A PARTIR DE crearHechizo y crearCarta
+    //pero no es posible!
+
     public Hechizo crearHechizo()
     {
         Hechizo rta= (Hechizo) aModificar;
@@ -227,13 +198,21 @@ public class ModificarCarta extends JFrame implements ActionListener {
             try{
                 if(inputsCompletos()){
                     if(validarInputs()){
-                        if(admin.validarNombreCarta(nombreEspacio.getText())) {
-                            Coleccion<Carta> coleccion=admin.cargarColeccionDeCartas();
+                        String nombreStr;
+                        if(nombre) {
+                             nombreStr = nombreEspacio.getText();
+                        }else{
+                            nombreStr="";//para que evite que se lance el error de que PUEDE que nombre sea null
+                        }
+                        if(admin.validarNombreCarta(nombre,nombreStr)) {
+                            Coleccion<Carta> coleccion= Administrador.cargarColeccionDeCartas();
                             if(aModificar instanceof Hechizo){
                                 Carta hechizo=crearHechizo();
+                                hechizo.actualizarValoresCarta();
                                 coleccion.getLista().set(aModificar.getId()-1,hechizo);
                             }else if(aModificar instanceof Personaje){
                                 Personaje personaje=crearPersonaje();
+                                personaje.actualizarValoresCarta();
                                 coleccion.getLista().set(aModificar.getId()-1,personaje);
                             }
                             admin.cargarArchivoCartas(coleccion);

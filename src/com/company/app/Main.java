@@ -64,7 +64,9 @@ public class Main {
         coleccionCartas.agregar(new RobaCarta ("HRobarCarta",true,10,10,10));
 /*
 
+
  */
+
         Administrador admin= new Administrador();
 
         Coleccion<Carta> coleccionCartas= new Coleccion<> ();
@@ -142,6 +144,7 @@ public class Main {
         JsonControladora.grabarEnJsonCartas(coleccionCartas.getLista());
         JsonControladora.grabarEnJsonHeroes(coleccionHeroes.getLista());
 
+        /*
         //LEEMOS DEL ARCHIVO
         Coleccion<Carta>coleccionCartas2= new Coleccion<Carta> ();
 
@@ -164,9 +167,11 @@ public class Main {
 
         } catch (PasaNullExcepcion e) {
             e.printStackTrace();
-        }
-        //System.out.println(jugador);
+        } */
 
+
+
+        //System.out.println(jugador);
         UISistema(); // Esto define el diseño UI DEL SISTEMA
         menu();
 

@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 
 public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     private  JCheckBox nombreCheck,vidaCheck,danioCheck,energiaCheck;
-   // private JCheckBox altaCheck;
     private JButton aceptar,salir;
     private Carta aModificar;
 
@@ -77,6 +76,7 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        //Solo se muestra el boton de aceptar si hay minimo una caracteristica a cambiar valida!
         if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
             aceptar.setEnabled(true);
         }else{

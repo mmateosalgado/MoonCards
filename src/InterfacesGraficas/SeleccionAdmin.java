@@ -16,6 +16,12 @@ import java.awt.event.ActionListener;
 public class SeleccionAdmin extends JFrame implements ActionListener {
 
     private JButton a1,a2,a3,b1,b2,b3,salir;
+    //ESQUEMA DE UBICACION
+    /*
+            A1     A2      A3
+            B1     B2      B3
+                  SALIR
+     */
 
     public SeleccionAdmin(){
         Font fuente=new Font("Belwe", Font.PLAIN,25);
@@ -83,25 +89,21 @@ public class SeleccionAdmin extends JFrame implements ActionListener {
         }else if(e.getSource()==a1) {//VER CARTAS
             setVisible(false);
             Administrador admin = new Administrador();
-            Coleccion<Carta>coleccionCartas= admin.cargarColeccionDeCartas();
-            VerColeccion test=new VerColeccion(coleccionCartas,false);
+            VerColeccion test=new VerColeccion(Administrador.cargarColeccionDeCartas(),false);
         }else if(e.getSource()==a2) {//MODIFICAR CARTAS
             setVisible(false);
             Administrador admin = new Administrador();
-            Coleccion<Carta>coleccionCartas= admin.cargarColeccionDeCartas();
-            VerColeccion test=new VerColeccion(coleccionCartas,true);
+            VerColeccion test=new VerColeccion(Administrador.cargarColeccionDeCartas(),true);
         }else if(e.getSource()==a3) {//AGREGAR CARTAS
             setVisible(false);
             SeleccionCartaACrear ida=new SeleccionCartaACrear();
         }else if(e.getSource()==b1) {//VER HEROES
             setVisible(false);
             Administrador admin=new Administrador();
-            Coleccion <Heroe> coleccionDeHeroes =admin.cargarColeccionDeHeroes();
-            VerColeccion test=new VerColeccion(coleccionDeHeroes,false);
+            VerColeccion test=new VerColeccion(admin.cargarColeccionDeHeroes(),false);
         }else if(e.getSource()==b2) {//GENERA JSON
-            //TODO generar json
             Administrador admin=new Administrador();
-            JsonControladora.grabarEnJsonCartas(admin.cargarColeccionDeCartas().getLista());
+            JsonControladora.grabarEnJsonCartas(Administrador.cargarColeccionDeCartas().getLista());
             JsonControladora.grabarEnJsonHeroes(admin.cargarColeccionDeHeroes().getLista());
             JOptionPane.showMessageDialog(null,"Se a actualizado los archivos JSON del proyecto!");
         }else if(e.getSource()==b3) {//AGREGAR HEROES

@@ -107,7 +107,7 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
     }
 
     public void setDanoInflige(int danoInflige) {
-        this.danoInflige += danoInflige;
+        this.danoInflige = danoInflige;
     }
 
     //-------------------------------------------------Metodos-------------------------------------------------
