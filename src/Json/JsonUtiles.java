@@ -9,6 +9,7 @@ import org.json.JSONArray;
 
 public class JsonUtiles {
 
+    //-------------------------------------------------Para grabar los Heroes-------------------------------------------------
 
     public static void grabarHeroes (JSONArray array) {
         try {
@@ -21,7 +22,7 @@ public class JsonUtiles {
             e.printStackTrace ();
         }
     }
-
+    //-------------------------------------------------Para grabar las Cartas-------------------------------------------------
     public static void grabarCartas (JSONArray array) {
         try {
             FileWriter file = new FileWriter ( "archivoCartas.json" );
@@ -33,7 +34,7 @@ public class JsonUtiles {
             e.printStackTrace ();
         }
     }
-
+    //-------------------------------------------------Herramienta por las dudas------------------------------------------------
     public static String leer () {
         String contenido = "";
         try {

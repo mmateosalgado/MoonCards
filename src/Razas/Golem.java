@@ -12,20 +12,15 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     private int sumarVida;
     private int cantTurnosCongela;
 
-    //Constructor--------------------------------------
-
+    //--------------------------------------Constructor para guardar en el Archivo--------------------------------------
+    ///--------------------------------------cantTurnosCongela siempre va a ser 4 (la usa en caso de ser rara)--------------------------------------
     public Golem(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int sumarVida) {
         super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
         this.sumarVida = sumarVida;
         this.cantTurnosCongela = 4;
     }
 
-    public Golem (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int sumarVida , boolean esGlobal) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
-        this.sumarVida         = sumarVida;
-        this.cantTurnosCongela = 4;
-    }
-
+    //--------------------------------------GETTERS--------------------------------------
     public int getSumarVida () {
         return sumarVida;
     }
@@ -35,11 +30,19 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
     }
 
     @Override
-    public void congelar (Jugador objetivo , int id)  {
-        ///Id - 1  porque es una posicion menos en el arreglo
-        objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
     }
 
+    //--------------------------------------Interfaces que implementa--------------------------------------
+    @Override
+    public void congelar (Jugador objetivo , int id)  {
+        ///Id - 1  porque es una posicion menos en el arreglo
+        if(!objetivo.getTablero ().isVacio ())
+        {
+            objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).setTurnosCongelado (objetivo.getTablero ().getPersonajeEnPosicion ( id-1 ).getTurnosCongelado () + cantTurnosCongela);
+        }
+    }
     @Override
     public void sumarVida(Jugador caster, int id) {
         ///Si es rara Cura a todos
@@ -79,11 +82,7 @@ public class Golem extends Personaje implements I_Congelar, I_SumarVida {
 
     }
 
-    @Override
-    public String getTipoCarta() {
-        return getClass().getSimpleName();
-    }
-
+    //--------------------------------------TO String--------------------------------------
     @Override
     public String toString() {
         return "Golem{" +

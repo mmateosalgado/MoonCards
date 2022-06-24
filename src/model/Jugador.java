@@ -1,6 +1,8 @@
 package model;
 
+import Administrador.Administrador;
 import Batalla.Tablero;
+import Excepciones.ManoLlenaExcepcion;
 
 public class Jugador {
     private Heroe heroeSeleccionado;
@@ -10,51 +12,40 @@ public class Jugador {
     private String nombre;
     private Tablero tablero;
     private int id;
-    private int numeroVictorias;
     private boolean congelado;
 
-    public Jugador(Heroe heroeSeleccionado, Mano manoActual, Mazo mazoJugador, String nombre, int id, int numeroVictorias) {
-        //TODO posible error a futuro, a medida que continua el juego se le pasa el mazo vacio
+    //------------------------------------Contructor------------------------------------
+    public Jugador(Heroe heroeSeleccionado, String nombre, int id) {
         this.heroeSeleccionado = heroeSeleccionado;
-        this.manoActual = manoActual;
-        this.mazoJugador = mazoJugador;
+        this.mazoJugador = new Mazo(Administrador.cargarColeccionDeCartas()); // agarra las primeras 20 cartas del archivo------------------------------------
         this.nombre = nombre;
         this.id = id;
-        this.numeroVictorias = numeroVictorias;
+        tablero = new Tablero(heroeSeleccionado);
         congelado=false;
         manaActual = 0;
+
+        //------------------------------------ Aca hago esto asi la mano directamente arranca con 3 cartas del mazo------------------------------------
+        manoActual = new Mano();
+        try {
+            manoActual.robarCarta(this);
+            manoActual.robarCarta(this);
+            manoActual.robarCarta(this);
+        } catch (ManoLlenaExcepcion e) {
+            e.printStackTrace(); //Nunca deberia llegar a esta excepcion al crear un jugador
+        }
     }
+    //------------------------------------------GETTERS---------------------------------------------
 
     public Heroe getHeroeSeleccionado() {
         return heroeSeleccionado;
-    }
-
-    public void setHeroeSeleccionado(Heroe heroeSeleccionado) {
-        this.heroeSeleccionado = heroeSeleccionado;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getNumeroVictorias() {
-        return numeroVictorias;
-    }
-
-    public void setNumeroVictorias(int numeroVictorias) {
-        this.numeroVictorias = numeroVictorias;
     }
 
     public Mano getManoActual() {
@@ -69,6 +60,17 @@ public class Jugador {
         return mazoJugador.getValidos();
     }
 
+    public int getManaActual() {
+        return manaActual;
+    }
+
+    public Tablero getTablero() {
+        return tablero;
+    }
+
+
+    //------------------------------------------SETTERS---------------------------------------------
+
     public void setManoActual(Mano manoActual) {
         this.manoActual = manoActual;
     }
@@ -77,10 +79,17 @@ public class Jugador {
         this.mazoJugador = mazoJugador;
     }
 
-    public Tablero getTablero() {
-        return tablero;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setHeroeSeleccionado(Heroe heroeSeleccionado) {
+        this.heroeSeleccionado = heroeSeleccionado;
+    }
 
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
@@ -99,7 +108,19 @@ public class Jugador {
         }
     }
 
-    public int getManaActual() {
-        return manaActual;
+    //------------------------------------------To String---------------------------------------------
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "heroeSeleccionado=" + heroeSeleccionado +
+                ", manoActual=" + manoActual +
+                ", manaActual=" + manaActual +
+                ", mazoJugador=" + mazoJugador +
+                ", nombre='" + nombre + '\'' +
+                ", tablero=" + tablero +
+                ", id=" + id +
+                ", congelado=" + congelado +
+                '}';
     }
 }

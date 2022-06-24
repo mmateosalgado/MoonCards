@@ -2,12 +2,13 @@ package Batalla;
 
 import Excepciones.*;
 import InterfacesGraficas.TableroGrafico;
+import InterfacesGraficas.pruebas.InvocarHechizoInterfaz;
+import InterfacesGraficas.pruebas.InvocarPersonajeInterfaz;
 import Razas.*;
 import model.*;
 import tiposHechizos.Danio;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Partida {
 
@@ -20,7 +21,6 @@ public class Partida {
     // El constructor correspondiente
 
     public Partida(Jugador jugador1, Jugador jugador2) throws PasaNullExcepcion {
-        //TODO donde se aplique poner try - catch
             this.turno = 1;
             if(jugador1==null || jugador2==null || jugador1.getTablero()==null || jugador2.getTablero()==null) {
                 throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO DATO EN PARTIDA! ");
@@ -42,6 +42,11 @@ public class Partida {
             cantMana = (turno+1)/2;
         }
         this.getJugadorTurno().setManaActual(cantMana);
+        try {
+            this.getJugadorTurno().getManoActual().robarCarta(this.getJugadorTurno());
+        } catch (ManoLlenaExcepcion e) {
+            e.printStackTrace();
+        }
 
         actualizarValoresPersonajes(this.getJugadorTurno());
 
@@ -75,10 +80,13 @@ public class Partida {
     }
 
 
-
+///1Caso de que defensor muere
+    //2 Caso muere atacante
+    ///3 Caso mueren ambos
     public boolean ataqueConPersonaje(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo) throws PasaNullExcepcion,PersonajeCongeladoAccionaExcepcion,ObjetivoInvalidoExcepcion
     {
         boolean resultado = true;
+        ///Verifica que la posicion del atacante ni del defensor  sea null                         que no ataque al heroe y que no esté congelado el atacante
         if(( jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] == null) || (jugadorDefensor.getTablero().getPosiciones()[idObjetivo-1] == null) && idObjetivo != 0){
             throw new PasaNullExcepcion("ERROR: SE PASA NULL COMO PERSONAJE EN EL ATAQUE O EN EL OBJETIVO");
             //controlamos que la id no sea 0 porque eso quiere decir que ataca al heroe
@@ -86,9 +94,9 @@ public class Partida {
             throw new PersonajeCongeladoAccionaExcepcion("ERROR: EL PERSONAJE ATACANTE SELECCIONADO ESTA CONGELADO");
         }else{ //Si se verifican las 2 cosas entonces se realiza el ataque:
 
-
             if (idObjetivo == 0 && jugadorDefensor.getTablero().isVacio()){ // si la id del objetivo se puso como 0, quiere decir que ataca al heroe{
                     //Funcion que verifica que el enemigo no tenga otros personajes en el campo
+
                 ataqueAlHeroe(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1], jugadorDefensor.getHeroeSeleccionado());
             } else if(idObjetivo == 0 && jugadorDefensor.getTablero().isVacio() == false){
                 throw new ObjetivoInvalidoExcepcion("ERROR: EL TABLERO DEL ENEMIGO DEBE ESTAR VACIO");
@@ -96,7 +104,8 @@ public class Partida {
             ataqueAlPersonaje(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1], jugadorDefensor.getTablero().getPosiciones()[idObjetivo-1]);
             }
 
-            jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].setEstado();
+            //-----------Se congela, no puede atacar mas ese turno
+            jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].setTurnosCongelado (jugadorAtacante.getTablero ().getPosiciones ()[idAtacante-1].getTurnosCongelado ()+1);
             resultado = controlarMuertes(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo); //Si devuelve false quiere decir que la partida termina luego de este ataque
 
             }
@@ -108,44 +117,54 @@ public class Partida {
 
                 objetivo.setCantidadDeVida(objetivo.getCantidadDeVida() - atacante.getDanoInflige());
                 atacante.setCantidadDeVida(atacante.getCantidadDeVida() - objetivo.getDanoInflige());
+
+
                 if (atacante instanceof Orco && atacante.isRara() && atacante.getCantidadDeVida() > 0)
                 {// si es un orco raro robavida y aun sigue vivo despues del ataque:
                     atacante.setCantidadDeVida(atacante.getDanoInflige() + atacante.getCantidadDeVida());
                 }
     }
 
-    public void ataqueAlHeroe(Personaje atacante, Heroe defensor) {
+    public void ataqueAlHeroe(Personaje atacante, Heroe defensor)throws PersonajeCongeladoAccionaExcepcion {
                 // si es un orco raro robavida
-              defensor.setCantVida(defensor.getCantVida() - atacante.getDanoInflige());
-                if (atacante instanceof Orco && atacante.isRara()) {
-                    atacante.setCantidadDeVida(atacante.getDanoInflige() + atacante.getCantidadDeVida());
-                }
+              if(atacante.getTurnosCongelado ()==0)
+              {
+                  defensor.setCantVida(defensor.getCantVida() - atacante.getDanoInflige());
+                  if (atacante instanceof Orco && atacante.isRara()) {
+                      atacante.setCantidadDeVida(atacante.getDanoInflige() + atacante.getCantidadDeVida());
+                  }
+                  atacante.setTurnosCongelado (atacante.getTurnosCongelado ()+1);
+              }
+              else
+              {
+                  throw new PersonajeCongeladoAccionaExcepcion ("ERROR, PERSONAJE CONGELADO NO PUEDE ATACAR");
+              }
     }
 
     //Metodos de muerte--------------
 
     public boolean controlarMuertes(Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo)///Retorna true si el heroe sigue vivo, sino retorna false y finaliza la partida
-    { //TODO verificar reduccion de validos al morir
-        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0 && jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] != null)
+    {
+        if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() <= 0 && jugadorAtacante.getTablero().getPosiciones()[idAtacante-1] != null)
         {//Si el que ataco murio en el ataque lo quitamos y primero verificamos si es un necrofago para activar su efecto:
             eliminarAtacante(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
         }
 
         if(idObjetivo != 0) { // Si el objetivo es un esbirro
-            if (jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1].getCantidadDeVida() < 0) { //si se murio
+            if (jugadorDefensor.getTablero().getPosiciones()[idObjetivo - 1].getCantidadDeVida() <= 0) { //si se murio
 
                 boolean necrofagoActivaEfecto = eliminarDefensor(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
 
                 if(necrofagoActivaEfecto)
                 {
-                    if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() < 0)
+                    if(jugadorAtacante.getTablero().getPosiciones()[idAtacante-1].getCantidadDeVida() <= 0)
                     {//Si el que ataco murio en la devolucion del efecto del necrofago, lo quitamos y primero verificamos si es un necrofago para activar su efecto:
                         eliminarAtacante(jugadorAtacante,jugadorDefensor,idAtacante,idObjetivo);
                     }
                 }
             }
         }else {
-            if(jugadorDefensor.getHeroeSeleccionado().getCantVida() < 0) // si el objetivo es un heroe
+            if(jugadorDefensor.getHeroeSeleccionado().getCantVida() <= 0) // si el objetivo es un heroe
             {
                 return false;
             }
@@ -176,6 +195,7 @@ public class Partida {
         }
         return necrofagoActivaEfecto;
     }
+
     //CASO 2
     public void eliminarAtacante (Jugador jugadorAtacante, Jugador jugadorDefensor, int idAtacante, int idObjetivo )
     {
@@ -205,7 +225,7 @@ public class Partida {
         }
         else if((jugadorEjecutor.getManaActual() - cartaUsada.getCostoEnergia()) < 0)
         {
-            throw new ManaInsuficienteExcepcion("ERROR: MANA/ENERGIA INSUFICIENTE"); //TODO hacer try catchs
+            throw new ManaInsuficienteExcepcion("ERROR: MANA/ENERGIA INSUFICIENTE");
         }
         else{
             ///Empezamos a ver si la carta es un hechizo o personaje
@@ -219,8 +239,11 @@ public class Partida {
             {
                 if(!(cartaUsada instanceof Necrofago))
                 {
-                    invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival); //TODO hacer try catch de tablero lleno o dato nulo
+                    invocarPersonaje((Personaje) cartaUsada, jugadorEjecutor, jugadorRival);
                     //No activa su efecto porque éste se activa al morir
+                }else
+                {
+                    jugadorEjecutor.getTablero().agregarPersonaje((Personaje)cartaUsada);
                 }
             }
 
@@ -247,14 +270,16 @@ public class Partida {
 
     public void invocarPersonaje(Personaje personaje, Jugador jugadorEjecutor, Jugador jugadorRival) throws PasaNullExcepcion, TableroLlenoExcepcion {
         jugadorEjecutor.getTablero().agregarPersonaje(personaje);
+
         if(!personaje.isGlobal()) // si no es global
         {
-            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
-            int id = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
-            personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
+            new InvocarPersonajeInterfaz(this,personaje,jugadorEjecutor,jugadorRival);
+           // int id = invocar.getIdSeleccionada(); //esto esta hardcodeado, aca iria la id que recibe del usuario
+            //System.out.println("ESTA ES LA ID: "+id);
+
+            //personaje.activarEfecto(jugadorEjecutor,jugadorRival,id);
         }
         else{
-            //TODO hacer la ventana emergente que no pide una id, solo explica el efecto
             personaje.activarEfecto(jugadorEjecutor,jugadorRival,0);
         }
         //se asigna una id al personaje segun el lugar en el tablero
@@ -293,16 +318,15 @@ public class Partida {
 
         if(!hechizo.isRara ()) // si no es rara, osea que no tiene efecto en area
         {
-            //TODO hacer la ventana emergente que pida la id y la almacene en una variable, mientras la hardcodeo
-            int idObjetivo = 2; //esto esta hardcodeado, aca iria la id que recibe del usuario
-            hechizo.activarEfecto(jugadorEjecutor,jugadorRival,idObjetivo);
-            if(hechizo instanceof Danio)
+            new InvocarHechizoInterfaz(this,hechizo,this.getJugadorTurno(),this.getJugadorEnemigo());
+
+            /*if(hechizo instanceof Danio)
             {
                 partidaEnCurso= controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,idObjetivo);//Verificamos si muere al que fue afectado con bola de fuego
-            }
+            }*/
+
         }
         else{
-            //TODO hacer la ventana emergente que no pide una id, solo explica el hechizo
             hechizo.activarEfecto(jugadorEjecutor,jugadorRival,0);
             if(hechizo instanceof Danio)
             {
@@ -310,12 +334,15 @@ public class Partida {
                 for (int i = 0; i < 3; i++) {
                     if(jugadorRival.getTablero().getPersonajeEnPosicion(i) != null)
                     {
-                        controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,jugadorRival.getTablero ().getPersonajeEnPosicion (i).getId ());
+                        controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,jugadorRival.getTablero ().getPersonajeEnPosicion (i).getId());
                     }
                 }
                 ///Controla que no haya muerto el heroe
-                partidaEnCurso=partidaEnCurso= controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,0);
+                partidaEnCurso = controlarMuerteHechizoDanio (jugadorEjecutor,jugadorRival,0);
             }
+
+            new TableroGrafico(this);
+
         }
         return partidaEnCurso;
     }
@@ -333,11 +360,22 @@ public class Partida {
 
     public Jugador getJugadorEnemigo(){
         Jugador jugador = null;
-        if (turno%2==1){
+        if (turno%2==0){
             jugador = jugador2;
         }else{
             jugador = jugador1;
         }
         return jugador;
+    }
+
+    public void actualizarValores(){
+        getJugadorTurno().getHeroeSeleccionado().actualizarValoresCarta();
+        for (int i = 0; i<this.getJugadorTurno().getTablero().getValidos();i++){
+          getJugadorTurno().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+        }
+        getJugadorEnemigo().getHeroeSeleccionado().actualizarValoresCarta();
+        for (int i = 0; i<this.getJugadorEnemigo().getTablero().getValidos();i++){
+            getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i).actualizarValoresCarta();
+        }
     }
 }

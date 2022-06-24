@@ -6,6 +6,7 @@ import InterfacesGraficas.pruebas.CartaGrafico;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public abstract class Personaje extends Carta {
 
@@ -14,15 +15,7 @@ public abstract class Personaje extends Carta {
     private int turnosCongelado;//0 --> no esta congelado
     private boolean rangoGlobal; //true -> global ... false -> individual
 
-    //Constructor--------------------------------------
-
-    public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal) {
-        super(nombre, isRara, costoEnergia, danoInflige);
-        this.cantidadDeVida = cantidadDeVida;
-        this.estado = false;
-        this.turnosCongelado = 1; //Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
-        this.rangoGlobal = rangoGlobal;
-    }
+    //--------------------------------------Constructor para guardar en el Archivo--------------------------------------
     public Personaje(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal,ImageIcon imagen, String descripcion) {
         super(nombre, isRara, costoEnergia, danoInflige,imagen,descripcion);
         this.cantidadDeVida = cantidadDeVida;
@@ -30,15 +23,11 @@ public abstract class Personaje extends Carta {
         this.turnosCongelado = 1; //Cuando se las invoca, empiezan congelados. No pueden atacar hasta el siguiente turno
         this.rangoGlobal = rangoGlobal;
 
-        actualizarValoresCarta();
+       // actualizarValoresCarta();
     }
 
 
-
-    //Metodos
-
-
-    //Getters--------------------
+    ///------------------------------------------------------GETTERS---------------------------------------------------------
 
     public int getCantidadDeVida() {
         return cantidadDeVida;
@@ -56,15 +45,14 @@ public abstract class Personaje extends Carta {
         return rangoGlobal;
     }
 
+    @Override
+    public ImageIcon getImagen(){
+        return super.getImagen();
+    }
+    ///------------------------------------------------------SETTERS---------------------------------------------------------
     public void setRangoGlobal(boolean rangoGlobal) {
         this.rangoGlobal = rangoGlobal;
     }
-
-    @Override
-    public ImageIcon getImagen(){
-       return super.getImagen();
-    }
-    //Setters---------------------
 
     public void setTurnosCongelado(int turnosCongelado) {
         if (turnosCongelado < 0) {
@@ -84,12 +72,11 @@ public abstract class Personaje extends Carta {
 
     }
 
-
-
     public void setCantidadDeVida(int cantidadDeVida) {
         this.cantidadDeVida = cantidadDeVida;
     }
 
+    ///------------------------------------------------------Actualiza Imagen en el Tablero Gráfico---------------------------------------------------------
     @Override
     public void actualizarValoresCarta() {
         Image imagePrincipal;
@@ -106,26 +93,28 @@ public abstract class Personaje extends Carta {
         imageCostoAtaque = valorAtaque.getImage();
         BufferedImage imagenValorAtaque = CartaGrafico.toBufferedImage(imageCostoAtaque);
 
+        if(cantidadDeVida>0) {
+            Image imageCantVida;
+            ImageIcon valorVida = CartaGrafico.devolverValorEnArreglo(cantidadDeVida);
+            imageCantVida = valorVida.getImage();
+            BufferedImage imagenValorCantVida = CartaGrafico.toBufferedImage(imageCantVida);
 
-        Image imageCantVida;
-        ImageIcon valorVida = CartaGrafico.devolverValorEnArreglo(cantidadDeVida);
-        imageCantVida = valorVida.getImage();
-        BufferedImage imagenValorCantVida = CartaGrafico.toBufferedImage(imageCantVida);
+            BufferedImage combinedImage = new BufferedImage(super.getImagen().getIconWidth(), super.getImagen().getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = combinedImage.createGraphics();
 
-        BufferedImage combinedImage = new BufferedImage(super.getImagen().getIconWidth(),super.getImagen().getIconHeight(),BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = combinedImage.createGraphics();
+            g.drawImage(imagenCarta, 0, 0, null);
+            g.drawImage(imagenValorCostoEnergia, 0, 15, null);
+            g.drawImage(imagenValorAtaque, 5, 255, null);
+            g.drawImage(imagenValorCantVida, 160, 255, null);
 
-        g.drawImage(imagePrincipal,0,0,null);
-        g.drawImage(imageCostoEnergia,0,25,null);
-        g.drawImage(imagenValorAtaque,5,255,null);
-        g.drawImage(imagenValorCantVida,160,255,null);
+            g.dispose();
 
-        g.dispose();
-
-        super.setImagen(new ImageIcon(combinedImage));
+            super.setImagen(new ImageIcon(combinedImage));
+        }
 
     }
 
+    ///------------------------------------------------------To String---------------------------------------------------------
     @Override
     public String toString() {
         return "Personaje{" +
@@ -134,6 +123,20 @@ public abstract class Personaje extends Carta {
                 ", turnosCongelado=" + turnosCongelado +
                 ", rangoGlobal=" + rangoGlobal +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        if ( this == o ) return true;
+        if ( !(o instanceof Personaje) ) return false;
+        if ( !super.equals ( o ) ) return false;
+        Personaje personaje = (Personaje) o;
+        return getCantidadDeVida () == personaje.getCantidadDeVida () && isEstado () == personaje.isEstado () && getTurnosCongelado () == personaje.getTurnosCongelado () && rangoGlobal == personaje.rangoGlobal;
+    }
+
+    @Override
+    public int hashCode () {
+        return Objects.hash ( getCantidadDeVida () , isEstado () , getTurnosCongelado () , rangoGlobal );
     }
 }
 

@@ -11,40 +11,39 @@ import javax.swing.*;
 public class RobaCarta extends Hechizo implements I_RobarCarta {
 private int cantCartasRobadas;
 
-    //Constructor--------------------------------------
-
-    public RobaCarta (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantCartasRobadas) {
-        super ( nombre , isRara , costoEnergia , 0 );
-        this.cantCartasRobadas = cantCartasRobadas;
-    }
-
+    ///--------------------------------------Contructor Para guardar en el archivo--------------------------------------
     public RobaCarta(String nombre, boolean isRara, int costoEnergia, ImageIcon imagem, String descrip, int cantCartasRobadas) {
         super(nombre, isRara, costoEnergia, 0, imagem, descrip);
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
+    ///--------------------------------------GETTERS--------------------------------------
     public int getCantCartasRobadas () {
         return cantCartasRobadas;
     }
 
+    public String getTipoCarta() {
+        return getClass().getSimpleName();
+    }
+
+    ///--------------------------------------SETTERS--------------------------------------
     public void setCantCartasRobadas (int cantCartasRobadas) {
         this.cantCartasRobadas = cantCartasRobadas;
     }
 
+    ///--------------------------------------Implementación Interfaces--------------------------------------
+    ///--------------------------------------MUESTRA Excepción en caso de estar la Mano LLena--------------------------------------
     @Override
-    public void robarCarta (Jugador objetivo) {//TODO . COMO APLICAR MAZO VACIO ACA????? -->, MazoVacioExcepcion
+    public void robarCarta (Jugador objetivo) {
 
         for(int i=0;i<cantCartasRobadas;i++)
         {
             try {
                 objetivo.getManoActual ().robarCarta (objetivo);
             } catch (ManoLlenaExcepcion e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Tu mano esta llena, NO PUEDES AGARRAR MAS CARTAS!");
             }
         }
-    }
-    public String getTipoCarta() {
-        return getClass().getSimpleName();
     }
 
     @Override
@@ -53,7 +52,7 @@ private int cantCartasRobadas;
         robarCarta(jugadorEjecutor);
 
     }
-
+///  --------------------------------------To String--------------------------------------
     @Override
     public String toString() {
         return "RobaCarta{" +

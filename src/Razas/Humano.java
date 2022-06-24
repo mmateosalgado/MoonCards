@@ -12,19 +12,15 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
     private int danioAdicional;
     private int sumarVida;
 
-    //Constructor--------------------------------------
-
+    //--------------------------------------Constructor Para guardar en el archivo--------------------------------------
+    ///--------------------------------------Sumar Vida siempre va a ser 2 (la usa en caso de ser rara)--------------------------------------
     public Humano(String nombre, boolean isRara, int costoEnergia, int danoInflige, int cantidadDeVida, boolean rangoGlobal, ImageIcon imagen, String descripcion, int danioAdicional) {
         super(nombre, isRara, costoEnergia, danoInflige, cantidadDeVida, rangoGlobal, imagen, descripcion);
         this.danioAdicional = danioAdicional;
         this.sumarVida = 2;
     }
 
-    public Humano (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantidadDeVida , int danioAdicional , boolean esGlobal) {
-        super ( nombre , isRara , costoEnergia , danoInflige , cantidadDeVida, esGlobal );
-        this.danioAdicional = danioAdicional;
-        this.sumarVida = 2;
-    }
+    //--------------------------------------GETTERS--------------------------------------
 
     public int getDanioAdicional () {
         return danioAdicional;
@@ -34,6 +30,11 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
         return sumarVida;
     }
 
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
+
+    ///--------------------------------------Interfaces que implementa--------------------------------------
     @Override
     public void aumentarAtaque(Jugador objetivo , int id) {
         if(isRara ()) {
@@ -41,11 +42,13 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
                 if(objetivo.getTablero().getPersonajeEnPosicion(i) != null)
                 {
                     objetivo.getTablero().getPersonajeEnPosicion(i).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(i).getDanoInflige() + danioAdicional);
+
                 }
             }
         }else{
+            System.out.println("VALOR DE ID: "+ id);
             objetivo.getTablero().getPersonajeEnPosicion(id - 1).setDanoInflige(objetivo.getTablero().getPersonajeEnPosicion(id - 1).getDanoInflige() + danioAdicional);
-
+          //  objetivo.getTablero().getPersonajeEnPosicion(id-1).actualizarValoresCarta();
         }
         }
 
@@ -62,9 +65,7 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
             caster.getTablero().getPosHeroe().setCantVida(caster.getTablero().getPosHeroe().getCantVida() + sumarVida);
         }
     }
-    public String getTipoCarta() {
-        return getClass().getName();
-    }
+
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
@@ -80,6 +81,7 @@ public class Humano extends Personaje implements I_AumentarAtaque, I_SumarVida {
         }
     }
 
+    //--------------------------------------To String--------------------------------------
     @Override
     public String toString() {
         return "Humano{" +

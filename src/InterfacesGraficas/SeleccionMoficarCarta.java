@@ -1,6 +1,7 @@
 package InterfacesGraficas;
 
 import model.Carta;
+import model.Hechizo;
 import model.Personaje;
 
 import javax.swing.*;
@@ -10,14 +11,13 @@ import java.awt.event.ActionListener;
 
 public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     private  JCheckBox nombreCheck,vidaCheck,danioCheck,energiaCheck;
-   // private JCheckBox altaCheck;
     private JButton aceptar,salir;
     private Carta aModificar;
 
     public SeleccionMoficarCarta(Carta entrada){
         Font h1=new Font("Belwe", Font.PLAIN,17);
-        ImageIcon icono = new ImageIcon("src\\imagenes\\iconoTest.png");
         setTitle("MoonCards Admin - Modificar Cartas");
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
         setIconImage(icono.getImage());
 
         aModificar=entrada;
@@ -32,16 +32,19 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         setVisible(true);
 
         nombreCheck=new JCheckBox("Nombre");
-        nombreCheck.setBounds(30,40,90,20);
+        nombreCheck.setBounds(30,40,95,20);
         nombreCheck.setFont(h1);
         nombreCheck.addActionListener(this);
         add(nombreCheck);
 
-        if(aModificar instanceof Personaje){
-            vidaCheck=new JCheckBox("Vida");
-            vidaCheck.setBounds(30,70,90,20);
-            vidaCheck.setFont(h1);
-            add(vidaCheck);
+        vidaCheck=new JCheckBox("Vida");
+        vidaCheck.setBounds(30,70,90,20);
+        vidaCheck.setFont(h1);
+        vidaCheck.addActionListener(this);
+        add(vidaCheck);
+
+        if(aModificar instanceof Hechizo){
+            vidaCheck.setVisible(false);
         }
 
         danioCheck=new JCheckBox("Daño");
@@ -55,13 +58,6 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
         energiaCheck.setFont(h1);
         energiaCheck.addActionListener(this);
         add(energiaCheck);
-
-        /*
-        altaCheck=new JCheckBox("Alta");
-        altaCheck.setBounds(30,160,90,20);
-        altaCheck.setFont(h1);
-        altaCheck.addActionListener(this);
-        add(altaCheck);*/
 
         aceptar=new JButton("Aceptar");
         aceptar.setBounds(230,30,150,50);
@@ -80,7 +76,7 @@ public class SeleccionMoficarCarta extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       // if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||altaCheck.isSelected() ||danioCheck.isSelected()){
+        //Solo se muestra el boton de aceptar si hay minimo una caracteristica a cambiar valida!
         if(nombreCheck.isSelected() || vidaCheck.isSelected() ||energiaCheck.isSelected() ||danioCheck.isSelected()){
             aceptar.setEnabled(true);
         }else{

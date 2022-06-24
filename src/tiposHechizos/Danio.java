@@ -10,18 +10,24 @@ public class Danio extends Hechizo implements I_HacerDanio {
 
     private int cantDañoInflige;
 
-    //Constructor--------------------------------------
-
-    public Danio (String nombre , boolean isRara , int costoEnergia , int danoInflige , int cantDañoInflige) {
-        super ( nombre , isRara , costoEnergia , 0 );
-        cantDañoInflige = cantDañoInflige;
-    }
+    //--------------------------------------Constructor Para Guardar en el Archivo--------------------------------------
 
     public Danio(String nombre, boolean isRara, int costoEnergia, ImageIcon imagem, String descrip, int cantDañoInflige) {
         super(nombre, isRara, costoEnergia, 0, imagem, descrip);
         this.cantDañoInflige = cantDañoInflige;
     }
 
+    ///--------------------------------------GETTERS--------------------------------------
+
+    public int getCantDanioInflige () {
+        return cantDañoInflige;
+    }
+
+    public String getTipoCarta() {
+        return getClass().getName();
+    }
+
+    ///--------------------------------------Interfaces que implementa--------------------------------------
     @Override
     public void infligeDanio (Jugador objetivo , int id) {
 
@@ -45,19 +51,13 @@ public class Danio extends Hechizo implements I_HacerDanio {
         }
     }
 
-    public int getCantDañoInflige () {
-        return cantDañoInflige;
-    }
-
-    public String getTipoCarta() {
-        return getClass().getName();
-    }
 
     @Override
     public void activarEfecto(Jugador jugadorEjecutor, Jugador jugadorRival, int id) {
        infligeDanio (jugadorRival,id);
 
     }
+    ///--------------------------------------To String--------------------------------------
 
     @Override
     public String toString() {

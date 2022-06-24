@@ -1,6 +1,8 @@
 package Excepciones;
 
-public class MazoVacioExcepcion extends Exception{
+import java.util.NoSuchElementException;
+
+public class MazoVacioExcepcion extends NoSuchElementException {
     public MazoVacioExcepcion(String message) {
         super(message);
     }
