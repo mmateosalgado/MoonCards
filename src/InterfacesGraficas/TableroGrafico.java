@@ -46,10 +46,12 @@ public class TableroGrafico extends JFrame{
 
     public TableroGrafico(Partida partida) {
         setBounds(0, 0, 1500, 900);
-        setTitle("");
+        setTitle("Tablero General");
         setLocationRelativeTo(null); // coloca al centro de la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
+        setIconImage(icono.getImage());
 
         setLayout(new BorderLayout());
 
@@ -151,8 +153,22 @@ public class TableroGrafico extends JFrame{
                             finally {
                               //  actualizarTableroGrafico();
                             }
-
                     }else if(carta instanceof Hechizo){
+                            try{
+                                boolean flag = partida.usarCarta(carta.getId(), partida.getJugadorTurno(),partida.getJugadorEnemigo());
+                                if(!flag){
+                                    new TableroGrafico(partida);
+                                }
+                            }catch (PasaNullExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (TableroLlenoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (DatoNoEcontradoExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            } catch (ManaInsuficienteExcepcion ex) {
+                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                            }
+
 
 
                     }
@@ -181,7 +197,14 @@ public class TableroGrafico extends JFrame{
         // jButtonCambiarTurno.addActionListener(this);
 
         jButtonAbandonarPartida = new JButton("ABANDONAR PARTIDA");
-        //jButtonAbandonarPartida.addActionListener(this);
+        jButtonAbandonarPartida.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"El jugador " +partida.getJugadorTurno().getNombre() +" ha abandonado la partida","Has defraudado a tus antespasados",JOptionPane.PLAIN_MESSAGE,new ImageIcon("src\\imagenes\\logo.png"));
+                setVisible(false);
+                new PantallaInicio();
+            }
+        });
 
         jPanelSouth.add(jButtonAtacar);
         jPanelSouth.add(jButtonInvocar);
@@ -220,7 +243,7 @@ public class TableroGrafico extends JFrame{
         jPanelEast = new JPanel();
         jPanelEast.setPreferredSize(new Dimension(200, 600));
         jPanelEast.setLayout(new BoxLayout(jPanelEast, BoxLayout.Y_AXIS));
-        jPanelEast.setBorder(new LineBorder(Color.black));
+        //jPanelEast.setBorder(new LineBorder(Color.black));
 
         jLabelCartasMano = new JLabel("CARTAS EN MANO");
         jLabelCartasMano.setFont(fontBelweH3);
@@ -253,7 +276,7 @@ public class TableroGrafico extends JFrame{
 
     public void constructorCenter(Partida partida) {
         jPanelCenter = new JPanel();
-        jPanelCenter.setBorder(new LineBorder(Color.black));
+        //jPanelCenter.setBorder(new LineBorder(Color.black));
 
         jLabelTableroEnemigo = new JLabel("Tablero del Jugador Enemigo");
         jLabelTableroEnemigo.setFont(fontBelweH3);
@@ -276,19 +299,22 @@ public class TableroGrafico extends JFrame{
         });
 
         jPanelCenterEnemigo.add(jButtonHeroeEnemigo);
-        jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo().getTablero().getValidos()];
-        for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
-            jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
-            jButtonPersonajesEnemigos[i].getCarta().actualizarValoresCarta();
-            jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
-            jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
-                    jButtonAtacar.setEnabled(false);
-                }
-            });
-            jPanelCenterEnemigo.add(jButtonPersonajesEnemigos[i]);
+        if(!partida.getJugadorEnemigo ().getTablero ().isVacio ())
+        {
+            jButtonPersonajesEnemigos = new CartaBoton[partida.getJugadorEnemigo ().getTablero ().getValidos ()];
+            for (int i = 0; i < partida.getJugadorEnemigo().getTablero().getValidos(); i++) {
+                jButtonPersonajesEnemigos[i] = new CartaBoton(partida.getJugadorEnemigo().getTablero().getPersonajeEnPosicion(i));
+                jButtonPersonajesEnemigos[i].getCarta().actualizarValoresCarta();
+                jButtonPersonajesEnemigos[i].setIcon(jButtonPersonajesEnemigos[i].getCarta().getImagen());
+                jButtonPersonajesEnemigos[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar una carta suya para iniciar el ataque");
+                        jButtonAtacar.setEnabled(false);
+                    }
+                });
+                jPanelCenterEnemigo.add(jButtonPersonajesEnemigos[i]);
+            }
         }
 
         jPanelCenter.add(jPanelCenterEnemigo);
@@ -319,37 +345,41 @@ public class TableroGrafico extends JFrame{
 
         jPanelCenterTurno.add(jButtonHeroe);
 
-        jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
-        jButtonPersonajeValidos =partida.getJugadorTurno().getTablero().getValidos();
+
+        if(!partida.getJugadorTurno ().getTablero ().isVacio ()) {
+            jButtonPersonajes = new CartaBoton[partida.getJugadorTurno().getTablero().getValidos()];
+            jButtonPersonajeValidos = partida.getJugadorTurno ().getTablero ().getValidos ();
+
         for (int i = 0; i < partida.getJugadorTurno().getTablero().getValidos(); i++) {
-            jButtonPersonajes[i] = new CartaBoton(partida.getJugadorTurno().getTablero().getPersonajeEnPosicion(i));
-            jButtonPersonajes[i].setIcon(jButtonPersonajes[i].getCarta().getImagen());
-            jButtonPersonajes[i].getCarta().actualizarValoresCarta();
-            jButtonPersonajes[i].addActionListener(new ActionListener() {
+            jButtonPersonajes[i] = new CartaBoton ( partida.getJugadorTurno ().getTablero ().getPersonajeEnPosicion ( i ) );
+            jButtonPersonajes[i].setIcon ( jButtonPersonajes[i].getCarta ().getImagen () );
+            jButtonPersonajes[i].getCarta ().actualizarValoresCarta ();
+            jButtonPersonajes[i].addActionListener ( new ActionListener () {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    CartaBoton carta = (CartaBoton) e.getSource();
-                    System.out.println(carta.getCarta().toString());
-                    for(int z = 0; z<jButtonPersonajeValidos; z++){
-                        if(jButtonPersonajes[z].getCarta().equals(carta.getCarta())){
-                            carta.setEstado(true);
-                            System.out.println(carta.isEstado());
-                        }else{
-                           jButtonPersonajes[z].setEstado(false);
-                            System.out.println(jButtonPersonajes[z].isEstado());
+                public void actionPerformed (ActionEvent e) {
+                    CartaBoton carta = (CartaBoton) e.getSource ();
+                    System.out.println ( carta.getCarta ().toString () );
+                    for (int z = 0; z < jButtonPersonajeValidos; z++) {
+                        if ( jButtonPersonajes[z].getCarta ().equals ( carta.getCarta () ) ) {
+                            carta.setEstado ( true );
+                            System.out.println ( carta.isEstado () );
+                        } else {
+                            jButtonPersonajes[z].setEstado ( false );
+                            System.out.println ( jButtonPersonajes[z].isEstado () );
                         }
                     }
-                    jButtonAtacar.setEnabled(true);
-                    jlabelImagenSelec.setIcon(carta.getCarta().getImagen());
-                    jTextNombre.setText("<html><p style=\"width:100px\">" + carta.getCarta().getNombre() + "" + "</p></html>");
-                    jTextTipo.setText("<html><p style=\"width:100px\">" + carta.getCarta().getTipoCarta() + "" + "</p></html>");
-                    jTextDescripcion.setText("<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>");
+                    jButtonAtacar.setEnabled ( true );
+                    jlabelImagenSelec.setIcon ( carta.getCarta ().getImagen () );
+                    jTextNombre.setText ( "<html><p style=\"width:100px\">" + carta.getCarta ().getNombre () + "" + "</p></html>" );
+                    jTextTipo.setText ( "<html><p style=\"width:100px\">" + carta.getCarta ().getTipoCarta () + "" + "</p></html>" );
+                    jTextDescripcion.setText ( "<html><p style=\"width:100px\">" + "Esta es un guerrero oriental de la decada del 1945, cuando se creo el nuevo orden mundial, después de la WWII, Con la hegemonia del las naciones de EEUU Y la URSS" + "" + "</p></html>" );
                     //for(int i = 0; i<jButtonPersonajesEnemigos.length;i++){
                     // if(jButtonPersonajesEnemigos[i].getCarta().)
                     //}
                 }
-            });
+            } );
             jPanelCenterTurno.add(jButtonPersonajes[i]);
+        }
         }
 
 

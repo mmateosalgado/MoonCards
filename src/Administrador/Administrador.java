@@ -101,7 +101,7 @@ public class Administrador {
     }
 
     ///-------------------------------------------------Cargar Coleccion Heroes desde el Archivo de Heroes------------------------------------------------
-    public Coleccion<Heroe> cargarColeccionDeHeroes()
+    public static Coleccion<Heroe> cargarColeccionDeHeroes()
     {
         Coleccion<Heroe> coleccionHeroes= new Coleccion<> ();
         try {

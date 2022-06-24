@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 public class ConfirmacionAccion extends JFrame{
 
+    private JLabel fondo;
     private JLabel jlabelMensajeAccion,imagenCartaEnemiga, imagenCartaTurno, jlabelFlecha;
     private JButton buttonAceptar, buttonCancelar;
     private Carta cartaEnemigo, cartaTurno;
@@ -26,6 +27,11 @@ public class ConfirmacionAccion extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false); // esto hace que el usuario no pueda jugar con el tamaño de la ventana.
         setLayout(null);
+        ImageIcon icono = new ImageIcon("src\\imagenes\\logo.png");
+        setIconImage(icono.getImage());
+
+
+
 
         this.partida = partida;
         this.cartaTurno = cartaTurno;
@@ -85,9 +91,17 @@ public class ConfirmacionAccion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                partida.actualizarValores ();
+                new TableroGrafico(partida);
             }
+
         });
         add(buttonCancelar);
+
+        ImageIcon fondoImg = new ImageIcon("src\\imagenes\\fondo.png");
+        fondo = new JLabel(fondoImg);
+        fondo.setBounds(0,0,800,500);
+        add(fondo);
 
         setVisible(true);
 

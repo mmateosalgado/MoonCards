@@ -6,6 +6,7 @@ import InterfacesGraficas.pruebas.CartaGrafico;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public abstract class Personaje extends Carta {
 
@@ -122,6 +123,20 @@ public abstract class Personaje extends Carta {
                 ", turnosCongelado=" + turnosCongelado +
                 ", rangoGlobal=" + rangoGlobal +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        if ( this == o ) return true;
+        if ( !(o instanceof Personaje) ) return false;
+        if ( !super.equals ( o ) ) return false;
+        Personaje personaje = (Personaje) o;
+        return getCantidadDeVida () == personaje.getCantidadDeVida () && isEstado () == personaje.isEstado () && getTurnosCongelado () == personaje.getTurnosCongelado () && rangoGlobal == personaje.rangoGlobal;
+    }
+
+    @Override
+    public int hashCode () {
+        return Objects.hash ( getCantidadDeVida () , isEstado () , getTurnosCongelado () , rangoGlobal );
     }
 }
 
