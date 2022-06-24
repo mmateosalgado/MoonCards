@@ -42,25 +42,12 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         return descrip;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
-    }
-
     public static int getTotalCartas() {
         return totalCartas;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getNombre() {
-        return nombre;
     }
 
     public boolean isRara() {
@@ -79,13 +66,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
         return danoInflige;
     }
 
-    public boolean isRara() {
-        return isRara;
-    }
-
-    public boolean isAlta() {
-        return alta;
-    }
 
     public ImageIcon getImagen() {
         return imagen;
@@ -116,10 +96,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
 
     public void setAlta(boolean alta) {
         this.alta = alta;
-    }
-
-    public ImageIcon getImagen() {
-        return imagen;
     }
 
     public void setImagen(ImageIcon imagen) {
@@ -177,7 +153,6 @@ public abstract class Carta extends DatoPrincipal implements I_ActivarEfecto, Se
                 "} " + super.toString();
     }
 
-    public abstract String getTipoCarta();
 
     public ImageIcon getImage() {
         return imagen;

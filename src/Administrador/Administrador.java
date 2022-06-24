@@ -133,7 +133,7 @@ public class Administrador {
         Coleccion<Carta> coleccion=cargarColeccionDeCartas();
 
         for (Carta carta: coleccion.getLista ()) {
-            if (carta.getNombre ().contains (nuevo))
+            if (carta.getNombre().contains (nuevo))
             {
                 control=false;
             }
